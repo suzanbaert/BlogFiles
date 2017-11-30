@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Tranquilpeak 0.4.3-BETA"
+title: "!!! SITE UNDER CONSTRUCTION !!!"
 date: 2015-06-15
 categories:
 - tranquilpeak
