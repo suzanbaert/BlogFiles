@@ -1,10 +1,10 @@
 ---
-title: R markdown test
-author: Suzan Baert
+title: "R markdown test"
+author: "Suzan Baert"
 date: '2017-11-30'
 slug: r-markdown-test
-categories: []
 tags: []
+categories: []
 ---
 
 Given that the showcase Rmd gave so many errors, I wanted to add a new Rmd file to see what would happen this time around. No errors I hope!
