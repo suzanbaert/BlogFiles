@@ -23,6 +23,16 @@ summary(mtcars)## mpg cyl disp hp ## Min. :10.40 Min. :4.000 Min. : 71.1 Min. :
     </item>
     
     <item>
+      <title>Test post number 2</title>
+      <link>https://suzanbaert.netlify.com/2017/11/test-post-number-2/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://suzanbaert.netlify.com/2017/11/test-post-number-2/</guid>
+      <description>Test post numer 2
+summary(mtcars)## mpg cyl disp hp ## Min. :10.40 Min. :4.000 Min. : 71.1 Min. : 52.0 ## 1st Qu.:15.43 1st Qu.:4.000 1st Qu.:120.8 1st Qu.: 96.5 ## Median :19.20 Median :6.000 Median :196.3 Median :123.0 ## Mean :20.09 Mean :6.188 Mean :230.7 Mean :146.7 ## 3rd Qu.:22.80 3rd Qu.:8.000 3rd Qu.:326.0 3rd Qu.:180.0 ## Max. :33.90 Max. :8.000 Max. :472.0 Max. :335.0 ## drat wt qsec vs ## Min.</description>
+    </item>
+    
+    <item>
       <title>!!! SITE UNDER CONSTRUCTION !!!</title>
       <link>https://suzanbaert.netlify.com/2015/06/-site-under-construction-/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
@@ -139,6 +149,16 @@ summary(mtcars)## mpg cyl disp hp ## Min. :10.40 Min. :4.000 Min. : 71.1 Min. :
       <guid>https://suzanbaert.netlify.com/2013/01/japanese-test/</guid>
       <description>&lt;p&gt;This is a Japanese test post to show you how japanese is displayed.
 &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://suzanbaert.netlify.com/1/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://suzanbaert.netlify.com/1/01/</guid>
+      <description>Test post numer 2
+summary(mtcars) ## mpg cyl disp hp ## Min. :10.40 Min. :4.000 Min. : 71.1 Min. : 52.0 ## 1st Qu.:15.43 1st Qu.:4.000 1st Qu.:120.8 1st Qu.: 96.5 ## Median :19.20 Median :6.000 Median :196.3 Median :123.0 ## Mean :20.09 Mean :6.188 Mean :230.7 Mean :146.7 ## 3rd Qu.:22.80 3rd Qu.:8.000 3rd Qu.:326.0 3rd Qu.:180.0 ## Max. :33.90 Max. :8.000 Max. :472.0 Max. :335.0 ## drat wt qsec vs ## Min.</description>
     </item>
     
   </channel>
