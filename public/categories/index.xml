@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Hugo tranquilpeak theme</title>
-    <link>/categories/</link>
-    <description>Recent content in Categories on Hugo tranquilpeak theme</description>
+    <title>Categories on Suzan&#39;s Data Blog</title>
+    <link>/suzanbaert.netlify.com/categories/</link>
+    <description>Recent content in Categories on Suzan&#39;s Data Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/suzanbaert.netlify.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Features</title>
-      <link>/categories/features/</link>
+      <link>/suzanbaert.netlify.com/categories/features/</link>
       <pubDate>Thu, 28 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>/categories/features/</guid>
+      <guid>/suzanbaert.netlify.com/categories/features/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/categories/r/</link>
+      <link>/suzanbaert.netlify.com/categories/r/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/categories/r/</guid>
+      <guid>/suzanbaert.netlify.com/categories/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Releases</title>
-      <link>/categories/releases/</link>
+      <link>/suzanbaert.netlify.com/categories/releases/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/categories/releases/</guid>
+      <guid>/suzanbaert.netlify.com/categories/releases/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tranquilpeak</title>
-      <link>/categories/tranquilpeak/</link>
+      <link>/suzanbaert.netlify.com/categories/tranquilpeak/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/categories/tranquilpeak/</guid>
+      <guid>/suzanbaert.netlify.com/categories/tranquilpeak/</guid>
       <description></description>
     </item>
     
