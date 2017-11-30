@@ -32,8 +32,8 @@ canonifyurls = true
 
 [author]
   name = "Suzan Baert"
-  bio = "Suzan's Data Blog"
-  job = "Principal Consumer Researcher"
+  bio = "Site very much under construction, please bare with me :)"
+  job = "Principal Researcher"
   location = "Belgium"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   gravatarEmail = "suzan.baert@outlook.com"
