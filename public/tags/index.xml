@@ -2,210 +2,210 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Suzan&#39;s Data Blog</title>
-    <link>/tags/</link>
+    <link>https://suzanbaert.netlify.com/tags/</link>
     <description>Recent content in Tags on Suzan&#39;s Data Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 02 Oct 2013 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://suzanbaert.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Chinese</title>
-      <link>/tags/chinese/</link>
+      <link>https://suzanbaert.netlify.com/tags/chinese/</link>
       <pubDate>Wed, 02 Oct 2013 00:00:00 +0000</pubDate>
       
-      <guid>/tags/chinese/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/chinese/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Cover Image</title>
-      <link>/tags/cover-image/</link>
+      <link>https://suzanbaert.netlify.com/tags/cover-image/</link>
       <pubDate>Wed, 13 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/cover-image/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/cover-image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dailymotion</title>
-      <link>/tags/dailymotion/</link>
+      <link>https://suzanbaert.netlify.com/tags/dailymotion/</link>
       <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/dailymotion/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/dailymotion/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Disqus</title>
-      <link>/tags/disqus/</link>
+      <link>https://suzanbaert.netlify.com/tags/disqus/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/disqus/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/disqus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Github Theme</title>
-      <link>/tags/github-theme/</link>
+      <link>https://suzanbaert.netlify.com/tags/github-theme/</link>
       <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/github-theme/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/github-theme/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Google Analytics</title>
-      <link>/tags/google-analytics/</link>
+      <link>https://suzanbaert.netlify.com/tags/google-analytics/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/google-analytics/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/google-analytics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Gravatar</title>
-      <link>/tags/gravatar/</link>
+      <link>https://suzanbaert.netlify.com/tags/gravatar/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/gravatar/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/gravatar/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hexo Theme</title>
-      <link>/tags/hexo-theme/</link>
+      <link>https://suzanbaert.netlify.com/tags/hexo-theme/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/hexo-theme/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/hexo-theme/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Highlight Code</title>
-      <link>/tags/highlight-code/</link>
+      <link>https://suzanbaert.netlify.com/tags/highlight-code/</link>
       <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/highlight-code/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/highlight-code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Html Elements</title>
-      <link>/tags/html-elements/</link>
+      <link>https://suzanbaert.netlify.com/tags/html-elements/</link>
       <pubDate>Thu, 28 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/html-elements/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/html-elements/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Image Gallery</title>
-      <link>/tags/image-gallery/</link>
+      <link>https://suzanbaert.netlify.com/tags/image-gallery/</link>
       <pubDate>Mon, 18 Feb 2013 00:00:00 +0000</pubDate>
       
-      <guid>/tags/image-gallery/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/image-gallery/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Japanese</title>
-      <link>/tags/japanese/</link>
+      <link>https://suzanbaert.netlify.com/tags/japanese/</link>
       <pubDate>Wed, 02 Jan 2013 00:00:00 +0000</pubDate>
       
-      <guid>/tags/japanese/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/japanese/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Markdown</title>
-      <link>/tags/markdown/</link>
+      <link>https://suzanbaert.netlify.com/tags/markdown/</link>
       <pubDate>Thu, 28 May 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/markdown/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pagination</title>
-      <link>/tags/pagination/</link>
+      <link>https://suzanbaert.netlify.com/tags/pagination/</link>
       <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/pagination/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/pagination/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Responsive</title>
-      <link>/tags/responsive/</link>
+      <link>https://suzanbaert.netlify.com/tags/responsive/</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/responsive/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/responsive/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Social</title>
-      <link>/tags/social/</link>
+      <link>https://suzanbaert.netlify.com/tags/social/</link>
       <pubDate>Sun, 17 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/social/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/social/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tag Plugins</title>
-      <link>/tags/tag-plugins/</link>
+      <link>https://suzanbaert.netlify.com/tags/tag-plugins/</link>
       <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tag-plugins/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/tag-plugins/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tags</title>
-      <link>/tags/tags/</link>
+      <link>https://suzanbaert.netlify.com/tags/tags/</link>
       <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tags/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/tags/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Test</title>
-      <link>/tags/test/</link>
+      <link>https://suzanbaert.netlify.com/tags/test/</link>
       <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>/tags/test/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/test/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Videos Integration</title>
-      <link>/tags/videos-integration/</link>
+      <link>https://suzanbaert.netlify.com/tags/videos-integration/</link>
       <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/videos-integration/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/videos-integration/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vimeo</title>
-      <link>/tags/vimeo/</link>
+      <link>https://suzanbaert.netlify.com/tags/vimeo/</link>
       <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/vimeo/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/vimeo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Youtube</title>
-      <link>/tags/youtube/</link>
+      <link>https://suzanbaert.netlify.com/tags/youtube/</link>
       <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>/tags/youtube/</guid>
+      <guid>https://suzanbaert.netlify.com/tags/youtube/</guid>
       <description></description>
     </item>
     
