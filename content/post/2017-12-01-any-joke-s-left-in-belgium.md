@@ -9,7 +9,7 @@ tags:
   - Ggplot2
   - First names
 thumbnailImagePosition: left
-thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Joke%20plot.png?raw=true
+thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true
 ---
 
 <br>
@@ -221,4 +221,4 @@ of the current Queen of Belgium. She became engaged to our crown prince
 Filip back in 1999. Not everything Royal starts a copycat movement - or
 at least not in Belgium.
 
-![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png?raw=true))
+![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png?raw=true)
