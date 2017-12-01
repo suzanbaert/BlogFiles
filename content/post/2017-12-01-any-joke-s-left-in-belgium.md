@@ -218,7 +218,7 @@ name, but still far from being negligible either.
 
 <br>There are a lot of other interesting things in this database,
 but I just want to highlight one other thing: there was one curve that
-caught my eye because it's very abrupt demise. <br> Mathilde is the name
+caught my eye because of it's very abrupt demise. <br> Mathilde is the name
 of the current Queen of Belgium. She became engaged to our crown prince
 Filip back in 1999. Not everything royal starts a copycat movement - or
 at least not in Belgium.
