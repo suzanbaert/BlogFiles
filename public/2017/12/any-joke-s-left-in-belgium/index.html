@@ -1,0 +1,777 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Any Joke&#39;s left in Belgium?</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://suzanbaert.netlify.com/favicon.png">
+    
+
+    
+    <meta name="description" content="What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.">
+    <meta property="og:description" content="What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Any Joke&#39;s left in Belgium?">
+    <meta property="og:url" content="/2017/12/any-joke-s-left-in-belgium/">
+    <meta property="og:site_name" content="Suzan&#39;s Data Blog">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan&#39;s Data Blog">
+    <meta name="twitter:description" content="What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+      <meta property="og:image" content="://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Joke%20plot.png">
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://suzanbaert.netlify.com/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://suzanbaert.netlify.com/">Suzan&#39;s Data Blog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://suzanbaert.netlify.com/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://suzanbaert.netlify.com/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bare with me :)</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://suzanbaert.netlify.com/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://suzanbaert.netlify.com/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://suzanbaert.netlify.com/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Any Joke&#39;s left in Belgium?
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2017-12-01T00:00:00Z">
+        
+  December 1, 2017
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://suzanbaert.netlify.com/categories/personal-projects">Personal projects</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p><br></p>
+
+<h2 id="what-i-was-wondering-are-there-still-joke-s-born-in-belgium">What I was wondering: are there still Joke&rsquo;s born in Belgium?</h2>
+
+<p>Every time I pass by a colleague named Joke, I wonder. Let me explain:
+Joke is quite regular Dutch first name for a girl. You pronounce it
+[yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the
+accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like
+Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an
+eye to hear about someone named Joke, but everyone else on this planet
+probably would.<br><br> Considering how this name sounds in English and
+how important English as a language has become in our daily life and
+business world, I wondered whether there were any parents that would
+still name their daughter Joke&hellip; <br><br></p>
+
+<h2 id="data-source">Data source</h2>
+
+<p>I found everything I needed on (<a href="http://statbel.fgov.be/nl/modules/publ2ications/statistiques/bevolking/bevolking_-_voornamen_van_de_pasgeborenen_1995-2014.jsp">this
+website</a>)
+from the Belgian government. <br><br></p>
+
+<h2 id="data">Data</h2>
+
+<p>The data came in the form of two excel files, one for girls and one for
+boys. Every file contains a sheet for every year (1995-2016), and then
+numbers per region per name (see picture below). Not ideal, but nothing
+that some cleaning up can&rsquo;t handle.<br> <img src="Screenshot%20Original%20Excel.png" alt="Original data
+structure" /> <br></p>
+
+<p>Two quick notes before I move on:</p>
+
+<ul>
+<li>The original data file contains the numbers for Belgium as a whole,
+and for every region seperate (Flanders, Wallonia and Brussels).
+Only the Belgian data is pulled out into the clean file right now.</li>
+<li>No names below 5 occurences are present in the database, presumably
+for privacy reasons. <br><br></li>
+</ul>
+
+<h2 id="cleaning-data">Cleaning data</h2>
+
+<p>Starting by loading the packages needed:</p>
+
+<pre><code>library(readxl)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+</code></pre>
+
+<p><br><br> Given that both files contained many different sheets
+representing the years, I started by creating a variable that would hold
+all the sheetnames.</p>
+
+<pre><code>#Importing files
+file_girls &lt;- &quot;First names girls 1995-2016.xls&quot;
+sheetnames_girls &lt;- excel_sheets(file_girls) [1:22]
+file_boys &lt;- &quot;First names boys 1995-2016.xls&quot;
+sheetnames_boys &lt;- excel_sheets(file_girls) [1:22]
+</code></pre>
+
+<p><br><br> I wanted to build a function that would read all those sheets
+and bind the data together. I first wrote the code for one sheet before
+turning it into a function. At least then I know everything works the
+way I want it to.</p>
+
+<pre><code>#Trial set to build up the function later on
+input1995 &lt;- read_excel(file, &quot;1995&quot;)
+data1995 &lt;- input1995[,2:3]
+data1995$Year &lt;- 1995L
+data1995$Region &lt;- &quot;Total Belgium&quot;
+</code></pre>
+
+<p><br><br> Time to build the actual function, which:</p>
+
+<ul>
+<li>Reads a worksheet from the excel file</li>
+<li>Retains only column two and three which represents the names and
+number of occurences for total Belgium.</li>
+<li>Turns the sheetname into a variable called Year</li>
+<li>And adds a variable region &ldquo;Total Belgium&rdquo;</li>
+</ul>
+
+<!-- -->
+
+<pre><code>#A function that read a sheet(representing a year), and returns Total Belgium data
+read_excelsheet &lt;- function (file, sheetname) {
+  input &lt;- read_excel(file, sheetname)
+  data &lt;- input[,2:3]
+  data$Year &lt;- as.integer(sheetname)
+  data$Region &lt;- &quot;Total Belgium&quot;
+  return(data)
+}
+</code></pre>
+
+<p><br><br> With the function read_excelsheet up and working, it&rsquo;s time to
+start reading in the data. I used a for loop to go through all the
+sheetnames defined in sheetnames_girls and bind every new data to the
+previous ones. Afterwards I did the exact same thing for the boys.</p>
+
+<pre><code>#Reading all sheets 
+data_g &lt;- data.frame()
+for (i in sheetnames_girls) {
+  data_g &lt;- bind_rows(data_g, read_excelsheet(file_girls, i))
+}
+
+data_b &lt;- data.frame()
+for (i in sheetnames_boys) {
+  data_b &lt;- bind_rows(data_b, read_excelsheet(file_boys, i))
+}
+</code></pre>
+
+<p><br><br> Nearly there. I combined the girls and boys data, and did some
+touching up by changing column names and changing their order.</p>
+
+<pre><code>#Combine girls and boys in 1 database
+data_g$Gender &lt;- &quot;Girls&quot;
+data_b$Gender &lt;- &quot;Boys&quot;
+data &lt;- data.frame(bind_rows(data_g, data_b))
+
+#Renaming columns and clean-up
+colnames(data)[1:2] &lt;- c(&quot;Name&quot;, &quot;Count&quot;)
+data &lt;- select(data, Region, Year, Gender, Name, Count)
+rm(data_b)
+rm(data_g)
+</code></pre>
+
+<p><br><br> Cleaning is all done now! For anyone who does not want to go
+through the cleaning, I added a cleaned file via write.csv into (<a href="https://github.com/suzanbaert/PP1---First-names-in-Belgium">my
+github
+repository</a>).
+The cleaned data now looks as following:</p>
+
+<pre><code>##          Region Year Gender      Name Count
+## 1 Total Belgium 1995  Girls     Laura  1484
+## 2 Total Belgium 1995  Girls     Sarah   914
+## 3 Total Belgium 1995  Girls     Julie   865
+## 4 Total Belgium 1995  Girls Charlotte   773
+## 5 Total Belgium 1995  Girls     Marie   726
+## 6 Total Belgium 1995  Girls     Manon   539
+</code></pre>
+
+<p><br><br></p>
+
+<h2 id="searching-for-joke">Searching for Joke</h2>
+
+<p>With the cleaning done, it&rsquo;s time to find out whether there are any
+Joke&rsquo;s left in Belgium.</p>
+
+<pre><code>#Searching for Joke
+Joke &lt;- filter(data, Name==&quot;Joke&quot;)
+Joke %&gt;% 
+  group_by (Year) %&gt;% 
+  summarise(Count)
+
+## # A tibble: 18 x 2
+##     Year Count
+##    &lt;int&gt; &lt;dbl&gt;
+##  1  1995   102
+##  2  1996    91
+##  3  1997    87
+##  4  1998    92
+##  5  1999    81
+##  6  2000    65
+##  7  2001    61
+##  8  2002    58
+##  9  2003    46
+## 10  2004    34
+## 11  2005    32
+## 12  2006    26
+## 13  2007    15
+## 14  2008    16
+## 15  2009    13
+## 16  2010    19
+## 17  2011    14
+## 18  2012     9
+</code></pre>
+
+<p><br><br></p>
+
+<p>It&rsquo;s pretty obvious that the number of Joke&rsquo;s has dropped significantly.
+The summary table above does not show any data for 2013-2016, so I will
+add zero&rsquo;s manually to show in the graph below that we have data past
+2012. Given that no data is present for names that are given less than 5
+times, this might not be entirely correct though.</p>
+
+<pre><code>#Adding empty rows until 2016
+Joke &lt;- Joke %&gt;%
+  rbind(list(&quot;Total Belgium&quot;, 2013, &quot;Girls&quot;, &quot;Joke&quot;, 0)) %&gt;% 
+  rbind(list(&quot;Total Belgium&quot;, 2014, &quot;Girls&quot;, &quot;Joke&quot;, 0)) %&gt;% 
+  rbind(list(&quot;Total Belgium&quot;, 2015, &quot;Girls&quot;, &quot;Joke&quot;, 0)) %&gt;% 
+  rbind(list(&quot;Total Belgium&quot;, 2016, &quot;Girls&quot;, &quot;Joke&quot;, 0)) 
+</code></pre>
+
+<p><br><br></p>
+
+<h2 id="the-answer">The answer</h2>
+
+<p>In 1995 the world was not yet very global and about 100 Joke&rsquo;s were born
+that year, but since then it&rsquo;s been decreasing year after year. The last
+few years, it&rsquo;s been less than 5 a year.<br><br>
+<img src="https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-10-1.png?raw=true" alt="" /></p>
+
+<p><br><br> The previous plot does not show anything in how it compares to
+other names though. So I made a second graph: Every grey line represents
+a girls&rsquo; name, and Joke is in purple. It never was a hugely popular
+name, but still far from being negligible either.</p>
+
+<p><img src="No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png" alt="" /></p>
+
+<p><br><br> There are a lot of other interesting things in this database,
+but I just want to highlight one other thing: there was one curve that
+caught my eye because it&rsquo;s very abrupt demise. <br> Mathilde is the name
+of the current Queen of Belgium. She became engaged to our crown prince
+Filip back in 1999. Not everything Royal starts a copycat movement - or
+at least not in Belgium.</p>
+
+<p><img src="No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png" alt="" /></p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://suzanbaert.netlify.com/tags/ggplot2/">Ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="https://suzanbaert.netlify.com/tags/first-names/">First names</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsuzanbaert.netlify.com%2F2017%2F12%2Fany-joke-s-left-in-belgium%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsuzanbaert.netlify.com%2F2017%2F12%2Fany-joke-s-left-in-belgium%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fsuzanbaert.netlify.com%2F2017%2F12%2Fany-joke-s-left-in-belgium%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bare with me :)</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         1 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('https://suzanbaert.netlify.com/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://suzanbaert.netlify.com/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/suzanbaert.netlify.com\/2017\/12\/any-joke-s-left-in-belgium\/';
+          
+            this.page.identifier = '\/2017\/12\/any-joke-s-left-in-belgium\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+
