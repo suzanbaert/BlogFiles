@@ -9,7 +9,7 @@ tags:
   - Ggplot2
   - First names
 thumbnailImagePosition: left
-thumbnailImage: ://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Joke%20plot.png
+thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Joke%20plot.png?raw=true
 ---
 
 <br>
@@ -26,14 +26,14 @@ eye to hear about someone named Joke, but everyone else on this planet
 probably would.<br><br> Considering how this name sounds in English and
 how important English as a language has become in our daily life and
 business world, I wondered whether there were any parents that would
-still name their daughter Joke... <br><br>
+still name their daughter Joke... <br>
 
 Data source
 -----------
 
 I found everything I needed on ([this
 website](http://statbel.fgov.be/nl/modules/publ2ications/statistiques/bevolking/bevolking_-_voornamen_van_de_pasgeborenen_1995-2014.jsp))
-from the Belgian government. <br><br>
+from the Belgian government. <br>
 
 Data
 ----
@@ -50,7 +50,7 @@ Two quick notes before I move on:
     and for every region seperate (Flanders, Wallonia and Brussels).
     Only the Belgian data is pulled out into the clean file right now.
 -   No names below 5 occurences are present in the database, presumably
-    for privacy reasons. <br><br>
+    for privacy reasons. <br>
 
 Cleaning data
 -------------
@@ -212,7 +212,7 @@ other names though. So I made a second graph: Every grey line represents
 a girls' name, and Joke is in purple. It never was a hugely popular
 name, but still far from being negligible either.
 
-![](No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png)
+![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true)
 
 <br><br> There are a lot of other interesting things in this database,
 but I just want to highlight one other thing: there was one curve that
@@ -221,4 +221,4 @@ of the current Queen of Belgium. She became engaged to our crown prince
 Filip back in 1999. Not everything Royal starts a copycat movement - or
 at least not in Belgium.
 
-![](No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png)
+![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png?raw=true))
