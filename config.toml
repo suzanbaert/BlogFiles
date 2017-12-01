@@ -33,7 +33,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [author]
   name = "Suzan Baert"
-  bio = "Site very much under construction, please bear with me :)"
+  bio = "Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator."
   job = "Principal Researcher"
   location = "Belgium"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
