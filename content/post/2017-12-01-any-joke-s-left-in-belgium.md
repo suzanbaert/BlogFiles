@@ -9,7 +9,7 @@ tags:
   - Ggplot2
   - First names
 thumbnailImagePosition: left
-thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true
+thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/ThumbnailImage.jpg?raw=true
 ---
 
 <br>
