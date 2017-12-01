@@ -12,7 +12,6 @@ thumbnailImagePosition: left
 thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/ThumbnailImage.jpg?raw=true
 ---
 
-<br>
 
 What I was wondering: are there still Joke's born in Belgium?
 -------------------------------------------------------------
@@ -28,12 +27,14 @@ how important English as a language has become in our daily life and
 business world, I wondered whether there were any parents that would
 still name their daughter Joke... <br>
 
+
 Data source
 -----------
 
 I found everything I needed on ([this
 website](http://statbel.fgov.be/nl/modules/publ2ications/statistiques/bevolking/bevolking_-_voornamen_van_de_pasgeborenen_1995-2014.jsp))
 from the Belgian government. <br>
+
 
 Data
 ----
@@ -42,7 +43,7 @@ The data came in the form of two excel files, one for girls and one for
 boys. Every file contains a sheet for every year (1995-2016), and then
 numbers per region per name (see picture below). Not ideal, but nothing
 that some cleaning up can't handle.<br> ![Original data
-structure](Screenshot%20Original%20Excel.png) <br>
+structure](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Screenshot%20Original%20Excel.png?raw=true) <br>
 
 Two quick notes before I move on:
 
@@ -51,6 +52,7 @@ Two quick notes before I move on:
     Only the Belgian data is pulled out into the clean file right now.
 -   No names below 5 occurences are present in the database, presumably
     for privacy reasons. <br>
+
 
 Cleaning data
 -------------
@@ -62,7 +64,7 @@ Starting by loading the packages needed:
     library(dplyr)
     library(ggplot2)
 
-<br><br> Given that both files contained many different sheets
+<br>Given that both files contained many different sheets
 representing the years, I started by creating a variable that would hold
 all the sheetnames.
 
@@ -72,7 +74,7 @@ all the sheetnames.
     file_boys <- "First names boys 1995-2016.xls"
     sheetnames_boys <- excel_sheets(file_girls) [1:22]
 
-<br><br> I wanted to build a function that would read all those sheets
+<br>I wanted to build a function that would read all those sheets
 and bind the data together. I first wrote the code for one sheet before
 turning it into a function. At least then I know everything works the
 way I want it to.
@@ -83,7 +85,7 @@ way I want it to.
     data1995$Year <- 1995L
     data1995$Region <- "Total Belgium"
 
-<br><br> Time to build the actual function, which:
+<br>Time to build the actual function, which:
 
 -   Reads a worksheet from the excel file
 -   Retains only column two and three which represents the names and
@@ -102,7 +104,7 @@ way I want it to.
       return(data)
     }
 
-<br><br> With the function read\_excelsheet up and working, it's time to
+<br>With the function read\_excelsheet up and working, it's time to
 start reading in the data. I used a for loop to go through all the
 sheetnames defined in sheetnames\_girls and bind every new data to the
 previous ones. Afterwards I did the exact same thing for the boys.
@@ -118,7 +120,7 @@ previous ones. Afterwards I did the exact same thing for the boys.
       data_b <- bind_rows(data_b, read_excelsheet(file_boys, i))
     }
 
-<br><br> Nearly there. I combined the girls and boys data, and did some
+<br>Nearly there. I combined the girls and boys data, and did some
 touching up by changing column names and changing their order.
 
     #Combine girls and boys in 1 database
@@ -132,7 +134,7 @@ touching up by changing column names and changing their order.
     rm(data_b)
     rm(data_g)
 
-<br><br> Cleaning is all done now! For anyone who does not want to go
+<br>Cleaning is all done now! For anyone who does not want to go
 through the cleaning, I added a cleaned file via write.csv into ([my
 github
 repository](https://github.com/suzanbaert/PP1---First-names-in-Belgium)).
@@ -146,7 +148,7 @@ The cleaned data now looks as following:
     ## 5 Total Belgium 1995  Girls     Marie   726
     ## 6 Total Belgium 1995  Girls     Manon   539
 
-<br><br>
+<br>
 
 Searching for Joke
 ------------------
@@ -182,7 +184,7 @@ Joke's left in Belgium.
     ## 17  2011    14
     ## 18  2012     9
 
-<br><br>
+<br>
 
 It's pretty obvious that the number of Joke's has dropped significantly.
 The summary table above does not show any data for 2013-2016, so I will
@@ -197,7 +199,7 @@ times, this might not be entirely correct though.
       rbind(list("Total Belgium", 2015, "Girls", "Joke", 0)) %>% 
       rbind(list("Total Belgium", 2016, "Girls", "Joke", 0)) 
 
-<br><br>
+<br>
 
 The answer
 ----------
@@ -207,14 +209,14 @@ that year, but since then it's been decreasing year after year. The last
 few years, it's been less than 5 a year.<br><br>
 ![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-10-1.png?raw=true)
 
-<br><br> The previous plot does not show anything in how it compares to
+<br>The previous plot does not show anything in how it compares to
 other names though. So I made a second graph: Every grey line represents
 a girls' name, and Joke is in purple. It never was a hugely popular
 name, but still far from being negligible either.
 
 ![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true)
 
-<br><br> There are a lot of other interesting things in this database,
+<br>There are a lot of other interesting things in this database,
 but I just want to highlight one other thing: there was one curve that
 caught my eye because it's very abrupt demise. <br> Mathilde is the name
 of the current Queen of Belgium. She became engaged to our crown prince

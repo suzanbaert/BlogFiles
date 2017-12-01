@@ -214,8 +214,6 @@
             <div class="main-content-wrap">
               
 
-<p><br></p>
-
 <h2 id="what-i-was-wondering-are-there-still-joke-s-born-in-belgium">What I was wondering: are there still Joke&rsquo;s born in Belgium?</h2>
 
 <p>Every time I pass by a colleague named Joke, I wonder. Let me explain:
@@ -240,7 +238,7 @@ from the Belgian government. <br></p>
 <p>The data came in the form of two excel files, one for girls and one for
 boys. Every file contains a sheet for every year (1995-2016), and then
 numbers per region per name (see picture below). Not ideal, but nothing
-that some cleaning up can&rsquo;t handle.<br> <img src="Screenshot%20Original%20Excel.png" alt="Original data
+that some cleaning up can&rsquo;t handle.<br> <img src="https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Screenshot%20Original%20Excel.png?raw=true" alt="Original data
 structure" /> <br></p>
 
 <p>Two quick notes before I move on:</p>
@@ -263,7 +261,7 @@ library(dplyr)
 library(ggplot2)
 </code></pre>
 
-<p><br><br> Given that both files contained many different sheets
+<p><br>Given that both files contained many different sheets
 representing the years, I started by creating a variable that would hold
 all the sheetnames.</p>
 
@@ -274,7 +272,7 @@ file_boys &lt;- &quot;First names boys 1995-2016.xls&quot;
 sheetnames_boys &lt;- excel_sheets(file_girls) [1:22]
 </code></pre>
 
-<p><br><br> I wanted to build a function that would read all those sheets
+<p><br>I wanted to build a function that would read all those sheets
 and bind the data together. I first wrote the code for one sheet before
 turning it into a function. At least then I know everything works the
 way I want it to.</p>
@@ -286,7 +284,7 @@ data1995$Year &lt;- 1995L
 data1995$Region &lt;- &quot;Total Belgium&quot;
 </code></pre>
 
-<p><br><br> Time to build the actual function, which:</p>
+<p><br>Time to build the actual function, which:</p>
 
 <ul>
 <li>Reads a worksheet from the excel file</li>
@@ -308,7 +306,7 @@ read_excelsheet &lt;- function (file, sheetname) {
 }
 </code></pre>
 
-<p><br><br> With the function read_excelsheet up and working, it&rsquo;s time to
+<p><br>With the function read_excelsheet up and working, it&rsquo;s time to
 start reading in the data. I used a for loop to go through all the
 sheetnames defined in sheetnames_girls and bind every new data to the
 previous ones. Afterwards I did the exact same thing for the boys.</p>
@@ -325,7 +323,7 @@ for (i in sheetnames_boys) {
 }
 </code></pre>
 
-<p><br><br> Nearly there. I combined the girls and boys data, and did some
+<p><br>Nearly there. I combined the girls and boys data, and did some
 touching up by changing column names and changing their order.</p>
 
 <pre><code>#Combine girls and boys in 1 database
@@ -340,7 +338,7 @@ rm(data_b)
 rm(data_g)
 </code></pre>
 
-<p><br><br> Cleaning is all done now! For anyone who does not want to go
+<p><br>Cleaning is all done now! For anyone who does not want to go
 through the cleaning, I added a cleaned file via write.csv into (<a href="https://github.com/suzanbaert/PP1---First-names-in-Belgium">my
 github
 repository</a>).
@@ -355,7 +353,7 @@ The cleaned data now looks as following:</p>
 ## 6 Total Belgium 1995  Girls     Manon   539
 </code></pre>
 
-<p><br><br></p>
+<p><br></p>
 
 <h2 id="searching-for-joke">Searching for Joke</h2>
 
@@ -391,7 +389,7 @@ Joke %&gt;%
 ## 18  2012     9
 </code></pre>
 
-<p><br><br></p>
+<p><br></p>
 
 <p>It&rsquo;s pretty obvious that the number of Joke&rsquo;s has dropped significantly.
 The summary table above does not show any data for 2013-2016, so I will
@@ -407,7 +405,7 @@ Joke &lt;- Joke %&gt;%
   rbind(list(&quot;Total Belgium&quot;, 2016, &quot;Girls&quot;, &quot;Joke&quot;, 0)) 
 </code></pre>
 
-<p><br><br></p>
+<p><br></p>
 
 <h2 id="the-answer">The answer</h2>
 
@@ -416,14 +414,14 @@ that year, but since then it&rsquo;s been decreasing year after year. The last
 few years, it&rsquo;s been less than 5 a year.<br><br>
 <img src="https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-10-1.png?raw=true" alt="" /></p>
 
-<p><br><br> The previous plot does not show anything in how it compares to
+<p><br>The previous plot does not show anything in how it compares to
 other names though. So I made a second graph: Every grey line represents
 a girls&rsquo; name, and Joke is in purple. It never was a hugely popular
 name, but still far from being negligible either.</p>
 
 <p><img src="https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true" alt="" /></p>
 
-<p><br><br> There are a lot of other interesting things in this database,
+<p><br>There are a lot of other interesting things in this database,
 but I just want to highlight one other thing: there was one curve that
 caught my eye because it&rsquo;s very abrupt demise. <br> Mathilde is the name
 of the current Queen of Belgium. She became engaged to our crown prince
