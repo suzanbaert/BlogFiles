@@ -160,7 +160,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   autoThumbnailImage = true
 
   # Your favicon path, default is "/favicon.png"
-favicon = "https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png"
+favicon = "https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true"
 
   # Header configuration
   # The link at the right of the header is customizable
