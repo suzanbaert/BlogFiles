@@ -8,8 +8,9 @@ categories:
 tags:
   - Ggplot2
   - First names
-thumbnailImagePosition: left
-thumbnailImage: https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/ThumbnailImage.jpg?raw=true
+thumbnailImagePosition: top
+thumbnailImage: https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Joke2%20Cover.png?raw=true
+
 ---
 
 
@@ -207,14 +208,14 @@ The answer
 In 1995 the world was not yet very global and about 100 Joke's were born
 that year, but since then it's been decreasing year after year. The last
 few years, it's been less than 5 a year.<br><br>
-![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-10-1.png?raw=true)
+![](https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Joke.png?raw=true)
 
 <br>The previous plot does not show anything in how it compares to
 other names though. So I made a second graph: Every grey line represents
 a girls' name, and Joke is in purple. It never was a hugely popular
 name, but still far from being negligible either.
 
-![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-11-1.png?raw=true)
+![](https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Joke2.png?raw=true)
 
 <br>There are a lot of other interesting things in this database,
 but I just want to highlight one other thing: there was one curve that
@@ -223,4 +224,4 @@ of the current Queen of Belgium. She became engaged to our crown prince
 Filip back in 1999. Not everything royal starts a copycat movement - or
 at least not in Belgium.
 
-![](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/No_More_Jokes_in_Belgium_files/figure-markdown_strict/unnamed-chunk-12-1.png?raw=true)
+![](https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Mathilde.png?raw=true)
