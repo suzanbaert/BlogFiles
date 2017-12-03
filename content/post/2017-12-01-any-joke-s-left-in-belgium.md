@@ -9,7 +9,7 @@ tags:
   - Ggplot2
   - First names
 thumbnailImagePosition: top
-thumbnailImage: https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Joke2%20Cover.png?raw=true
+thumbnailImage: https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Joke2%20Cover2.png?raw=true
 
 ---
 
