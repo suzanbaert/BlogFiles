@@ -44,7 +44,7 @@ The data came in the form of two excel files, one for girls and one for
 boys. Every file contains a sheet for every year (1995-2016), and then
 numbers per region per name (see picture below). Not ideal, but nothing
 that some cleaning up can't handle.<br> ![Original data
-structure](https://github.com/suzanbaert/PP1---First-names-in-Belgium/blob/master/Screenshot%20Original%20Excel.png?raw=true)
+structure](https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20Screenshot%20Original%20Excel.png?raw=true)
 
 Two quick notes before I move on:
 
