@@ -46,7 +46,8 @@ library(BelgiumMaps.StatBel)
 Importing the data. In the original repo everything was set up in Excel but ReadXL wasn't playing nicely together with blogdown, so turned it into csv. Readr on the other hand didn't play nice with the special characters (é, è, ü etc) but that was slightly easier to fix by adding an ´Encoding() call.
 ```{r message=FALSE, warning=FALSE}
 #Importing the data
-raw_data <- read_csv("https://github.com/suzanbaert/BlogFiles/blob/master/content/data/2017-12%20TF_SOC_POP_STRUCT_2017_tcm325-283761.csv?raw=true")
+raw_data <- read_csv("https://github.com/suzanbaert/BilingualTowns/blob/master/2017-12%20TF_SOC_POP_STRUCT_2017_tcm325-283761.csv?raw=true")
+
 
 #Fixing the special characters after read_csv
 Encoding (raw_data$TX_MUNTY_DESCR_NL) <- "latinl"
