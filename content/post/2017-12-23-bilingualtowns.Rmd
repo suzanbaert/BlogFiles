@@ -237,7 +237,7 @@ ggplot()+
 ```
   
 
-I took a shortcut to define our cities: the 10% highest populated towns. I got the cutoff value via  `quantile(popdata$population, probs=0.9)`: `r quantile(popdata$population, probs=0.9)`.
+I took a shortcut to define our cities: the 10% highest populated towns. I got the cutoff value via  `quantile(popdata$population, probs=0.9)`: 34190.
   
   
 ```{r message=FALSE}
