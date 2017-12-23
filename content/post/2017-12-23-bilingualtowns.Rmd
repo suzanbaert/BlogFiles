@@ -1,5 +1,5 @@
 ---
-title: BilingualTowns
+title: Bilingual Town Names
 author: Suzan Baert
 date: '2017-12-23'
 slug: bilingualtowns
