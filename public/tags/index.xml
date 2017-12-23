@@ -23,7 +23,7 @@
     <item>
       <title>Geospatial</title>
       <link>/tags/geospatial/</link>
-      <pubDate>Fri, 22 Dec 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/geospatial/</guid>
       <description></description>
@@ -39,9 +39,18 @@
     </item>
     
     <item>
+      <title>Leaflet</title>
+      <link>/tags/leaflet/</link>
+      <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/leaflet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Tmap</title>
       <link>/tags/tmap/</link>
-      <pubDate>Fri, 22 Dec 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/tmap/</guid>
       <description></description>
