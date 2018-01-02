@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Suzan</title>
-    <link>https://suzanbaert.netlify.com/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Suzan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://suzanbaert.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>First Names</title>
-      <link>https://suzanbaert.netlify.com/tags/first-names/</link>
+      <link>/tags/first-names/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/tags/first-names/</guid>
+      <guid>/tags/first-names/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geospatial</title>
-      <link>https://suzanbaert.netlify.com/tags/geospatial/</link>
+      <link>/tags/geospatial/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/tags/geospatial/</guid>
+      <guid>/tags/geospatial/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ggplot2</title>
-      <link>https://suzanbaert.netlify.com/tags/ggplot2/</link>
+      <link>/tags/ggplot2/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/tags/ggplot2/</guid>
+      <guid>/tags/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Leaflet</title>
-      <link>https://suzanbaert.netlify.com/tags/leaflet/</link>
+      <link>/tags/leaflet/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/tags/leaflet/</guid>
+      <guid>/tags/leaflet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tmap</title>
-      <link>https://suzanbaert.netlify.com/tags/tmap/</link>
+      <link>/tags/tmap/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/tags/tmap/</guid>
+      <guid>/tags/tmap/</guid>
       <description></description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Suzan</title>
-    <link>https://suzanbaert.netlify.com/post/</link>
+    <link>/post/</link>
     <description>Recent content in Posts on Suzan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 23 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://suzanbaert.netlify.com/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bilingual Town Names</title>
-      <link>https://suzanbaert.netlify.com/2017/12/bilingualtowns/</link>
+      <link>/2017/12/bilingualtowns/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/2017/12/bilingualtowns/</guid>
+      <guid>/2017/12/bilingualtowns/</guid>
       <description>It seems that we Belgians just love confusing foreigners…
 Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
 Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</description>
@@ -24,10 +24,10 @@ Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same c
     
     <item>
       <title>Any Joke&#39;s left in Belgium?</title>
-      <link>https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/</link>
+      <link>/2017/12/any-joke-s-left-in-belgium/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://suzanbaert.netlify.com/2017/12/any-joke-s-left-in-belgium/</guid>
+      <guid>/2017/12/any-joke-s-left-in-belgium/</guid>
       <description>What I was wondering: are there still Joke&amp;rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &amp;lsquo;yoghurt&amp;rsquo; and &amp;lsquo;kebab&amp;rsquo; together and put the accent on the &amp;lsquo;yo&amp;rsquo;. &amp;lsquo;Joke&amp;rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</description>
     </item>
     
