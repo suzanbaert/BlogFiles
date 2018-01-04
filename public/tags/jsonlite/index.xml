@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jsonlite on Suzan</title>
+    <link>/tags/jsonlite/</link>
+    <description>Recent content in Jsonlite on Suzan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/jsonlite/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</title>
+      <link>/2018/01/2017radiohitlist/</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/2017radiohitlist/</guid>
+      <description>At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &amp;ldquo;people&amp;rsquo;s choice&amp;rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</description>
+    </item>
+    
+  </channel>
+</rss>
