@@ -138,7 +138,7 @@ touching up by changing column names and changing their order.
 <br>Cleaning is all done now! For anyone who does not want to go
 through the cleaning, I added a cleaned file via write.csv into ([my
 github
-repository](https://github.com/suzanbaert/PP1---First-names-in-Belgium)).
+repository](https://github.com/suzanbaert/2017_First-names-in-Belgium)).
 The cleaned data now looks as following:
 
     ##          Region Year Gender      Name Count
@@ -225,3 +225,7 @@ Filip back in 1999. Not everything royal starts a copycat movement - or
 at least not in Belgium.
 
 ![](https://github.com/suzanbaert/BlogFiles/blob/master/content/images/171201%20NMJ%20Mathilde.png?raw=true)
+
+
+<br><br><br> *Link to github repository with code and data:
+<https://github.com/suzanbaert/2017_First-names-in-Belgium>*
