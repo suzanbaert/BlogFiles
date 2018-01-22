@@ -1,0 +1,1246 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>The Postmortem Airtime Effect</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?">
+    <meta property="og:description" content="I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="The Postmortem Airtime Effect">
+    <meta property="og:url" content="/2018/01/postmortemplaylist/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+      <meta property="og:image" content="https://github.com/suzanbaert/BlogFiles/blob/post4/content/images/180122_cover2.png?raw=true">
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      The Postmortem Airtime Effect
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-01-22T00:00:00Z">
+        
+  January 22, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/personal-projects">Personal projects</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p><br></p>
+
+<p>I was busy on a little side project on radio playlists when the news
+broke about the death of Dolores O’Riordan, front singer of The
+Cranberries. And sure enough, a few hours later I could see The
+Cranberries starting to pop up in the playlists.<br />
+Their second album <em>No Need to Argue</em> was one of my favourite CD&rsquo;s as a
+teenager, and so I wondered: how many times would they be played? And it
+would it all be &lsquo;Zombie&rsquo;, or would some of their other gems get air time
+as well? After seeing the results though, I realized I had no frame of
+comparison and ended up scraping a few other artists to compare their
+air time before and immediately after passing away. <br></p>
+
+<h2 id="scraping-the-playlist">Scraping the playlist</h2>
+
+<p>There is a website that contains playlists for quite a few Belgian radio
+stations (unfortunately only the Flemish ones). By using this site
+rather then the radio&rsquo;s own sites, I could scrape different broadcasting
+companies with just one function. I did do some random checks to make
+sure that the playlists were matching though.</p>
+
+<p>First loading the packages needed and checking whether I am allowed to
+scrape this site via the <code>robotstxt</code> package.</p>
+
+<pre><code>library(rvest)
+library(xml2)
+library(tidyverse)
+
+#Am i allowed to scrape?
+robotstxt::paths_allowed(&quot;https://www.relisten.be/playlists/&quot;)
+
+## [1] TRUE
+</code></pre>
+
+<p><br></p>
+
+<p>I wrote a <code>read_playlist</code> funcion to scrape the data and return
+dataframe with 5 columns: station, date, timestamp, artist and title. I
+immediately made a second version for the instances where I would need
+to iterate this function, called <code>read_playlist_and_sleep</code> which just
+adds 5 seconds in between every iteration.</p>
+
+<pre><code>#function to read a playlist, returning a dataframe with timestamp, artist and title of song
+read_playlist &lt;- function(radio, date){
+
+  #assemble link
+  link &lt;- paste0(&quot;https://www.relisten.be/playlists/&quot;, radio, &quot;/&quot;, date, &quot;.html&quot;)
+
+  #playlist info
+  html_playlist &lt;- read_html(link) %&gt;%
+    html_nodes(css = &quot;#playlist&quot;)
+
+  #get time info
+  time &lt;- html_playlist %&gt;%
+    html_nodes(css = &quot;.media-body &gt; h4 &gt; .pull-right&quot;) %&gt;%
+    html_text()
+
+  #get title info
+  title &lt;- html_playlist %&gt;%
+    html_nodes(css = &quot;.media-body &gt; h4 &gt; span&quot;) %&gt;%
+    html_text()
+
+  #get artist info
+  artist &lt;- html_playlist %&gt;%
+    html_nodes(css = &quot;.media-body &gt; p &gt; a &gt; span&quot;) %&gt;%
+    html_text()
+
+    #check for empty pages and return NA if that's the case - otherwise purrr::map will fail later on
+  if (length(artist) == 0) {return(NULL)}
+
+  #assembling the dataframe
+  playlist &lt;- data.frame(radio, date, time, title, artist, stringsAsFactors = FALSE)
+  playlist$date &lt;- lubridate::dmy(playlist$date)
+  playlist
+}
+
+
+#adding system sleep to function
+read_playlist_and_sleep &lt;- function(radio, date) {
+  Sys.sleep(5)
+  read_playlist(radio, date)
+}
+</code></pre>
+
+<p><br></p>
+
+<h2 id="the-cranberries">The Cranberries</h2>
+
+<pre><code>#SCRAPING FOR THE CRANBERRIES
+#making the selection
+dates_selection &lt;- c(&quot;15-01-2018&quot;, &quot;16-01-2018&quot;)
+
+radio_selection &lt;- c(&quot;radio1&quot;, &quot;radio2&quot;, &quot;studiobrussel&quot;, &quot;mnm&quot;, 
+                     &quot;joefm&quot;, &quot;qmusic&quot;, &quot;nostalgie&quot;, &quot;antwerpen&quot;,
+                     &quot;clubfm&quot;, &quot;familyradio&quot;, &quot;radiofg&quot;,
+                     &quot;topradio&quot;, &quot;vbro&quot;, &quot;hitfm&quot;)
+
+
+#making all pair combinations
+all_pairs &lt;- merge(dates_selection, radio_selection)
+colnames(all_pairs) &lt;- c(&quot;date&quot;, &quot;radio&quot;)
+
+#reading the playlists
+playlist_TheCranberries &lt;- map2_df(all_pairs$radio, all_pairs$date, read_playlist_and_sleep)
+</code></pre>
+
+<p><br></p>
+
+<p>Before doing breakouts I wanted to make sure that no-one had written it
+differently, so I so did a str_view just to check that I wouldn&rsquo;t miss
+any instance in my next codes.<br />
+<code>str_view(playlist_TheCranberries$artist, &quot;berrie&quot;, match=TRUE)</code> only
+returned matches on The Cranberries, showing that here are no
+upper-lowercases issues, no remixes or featuring artists are present.</p>
+
+<p>The Cranberries were played 36 times over two days - which didn&rsquo;t sound
+like that much. More than 10 radio stations, 48 hours&hellip;</p>
+
+<pre><code>#cranberries
+playlist_TheCranberries %&gt;%
+  filter(artist == &quot;The Cranberries&quot;) %&gt;%
+  summarise(n=n())
+
+##    n
+## 1 36
+</code></pre>
+
+<p><br></p>
+
+<p><strong>So who played their songs?</strong><br />
+The rock-indie-pop station Studio Brussels leads the list, followed by
+the current affairs Radio1, and the oldies-channel Nostalgie. The hit
+radio stations follow the list.</p>
+
+<pre><code>playlist_TheCranberries %&gt;%
+  filter(artist == &quot;The Cranberries&quot;) %&gt;%
+  group_by(radio) %&gt;%
+  summarise(n=n()) %&gt;%
+  arrange(desc(n)) %&gt;%
+  knitr::kable()
+</code></pre>
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">radio</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">studiobrussel</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">nostalgie</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">radio1</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">mnm</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">qmusic</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">joefm</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">radio2</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p><strong>And which songs did they play?</strong><br />
+No surprise: Zombie leads the list, but what is left of the teenager
+inside of me is a bit sad that so many of their other songs are not in
+there. I would have played the supersad No Need to Argue: <em>There&rsquo;s no
+need to argue anymore. I gave all I could, but it left me so sore.</em> &hellip;
+The lyrics would have fitted!</p>
+
+<pre><code>playlist_TheCranberries %&gt;%
+  filter(artist == &quot;The Cranberries&quot;) %&gt;%
+  group_by(title) %&gt;%
+  summarise(n=n()) %&gt;%
+  arrange(desc(n)) %&gt;%
+  knitr::kable()
+</code></pre>
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Zombie</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">Linger</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">Ode To My Family</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Just my imagination</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Daffodil Lament</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Dreams</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Dreams..</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Salvation</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p><br><br></p>
+
+<h2 id="how-does-it-compare-to-other-artists">How does it compare to other artists?</h2>
+
+<p>The biggest issue is that I have no frame of reference: is 36 times a
+lot, or not? France Gall passed away not too long ago, and Tom Petty. I
+ended up googling for artists who passed away recently, and some
+slightly longer ago to have some bigger names to compare as well.</p>
+
+<p>As I was about to scrape a bit more, I rewrote what I had done for the
+Cranberries in a function - but I changed one thing: I also scraped the
+same two weekdays just a week before the news came as a &ldquo;pre-death&rdquo;
+measure.</p>
+
+<pre><code>read_all_playlists_on_dates &lt;- function(newsdate, artist) {
+
+  #all available radio stations on the Belgian version of the site
+  radio_selection &lt;- c(&quot;radio1&quot;, &quot;radio2&quot;, &quot;studiobrussel&quot;, &quot;mnm&quot;, 
+                       &quot;joefm&quot;, &quot;qmusic&quot;, &quot;nostalgie&quot;, &quot;antwerpen&quot;,
+                       &quot;clubfm&quot;, &quot;familyradio&quot;, &quot;radiofg&quot;,
+                       &quot;topradio&quot;, &quot;vbro&quot;, &quot;hitfm&quot;)
+
+  #date selection: day of the news and day after, same two days a week before
+  newsdate &lt;- dmy(newsdate)
+  dates_post &lt;- c(newsdate,  newsdate+1)
+  dates_pre &lt;- c(newsdate-7, newsdate-6)
+
+
+  #making all pair combinations
+  all_pairs_post &lt;- merge(format(dates_post, &quot;%d-%m-%Y&quot;), radio_selection)
+  all_pairs_pre &lt;- merge(format(dates_pre, &quot;%d-%m-%Y&quot;), radio_selection)
+
+
+  #map to iterate over all station-date combinations
+  playlist_pre &lt;- map2_df(all_pairs_pre$y, all_pairs_pre$x, read_playlist_and_sleep)
+  playlist_post &lt;- map2_df(all_pairs_post$y, all_pairs_post$x, read_playlist_and_sleep)
+
+
+  #adding info and merging into one dataframe
+  playlist_post$timing &lt;- &quot;post&quot;
+  playlist_pre$timing &lt;- &quot;pre&quot;
+  playlist_df &lt;- bind_rows(playlist_post, playlist_pre)
+  playlist_df$death &lt;- artist
+
+
+  #remove any space bars from artist name
+  artist0 &lt;- str_replace(artist, &quot; &quot;, &quot;&quot;)
+
+  #save to avoid rescraping
+  RDS &lt;- paste0(&quot;data/playlist_&quot;, artist0, &quot;.RDS&quot;)
+  saveRDS(playlist_df, RDS)
+
+  return(playlist_df)
+}
+</code></pre>
+
+<p><br></p>
+
+<p>Let the scraping begin! &hellip; Or so I thought. I had looked up Leonard
+Cohen&rsquo;s death date in wikipedia, but he was hardly there in the
+playlists - which was obviously beyond odd. Turns out that the news of
+his death broke a few days after his death.<br />
+Additionally there were some oddities driven by timezones, so I
+abandoned the wikipedia dates and decided to look up in one of our
+biggest newspapers when the news broke in Belgium about every artist and
+take that date as a starting point.</p>
+
+<pre><code>#news in paper on 15/01/2018 om 18:22 
+playlist_TheCranberries &lt;- read_all_playlists_on_dates(&quot;15-01-2018&quot;, &quot;The Cranberries&quot;)
+
+#news in paper on 07/01/2018 om 14:54 
+playlist_FranceGall &lt;- read_all_playlists_on_dates(&quot;7-01-2018&quot;, &quot;France Gall&quot;)
+
+#news in paper on 25/10/2017 om 17:36
+playlist_FatsDomino &lt;- read_all_playlists_on_dates(&quot;25-10-2017&quot;, &quot;Fats Domino&quot;)
+
+#news in paper on 06/12/2017 om 07:28 
+playlist_JohnnyHallyday &lt;- read_all_playlists_on_dates(&quot;06-12-2017&quot;, &quot;Johnny Hallyday&quot;)
+
+#news in paper on 20/07/2017 om 21:09
+playlist_LinkinPark &lt;- read_all_playlists_on_dates(&quot;20-07-2017&quot;, &quot;Linkin Park&quot;)
+
+#news in paper on 03/10/2017 om 06:23
+playlist_TomPetty &lt;- read_all_playlists_on_dates(&quot;03-10-2017&quot;, &quot;Tom Petty&quot;)
+
+#news in paper on 11/11/2016 om 09:31
+playlist_LeonardCohen &lt;- read_all_playlists_on_dates(&quot;11-11-2016&quot;, &quot;Leonard Cohen&quot;)
+
+#news in paper on 21/04/2016 om 19:19
+playlist_Prince &lt;- read_all_playlists_on_dates(&quot;21-04-2016&quot;, &quot;Prince&quot;)
+
+#news in paper on 11/01/2016 om 16:13
+playlist_DavidBowie &lt;- read_all_playlists_on_dates(&quot;11-01-2016&quot;, &quot;David Bowie&quot;)
+</code></pre>
+
+<p><br></p>
+
+<h2 id="assembling-all-the-data">Assembling all the data</h2>
+
+<p>I ended up with 9 databases of more than 17000 rows, most of which
+contained data I did not need. The next bit of code finds the lines
+where the artist who just died (or will die a week later) is played, and
+then merges it all together.<br />
+One thing I still did manually is the pattern building for each artist.
+I like the <code>str_view</code> function for this as you can show the cases where
+the pattern matches or where not, to make sure you didn&rsquo;t capture too
+much, nor too few. For instance Johnny Hallyday was sometimes spelled
+Johnny Halliday, or there is a &ldquo;Prince Mohammed&rdquo; which has nothing to do
+with the Prince I was looking for, so I had to keep him out.</p>
+
+<pre><code>#keeping only the rows with the particular artist of interest
+find_match &lt;- function(playlist, pattern) {
+  match &lt;- grepl(pattern, playlist$artist, ignore.case = TRUE)
+  match_df &lt;- playlist[match,]
+}
+
+#building input files
+input_playlist &lt;- list(playlist_DavidBowie, playlist_FatsDomino, playlist_FranceGall, playlist_JohnnyHallyday, playlist_LeonardCohen,
+              playlist_LinkinPark, playlist_Prince, playlist_TheCranberries,
+              playlist_TomPetty)
+
+input_pattern &lt;- c(&quot;Bowie&quot;, &quot;Fats&quot;, &quot;France Gall&quot;, &quot;Hall[iy]day&quot;, &quot;Cohen&quot;,
+             &quot;Linkin&quot;, &quot;Prince [^M]&quot;, &quot;Cranberries&quot;, &quot;Petty&quot;)
+
+#I built by looking manual in case i had something i didn't want:
+str_view(playlist_TomPetty$artist, &quot;Petty&quot;, match=TRUE)
+
+
+#combining all matching rows in one dataframe
+match_df &lt;- map2_df(input_playlist, input_pattern, find_match)
+</code></pre>
+
+<p><br></p>
+
+<h2 id="so-who-s-the-post-mortem-air-time-king-queen">So who&rsquo;s the &ldquo;post mortem air time king/queen&rdquo;?</h2>
+
+<pre><code>#comparing pre and post
+summary_table &lt;- match_df %&gt;%
+  group_by(death, timing) %&gt;%
+  summarise(n=n()) %&gt;%
+  spread(timing, n) %&gt;%
+  mutate(ratio = post/pre) %&gt;%
+  arrange(desc(post))
+
+summary_table %&gt;%
+  knitr::kable(digits=0, col.names = c(&quot;Artist&quot;, &quot;Frequency post&quot;,
+                                       &quot;Frequency pre&quot;, &quot;Ratio post/pre&quot;))
+</code></pre>
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Artist</th>
+<th align="right">Frequency post</th>
+<th align="right">Frequency pre</th>
+<th align="right">Ratio post/pre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">David Bowie</td>
+<td align="right">271</td>
+<td align="right">31</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Prince</td>
+<td align="right">68</td>
+<td align="right">3</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">Leonard Cohen</td>
+<td align="right">63</td>
+<td align="right">5</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">France Gall</td>
+<td align="right">38</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">The Cranberries</td>
+<td align="right">35</td>
+<td align="right">1</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Linkin Park</td>
+<td align="right">34</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Tom Petty</td>
+<td align="right">28</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Fats Domino</td>
+<td align="right">22</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Johnny Hallyday</td>
+<td align="right">17</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p>Of course: David Bowie! No surprise, although I have to say that I
+hadn&rsquo;t expected such a massive gap between the first two on the list.<br />
+After that gap we have Prince and Leonard Cohen, and then with about 30
+times played a whole list of artists, including The Cranberries. So
+their air time wasn&rsquo;t too bad after all&hellip;</p>
+
+<pre><code>#plotting pre and post
+colors &lt;- c(&quot;#7a337c&quot;, &quot;#CFCCCF&quot;)
+levels_artists &lt;- summary_table %&gt;%
+  arrange(post) %&gt;%
+  pull(death)
+
+ggplot(match_df, aes(x=death, fill=timing)) +
+  geom_bar(position = position_dodge(preserve = &quot;single&quot;))+
+  scale_fill_manual(values=colors) +
+  labs(title =&quot;Times played pre- versus post mortem&quot;, 
+        x = &quot;Artist&quot;, y = &quot;Frequency over 2 days&quot;) +
+  scale_x_discrete(limits = levels_artists) +
+  coord_flip()
+</code></pre>
+
+<p><img src="https://github.com/suzanbaert/BlogFiles/blob/master/content/images/180122_unnamed-chunk-14-1.png?raw=true" alt="" /></p>
+
+<p><br><br></p>
+
+<h2 id="which-radio-s-playlist-is-most-influenced">Which radio&rsquo;s playlist is most influenced?</h2>
+
+<pre><code>#comparing pre and post
+radio_summary &lt;- match_df %&gt;%
+  group_by(radio, timing) %&gt;%
+  summarise(n=n()) %&gt;%
+  spread(timing, n) %&gt;%
+  mutate(ratio = post/pre) %&gt;%
+  arrange(desc(post)) 
+
+radio_summary %&gt;%
+  knitr::kable(digits=0, col.names = c(&quot;Radio&quot;, &quot;Frequency post&quot;,
+                                       &quot;Frequency pre&quot;, &quot;Ratio post/pre&quot;))
+</code></pre>
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Radio</th>
+<th align="right">Frequency post</th>
+<th align="right">Frequency pre</th>
+<th align="right">Ratio post/pre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">radio1</td>
+<td align="right">174</td>
+<td align="right">14</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">studiobrussel</td>
+<td align="right">161</td>
+<td align="right">4</td>
+<td align="right">40</td>
+</tr>
+<tr class="odd">
+<td align="left">nostalgie</td>
+<td align="right">69</td>
+<td align="right">8</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">joefm</td>
+<td align="right">39</td>
+<td align="right">4</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">radio2</td>
+<td align="right">39</td>
+<td align="right">4</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">mnm</td>
+<td align="right">26</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">qmusic</td>
+<td align="right">23</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">antwerpen</td>
+<td align="right">21</td>
+<td align="right">7</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">topradio</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">familyradio</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">clubfm</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">hitfm</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">radiofg</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">vbro</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p>Something else I was curious about: which radio stations change their
+playlist most frequently to match what just happened in the world?<br />
+Radio 1, the current affairs radio, takes number 1 - not unlogic. A bit
+more surprising was Studio Brussels (rock-indie-pop station) following
+quite closely. These two were on top for every artist: even artist like
+France Gall and Fats Domino who normally would not appear on Studio
+Brussels&rsquo;s playlist were played frequently in the hours after their
+death became new.</p>
+
+<pre><code>#plotting pre and post
+colors &lt;- c(&quot;#7a337c&quot;, &quot;#CFCCCF&quot;)
+levels_radios &lt;- radio_summary %&gt;%
+  arrange(post) %&gt;%
+  pull(radio)
+
+ggplot(match_df, aes(x=radio, fill=timing)) +
+  geom_bar(position = position_dodge(preserve = &quot;single&quot;))+
+  scale_fill_manual(values=colors) +
+  labs(title =&quot;Times played pre- versus post mortem&quot;, 
+       x = &quot;Radio&quot;, y = &quot;Frequency over 2 days&quot;) +
+  scale_x_discrete(limits = levels_radios) +
+  coord_flip()
+</code></pre>
+
+<p><img src="https://github.com/suzanbaert/BlogFiles/blob/master/content/images/180122_unnamed-chunk-16-1.png?raw=true" alt="" /></p>
+
+<p><br><br><br> <em>Link to github repository with code and data:
+<a href="https://github.com/suzanbaert/2018_RadioPlaylist">https://github.com/suzanbaert/2018_RadioPlaylist</a></em></p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/webscraping/">Webscraping</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/rvest/">Rvest</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/ggplot2/">Ggplot2</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/2017radiohitlist/" data-tooltip="Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/postmortemplaylist/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/postmortemplaylist/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/postmortemplaylist/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/2017radiohitlist/" data-tooltip="Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/postmortemplaylist/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/postmortemplaylist/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/postmortemplaylist/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F01%2Fpostmortemplaylist%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F01%2Fpostmortemplaylist%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F01%2Fpostmortemplaylist%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         4 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/01\/postmortemplaylist\/';
+          
+            this.page.identifier = '\/2018\/01\/postmortemplaylist\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+
