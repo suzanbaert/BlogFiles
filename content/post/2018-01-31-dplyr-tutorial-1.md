@@ -44,7 +44,7 @@ experimented with easily.
 
 
 To note: All code will be presented as part of pipe even though hardly any
-of them are a full pipe. I did add `glimpse()` statement to allow you to
+of them are a full pipe. In some cases I added a `glimpse()` statement to allow you to
 see the columns selected in the output tibble without printing all the
 data every time.
 
