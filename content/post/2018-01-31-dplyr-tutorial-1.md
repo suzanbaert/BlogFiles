@@ -85,7 +85,7 @@ appear in the output.
 
     msleep %>%
       select(name, genus, sleep_total, awake) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 4
@@ -104,7 +104,7 @@ To add a chunk of columns use the `start_col:end_col` syntax:
 
     msleep %>%
       select(name:order, sleep_total:sleep_cycle) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 7
@@ -122,7 +122,7 @@ front of the column name. You can also deselect chunks of columns.
 
     msleep %>% 
       select(-conservation, -(sleep_total:awake)) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 6
@@ -142,7 +142,7 @@ This only works if you re-add it in the same `select()` statement.
 
     msleep %>%
       select(-(name:awake), conservation) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 3
@@ -162,7 +162,7 @@ columns.
 
     msleep %>%
       select(name, starts_with("sleep")) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 4
@@ -175,7 +175,7 @@ or
 
     msleep %>%
       select(contains("eep"), ends_with("wt")) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 5
@@ -199,7 +199,7 @@ followed by one or more other letters, and "er".
     #selecting based on regex
     msleep %>%
       select(matches("o.+er")) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 2
@@ -220,7 +220,7 @@ If you have data columns, you can load the `lubridate` package, and use
 
     msleep %>%
       select_if(is.numeric) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 6
@@ -237,7 +237,7 @@ tilde to ensure that you still pass a function to `select_if`.
 
     msleep %>%
       select_if(~!is.numeric(.)) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 5
@@ -321,7 +321,7 @@ order in which you select them will determine the final order.
 
     msleep %>%
       select(conservation, sleep_total, name) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 3
@@ -336,7 +336,7 @@ save a lot of typing.
 
     msleep %>%
       select(conservation, sleep_total, everything()) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 11
@@ -368,7 +368,7 @@ the `select` function.
 
     msleep %>%
       select(animal = name, sleep_total, extinction_threat = conservation) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 3
@@ -382,7 +382,7 @@ statement, you can rename by adding a `rename()` statement.
 
     msleep %>% 
       rename(animal = name, extinction_threat = conservation) %>%
-      glimpse
+      glimpse()
 
     ## Observations: 83
     ## Variables: 11
@@ -463,7 +463,7 @@ Some dataframes have rownames that are not actually a column in itself,
 like the mtcars dataset:
 
      mtcars %>%
-       head
+       head()
 
     ##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
     ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -480,7 +480,7 @@ If you want this column to be an actual column, you can use the
 
      mtcars %>%
        rownames_to_column("car_model") %>%
-       head
+       head()
 
     ##           car_model  mpg cyl disp  hp drat    wt  qsec vs am gear carb
     ## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4

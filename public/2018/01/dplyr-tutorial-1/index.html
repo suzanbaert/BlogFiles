@@ -295,7 +295,7 @@ appear in the output.</p>
 
 <pre><code>msleep %&gt;%
   select(name, genus, sleep_total, awake) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 4
@@ -314,7 +314,7 @@ straight after.</p>
 
 <pre><code>msleep %&gt;%
   select(name:order, sleep_total:sleep_cycle) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 7
@@ -332,7 +332,7 @@ front of the column name. You can also deselect chunks of columns.</p>
 
 <pre><code>msleep %&gt;% 
   select(-conservation, -(sleep_total:awake)) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 6
@@ -352,7 +352,7 @@ This only works if you re-add it in the same <code>select()</code> statement.</p
 
 <pre><code>msleep %&gt;%
   select(-(name:awake), conservation) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 3
@@ -372,7 +372,7 @@ columns.</p>
 
 <pre><code>msleep %&gt;%
   select(name, starts_with(&quot;sleep&quot;)) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 4
@@ -386,7 +386,7 @@ columns.</p>
 
 <pre><code>msleep %&gt;%
   select(contains(&quot;eep&quot;), ends_with(&quot;wt&quot;)) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 5
@@ -410,7 +410,7 @@ followed by one or more other letters, and &ldquo;er&rdquo;.</p>
 <pre><code>#selecting based on regex
 msleep %&gt;%
   select(matches(&quot;o.+er&quot;)) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 2
@@ -431,7 +431,7 @@ If you have data columns, you can load the <code>lubridate</code> package, and u
 
 <pre><code>msleep %&gt;%
   select_if(is.numeric) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 6
@@ -448,7 +448,7 @@ tilde to ensure that you still pass a function to <code>select_if</code>.</p>
 
 <pre><code>msleep %&gt;%
   select_if(~!is.numeric(.)) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 5
@@ -532,7 +532,7 @@ order in which you select them will determine the final order.</p>
 
 <pre><code>msleep %&gt;%
   select(conservation, sleep_total, name) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 3
@@ -547,7 +547,7 @@ save a lot of typing.</p>
 
 <pre><code>msleep %&gt;%
   select(conservation, sleep_total, everything()) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 11
@@ -577,7 +577,7 @@ the <code>select</code> function.</p>
 
 <pre><code>msleep %&gt;%
   select(animal = name, sleep_total, extinction_threat = conservation) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 3
@@ -591,7 +591,7 @@ statement, you can rename by adding a <code>rename()</code> statement.</p>
 
 <pre><code>msleep %&gt;% 
   rename(animal = name, extinction_threat = conservation) %&gt;%
-  glimpse
+  glimpse()
 
 ## Observations: 83
 ## Variables: 11
@@ -672,7 +672,7 @@ msleep2 %&gt;%
 like the mtcars dataset:</p>
 
 <pre><code> mtcars %&gt;%
-   head
+   head()
 
 ##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -690,7 +690,7 @@ like the mtcars dataset:</p>
 
 <pre><code> mtcars %&gt;%
    rownames_to_column(&quot;car_model&quot;) %&gt;%
-   head
+   head()
 
 ##           car_model  mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
