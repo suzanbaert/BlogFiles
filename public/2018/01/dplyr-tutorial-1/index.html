@@ -1,0 +1,1119 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.">
+    <meta property="og:description" content="I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Data Wrangling Part 1: Basic to Advanced Ways to Select Columns">
+    <meta property="og:url" content="/2018/01/dplyr-tutorial-1/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Data Wrangling Part 1: Basic to Advanced Ways to Select Columns
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-01-31T00:00:00Z">
+        
+  January 31, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/tutorial">Tutorial</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p>I went through the entire dplyr documentation for a talk last week about
+pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
+re-discovered a few useful functions, which I wanted to collect in a few
+blog posts so I can share them with others.</p>
+
+<p>This first post will cover <strong>ordering, naming and selecting columns</strong>. The
+next post will be about recoding and transforming columns, and after
+that I will move on to row selection. I changed dataset versus the talk
+last week to one that is built-in to R so code can be copy pasted and
+experimented with easily.</p>
+
+<p><strong>Content:</strong></p>
+
+<ul>
+<li><a href="#selecting-columns"><strong>Selecting columns</strong></a>
+
+<ul>
+<li><a href="#selecting-columns-the-basics"><strong>Selecting columns: the
+basics</strong></a></li>
+<li><a href="#selecting-columns-based-on-partial-column-names"><strong>Selecting columns based on partial column
+names</strong></a></li>
+<li><a href="#selecting-columns-based-on-regex"><strong>Selecting columns based on
+regex</strong></a></li>
+<li><a href="#selecting-columns-by-their-data-type"><strong>Selecting columns by their data
+type</strong></a></li>
+<li><a href="#selecting-columns-by-logical-expressions"><strong>Selecting columns by logical
+expressions</strong></a></li>
+</ul></li>
+<li><a href="#re-ordering-columns"><strong>Re-ordering columns</strong></a></li>
+<li><a href="#column-names"><strong>Column names</strong></a>
+
+<ul>
+<li><a href="#renaming-columns"><strong>Renaming columns</strong></a></li>
+<li><a href="#reformatting-all-column-names"><strong>Reformatting all column
+names</strong></a></li>
+<li><a href="#row-names-to-column"><strong>Row names to column</strong></a></li>
+</ul></li>
+</ul>
+
+<p>To note: All code will be presented as part of pipe even though hardly any
+of them are a full pipe. I did add <code>glimpse()</code> statement to allow you to
+see the columns selected in the output tibble without printing all the
+data every time.</p>
+
+<p><strong>The dataset</strong></p>
+
+<pre><code>library(tidyverse)
+
+#built-in R dataset 
+glimpse(msleep)
+
+## Observations: 83
+## Variables: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.38...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9,...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+</code></pre>
+
+<p><br></p>
+
+<hr />
+
+<h1 id="selecting-columns"><strong>Selecting columns</strong></h1>
+
+<h2 id="selecting-columns-the-basics"><strong>Selecting columns: the basics</strong></h2>
+
+<p>To select a few columns just add their names in the select statement.
+The order in which you add them, will determine the order in which they
+appear in the output.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, genus, sleep_total, awake) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 4
+## $ name        &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Great...
+## $ genus       &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bos...
+## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
+## $ awake       &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, ...
+</code></pre>
+
+<p>If you want to add a lot of columns, it can save you some typing to have
+a good look at your data and see whether you can&rsquo;t get to your selection
+by using chunks, deselecting or even deselect a column and re-add it
+straight after.</p>
+
+<p>To add a chunk of columns use the <code>start_col:end_col</code> syntax:</p>
+
+<pre><code>msleep %&gt;%
+  select(name:order, sleep_total:sleep_cycle) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 7
+## $ name        &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Great...
+## $ genus       &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bos...
+## $ vore        &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi&quot;...
+## $ order       &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorpha...
+## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
+## $ sleep_rem   &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6...
+## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
+</code></pre>
+
+<p>An alternative is to <strong>deselect columns</strong> by adding a minus sign in
+front of the column name. You can also deselect chunks of columns.</p>
+
+<pre><code>msleep %&gt;% 
+  select(-conservation, -(sleep_total:awake)) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 6
+## $ name    &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Greater s...
+## $ genus   &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bos&quot;, &quot;...
+## $ vore    &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi&quot;, &quot;c...
+## $ order   &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorpha&quot;, &quot;...
+## $ brainwt &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000...
+## $ bodywt  &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0...
+</code></pre>
+
+<p>It&rsquo;s even possible to deselect a whole chunk, and then re-add a column
+again.<br />
+The below sample code deselects the whole chunk from ID to pledged, but
+re-adds the &lsquo;name&rsquo;, even though it was part of the deselected chunk.
+This only works if you re-add it in the same <code>select()</code> statement.</p>
+
+<pre><code>msleep %&gt;%
+  select(-(name:awake), conservation) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 3
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="selecting-columns-based-on-partial-column-names"><strong>Selecting columns based on partial column names</strong></h2>
+
+<p>If you have a lot of columns with a similar structure you can use
+partial matching by adding <code>starts_with()</code>, <code>ends_with()</code> or
+<code>contains()</code> in your select statement depending on how you want to match
+columns.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, starts_with(&quot;sleep&quot;)) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 4
+## $ name        &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Great...
+## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
+## $ sleep_rem   &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6...
+## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
+</code></pre>
+
+<p>or</p>
+
+<pre><code>msleep %&gt;%
+  select(contains(&quot;eep&quot;), ends_with(&quot;wt&quot;)) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 5
+## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
+## $ sleep_rem   &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6...
+## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
+## $ brainwt     &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.0...
+## $ bodywt      &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.49...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="selecting-columns-based-on-regex"><strong>Selecting columns based on regex</strong></h2>
+
+<p>The previous helper functions work with exact pattern matches. If you
+have similar patterns that are not entirely the same you can use any
+regular expression inside <code>matches()</code>.<br />
+The below example code will add any column that contains an &lsquo;o&rsquo;,
+followed by one or more other letters, and &ldquo;er&rdquo;.</p>
+
+<pre><code>#selecting based on regex
+msleep %&gt;%
+  select(matches(&quot;o.+er&quot;)) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 2
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="selecting-columns-by-their-data-type"><strong>Selecting columns by their data type</strong></h2>
+
+<p>The <code>select_if</code> function allows you to pass functions which return
+logical statements. For instance you can select all the string columns
+by using <code>select_if(is.character)</code>. Similarly, you can add <code>is.numeric</code>,
+<code>is.integer</code>, <code>is.double</code>, <code>is.logical</code>, <code>is.factor</code>.<br />
+If you have data columns, you can load the <code>lubridate</code> package, and use
+<code>is.POSIXt</code> or <code>is.Date</code>.</p>
+
+<pre><code>msleep %&gt;%
+  select_if(is.numeric) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 6
+## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
+## $ sleep_rem   &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6...
+## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
+## $ awake       &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, ...
+## $ brainwt     &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.0...
+## $ bodywt      &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.49...
+</code></pre>
+
+<p>You can also select the negation but in this case you will need to add a
+tilde to ensure that you still pass a function to <code>select_if</code>.</p>
+
+<pre><code>msleep %&gt;%
+  select_if(~!is.numeric(.)) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 5
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="selecting-columns-by-logical-expressions"><strong>Selecting columns by logical expressions</strong></h2>
+
+<p>In fact, <code>select_if</code> allows you to select based on any logical function,
+not just based on data type. It is possible to select all columns which
+average is above 500 for instance. To avoid errors you do have to also
+select numeric columns only, which you can do either upfront for easier
+syntax, or in the same line.<br />
+Similarly <code>mean &gt; 500</code> is not a function in itself, so you will need to
+add a tilde upfront to turn the statement into a function.</p>
+
+<pre><code>msleep %&gt;%
+  select_if(is.numeric) %&gt;%
+  select_if(~mean(., na.rm=TRUE) &gt; 10)
+</code></pre>
+
+<p>or shorter:</p>
+
+<pre><code>msleep %&gt;%
+  select_if(~is.numeric(.) &amp; mean(., na.rm=TRUE) &gt; 10)
+
+## # A tibble: 83 x 3
+##    sleep_total awake   bodywt
+##          &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1       12.1  11.9   50.0   
+##  2       17.0   7.00   0.480 
+##  3       14.4   9.60   1.35  
+##  4       14.9   9.10   0.0190
+##  5        4.00 20.0  600     
+##  6       14.4   9.60   3.85  
+##  7        8.70 15.3   20.5   
+##  8        7.00 17.0    0.0450
+##  9       10.1  13.9   14.0   
+## 10        3.00 21.0   14.8   
+## # ... with 73 more rows
+</code></pre>
+
+<p>One of the useful functions for <code>select_if</code> is <code>n_distinct()</code>, which
+counts the amount of distinct values that can be found in a column.<br />
+To return the columns that have less than 20 distinct answers for
+instance you pass <code>~n_distinct(.) &lt; 20</code> within the select_if statement.
+Given that <code>n_distinct(.) &lt; 20</code> is not a function, you will need to put
+a tilde in front.</p>
+
+<pre><code>msleep %&gt;%
+  select_if(~n_distinct(.) &lt; 10)
+
+## # A tibble: 83 x 2
+##    vore  conservation
+##    &lt;chr&gt; &lt;chr&gt;       
+##  1 carni lc          
+##  2 omni  &lt;NA&gt;        
+##  3 herbi nt          
+##  4 omni  lc          
+##  5 herbi domesticated
+##  6 herbi &lt;NA&gt;        
+##  7 carni vu          
+##  8 &lt;NA&gt;  &lt;NA&gt;        
+##  9 carni domesticated
+## 10 herbi lc          
+## # ... with 73 more rows
+</code></pre>
+
+<hr />
+
+<h1 id="re-ordering-columns"><strong>Re-ordering columns</strong></h1>
+
+<p>You can use the <code>select()</code> function (see below) to re-order columns. The
+order in which you select them will determine the final order.</p>
+
+<pre><code>msleep %&gt;%
+  select(conservation, sleep_total, name) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 3
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+</code></pre>
+
+<p>If you are just moving a few columns to the front, you can use
+<code>everything()</code> afterwards which will add all the remaining columns and
+save a lot of typing.</p>
+
+<pre><code>msleep %&gt;%
+  select(conservation, sleep_total, everything()) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 11
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.38...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9,...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+</code></pre>
+
+<hr />
+
+<h1 id="column-names"><strong>Column names</strong></h1>
+
+<p>Sometimes changes are necessary to column names in itself:</p>
+
+<h2 id="renaming-columns"><strong>Renaming columns</strong></h2>
+
+<p>If you will be using a <code>select()</code> statement, you can rename straight in
+the <code>select</code> function.</p>
+
+<pre><code>msleep %&gt;%
+  select(animal = name, sleep_total, extinction_threat = conservation) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 3
+## $ animal            &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, ...
+## $ sleep_total       &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0,...
+## $ extinction_threat &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;v...
+</code></pre>
+
+<p>If you want to retain all columns and therefore have no <code>select()</code>
+statement, you can rename by adding a <code>rename()</code> statement.</p>
+
+<pre><code>msleep %&gt;% 
+  rename(animal = name, extinction_threat = conservation) %&gt;%
+  glimpse
+
+## Observations: 83
+## Variables: 11
+## $ animal            &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, ...
+## $ genus             &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;...
+## $ vore              &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;...
+## $ order             &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Sorico...
+## $ extinction_threat &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;v...
+## $ sleep_total       &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0,...
+## $ sleep_rem         &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, N...
+## $ sleep_cycle       &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667,...
+## $ awake             &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, ...
+## $ brainwt           &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, N...
+## $ bodywt            &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850,...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="reformatting-all-column-names"><strong>Reformatting all column names</strong></h2>
+
+<p>The <code>select_all()</code> function allows changes to all columns, and takes a
+function as an argument.</p>
+
+<p>To get all column names in uppercase, you can use <code>toupper()</code>, similarly
+you could use <code>tolower()</code>.</p>
+
+<pre><code>msleep %&gt;%
+  select_all(toupper)
+
+## # A tibble: 83 x 11
+##    NAME     GENUS  VORE  ORDER  CONSE~ SLEEP~ SLEEP~ SLEEP~ AWAKE  BRAINWT
+##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Cheetah  Acino~ carni Carni~ lc      12.1  NA     NA     11.9  NA      
+##  2 Owl mon~ Aotus  omni  Prima~ &lt;NA&gt;    17.0   1.80  NA      7.00  1.55e-2
+##  3 Mountai~ Aplod~ herbi Roden~ nt      14.4   2.40  NA      9.60 NA      
+##  4 Greater~ Blari~ omni  Soric~ lc      14.9   2.30   0.133  9.10  2.90e-4
+##  5 Cow      Bos    herbi Artio~ domes~   4.00  0.700  0.667 20.0   4.23e-1
+##  6 Three-t~ Brady~ herbi Pilosa &lt;NA&gt;    14.4   2.20   0.767  9.60 NA      
+##  7 Norther~ Callo~ carni Carni~ vu       8.70  1.40   0.383 15.3  NA      
+##  8 Vesper ~ Calom~ &lt;NA&gt;  Roden~ &lt;NA&gt;     7.00 NA     NA     17.0  NA      
+##  9 Dog      Canis  carni Carni~ domes~  10.1   2.90   0.333 13.9   7.00e-2
+## 10 Roe deer Capre~ herbi Artio~ lc       3.00 NA     NA     21.0   9.82e-2
+## # ... with 73 more rows, and 1 more variable: BODYWT &lt;dbl&gt;
+</code></pre>
+
+<p>You can go further than that by creating functions on the fly: if you
+have messy column names coming from excel for instance you can replace
+all white spaces with an underscore.</p>
+
+<pre><code>#making an unclean database:
+msleep2 &lt;- select(msleep, name, sleep_total, brainwt)
+colnames(msleep2) &lt;- c(&quot;name&quot;, &quot;sleep total&quot;, &quot;brain weight&quot;)
+
+msleep2 %&gt;%
+  select_all(~str_replace(., &quot; &quot;, &quot;_&quot;))
+
+## # A tibble: 83 x 3
+##    name                       sleep_total brain_weight
+##    &lt;chr&gt;                            &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Cheetah                          12.1     NA       
+##  2 Owl monkey                       17.0      0.0155  
+##  3 Mountain beaver                  14.4     NA       
+##  4 Greater short-tailed shrew       14.9      0.000290
+##  5 Cow                               4.00     0.423   
+##  6 Three-toed sloth                 14.4     NA       
+##  7 Northern fur seal                 8.70    NA       
+##  8 Vesper mouse                      7.00    NA       
+##  9 Dog                              10.1      0.0700  
+## 10 Roe deer                          3.00     0.0982  
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="row-names-to-column"><strong>Row names to column</strong></h2>
+
+<p>Some dataframes have rownames that are not actually a column in itself,
+like the mtcars dataset:</p>
+
+<pre><code> mtcars %&gt;%
+   head
+
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+<p><br></p>
+
+<p>If you want this column to be an actual column, you can use the
+<code>rownames_to_column()</code> function, and specify a new column name.</p>
+
+<pre><code> mtcars %&gt;%
+   rownames_to_column(&quot;car_model&quot;) %&gt;%
+   head
+
+##           car_model  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">Dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/postmortemplaylist/" data-tooltip="The Postmortem Airtime Effect">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/postmortemplaylist/" data-tooltip="The Postmortem Airtime Effect">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/dplyr-tutorial-1/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F01%2Fdplyr-tutorial-1%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F01%2Fdplyr-tutorial-1%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F01%2Fdplyr-tutorial-1%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/dplyr-tutorial-1/">
+                <h3 class="media-heading">Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         5 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/01\/dplyr-tutorial-1\/';
+          
+            this.page.identifier = '\/2018\/01\/dplyr-tutorial-1\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+

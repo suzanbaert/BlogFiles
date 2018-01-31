@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dplyr on Suzan</title>
+    <link>/tags/dplyr/</link>
+    <description>Recent content in Dplyr on Suzan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 31 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dplyr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</title>
+      <link>/2018/01/dplyr-tutorial-1/</link>
+      <pubDate>Wed, 31 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/dplyr-tutorial-1/</guid>
+      <description>I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &amp;ldquo;aha!&amp;rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</description>
+    </item>
+    
+  </channel>
+</rss>
