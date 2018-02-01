@@ -136,8 +136,8 @@ front of the column name. You can also deselect chunks of columns.
 
 It's even possible to deselect a whole chunk, and then re-add a column
 again.  
-The below sample code deselects the whole chunk from ID to pledged, but
-re-adds the 'name', even though it was part of the deselected chunk.
+The below sample code deselects the whole chunk from 'name' to 'awake', but
+re-adds the 'conservation', even though it was part of the deselected chunk.
 This only works if you re-add it in the same `select()` statement.
 
     msleep %>%
