@@ -361,6 +361,33 @@ This only works if you re-add it in the same <code>select()</code> statement.</p
 ## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
 </code></pre>
 
+<p>There is another option which avoids the continuous retyping of columns
+names: <code>one_of()</code>. You can set up column names upfront, and then refer
+to them inside a <code>select()</code> statement.</p>
+
+<pre><code>classification_info &lt;- c(&quot;name&quot;, &quot;genus&quot;, &quot;vore&quot;, &quot;order&quot;, &quot;conservation&quot;)
+sleep_cols &lt;- c(&quot;sleep_total&quot;, &quot;sleep_rem&quot;, &quot;sleep_cycle&quot;)
+weight_cols &lt;- c(&quot;brainwt&quot;, &quot;bodywt&quot;)
+
+msleep %&gt;%
+  select(one_of(sleep_cols))
+
+## # A tibble: 83 x 3
+##    sleep_total sleep_rem sleep_cycle
+##          &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1       12.1     NA          NA    
+##  2       17.0      1.80       NA    
+##  3       14.4      2.40       NA    
+##  4       14.9      2.30        0.133
+##  5        4.00     0.700       0.667
+##  6       14.4      2.20        0.767
+##  7        8.70     1.40        0.383
+##  8        7.00    NA          NA    
+##  9       10.1      2.90        0.333
+## 10        3.00    NA          NA    
+## # ... with 73 more rows
+</code></pre>
+
 <p><br></p>
 
 <h2 id="selecting-columns-based-on-partial-column-names"><strong>Selecting columns based on partial column names</strong></h2>

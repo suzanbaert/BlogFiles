@@ -150,6 +150,33 @@ This only works if you re-add it in the same `select()` statement.
     ## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
     ## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", N...
 
+
+There is another option which avoids the continuous retyping of columns
+names: `one_of()`. You can set up column names upfront, and then refer
+to them inside a `select()` statement.
+
+    classification_info <- c("name", "genus", "vore", "order", "conservation")
+    sleep_cols <- c("sleep_total", "sleep_rem", "sleep_cycle")
+    weight_cols <- c("brainwt", "bodywt")
+
+    msleep %>%
+      select(one_of(sleep_cols))
+
+    ## # A tibble: 83 x 3
+    ##    sleep_total sleep_rem sleep_cycle
+    ##          <dbl>     <dbl>       <dbl>
+    ##  1       12.1     NA          NA    
+    ##  2       17.0      1.80       NA    
+    ##  3       14.4      2.40       NA    
+    ##  4       14.9      2.30        0.133
+    ##  5        4.00     0.700       0.667
+    ##  6       14.4      2.20        0.767
+    ##  7        8.70     1.40        0.383
+    ##  8        7.00    NA          NA    
+    ##  9       10.1      2.90        0.333
+    ## 10        3.00    NA          NA    
+    ## # ... with 73 more rows
+
 <br>
 
 **Selecting columns based on partial column names**
