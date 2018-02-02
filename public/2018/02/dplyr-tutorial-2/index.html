@@ -1,0 +1,1392 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Data Wrangling Part 2: Transforming your columns into the right shape</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+    <meta property="og:description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Data Wrangling Part 2: Transforming your columns into the right shape">
+    <meta property="og:url" content="/2018/02/dplyr-tutorial-2/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Data Wrangling Part 2: Transforming your columns into the right shape
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-02-02T00:00:00Z">
+        
+  February 2, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/tutorial">Tutorial</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p>This is a second post in a series of dplyr functions. The first one
+covered basic and advanced ways to select, rename and reorder
+columns,and can be found here: <a href="https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/">Data Wrangling Part 1</a></p>
+
+<p>This second one covers tools to manipulate your columns to get them the
+way you want them.</p>
+
+<ul>
+<li><a href="#mutating-columns-the-basics"><strong>Mutating columns: the basics</strong></a></li>
+<li><a href="#mutating-several-columns-at-once"><strong>Mutating several columns at
+once</strong></a>
+
+<ul>
+<li><strong>Mutate_all</strong></li>
+<li><strong>Mutate_if</strong></li>
+<li><strong>Mutate_at</strong></li>
+</ul></li>
+<li><a href="#working-with-discrete-columns"><strong>Working with discrete columns</strong></a>
+
+<ul>
+<li><a href="#recoding-discrete-columns"><strong>Recoding discrete columns</strong></a></li>
+<li><a href="#creating-new-discrete-column-two-levels"><strong>Creating new discrete column (two
+levels)</strong></a></li>
+<li><a href="#creating-new-discrete-column-multiple-levels"><strong>Creating new discrete column (multiple
+levels)</strong></a></li>
+</ul></li>
+<li><a href="#splitting-and-merging-columns"><strong>Splitting and merging columns</strong></a></li>
+<li><a href="#bringing-in-columns-from-other-data-tables"><strong>Bringing in columns from other data
+tables</strong></a></li>
+<li><a href="#spreading-and-gathering-data"><strong>Spreading and gathering data</strong></a></li>
+<li><a href="#turning-data-into-na"><strong>Turning data into NA</strong></a></li>
+</ul>
+
+<p><br></p>
+
+<p><strong>The data</strong><br />
+As per previous blog posts, many of these functions truly shine when you
+have a lot of columns, but to make it easy on people to copy paste code
+and experiment, I&rsquo;m using a built-in dataset:</p>
+
+<pre><code>library(tidyverse)
+
+glimpse(msleep)
+
+## Observations: 83
+## Variables: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.38...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9,...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="mutating-columns-the-basics"><strong>Mutating columns: the basics</strong></h2>
+
+<p>You can make new columns with the <code>mutate()</code> function. The options
+inside mutate are almost endless: pretty much anything that you can do
+to normal vectors, can be done inside a <code>mutate()</code> function.<br />
+Anything inside <code>mutate</code> can either be a new column (by giving mutate a
+new column name), or can replace the current column (by keeping the same
+column name).</p>
+
+<p>One of the simplest options is a calculation based on values in other
+columns. In the sample code, we&rsquo;re changing the sleep data from data
+measured in hours to minutes.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, sleep_total) %&gt;%
+  mutate(sleep_total_min = sleep_total * 60)
+
+## # A tibble: 83 x 3
+##    name                       sleep_total sleep_total_min
+##    &lt;chr&gt;                            &lt;dbl&gt;           &lt;dbl&gt;
+##  1 Cheetah                          12.1              726
+##  2 Owl monkey                       17.0             1020
+##  3 Mountain beaver                  14.4              864
+##  4 Greater short-tailed shrew       14.9              894
+##  5 Cow                               4.00             240
+##  6 Three-toed sloth                 14.4              864
+##  7 Northern fur seal                 8.70             522
+##  8 Vesper mouse                      7.00             420
+##  9 Dog                              10.1              606
+## 10 Roe deer                          3.00             180
+## # ... with 73 more rows
+</code></pre>
+
+<p>New columns can be made with aggregate functions such as average,
+median, max, min, sd, &hellip;<br />
+The sample code makes two new columns: one showing the difference of
+each row versus the average sleep time, and one showing the difference
+versus the animal with the least sleep.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, sleep_total) %&gt;%
+  mutate(sleep_total_vs_AVG = sleep_total - round(mean(sleep_total), 1),
+         sleep_total_vs_MIN = sleep_total - min(sleep_total))
+
+## # A tibble: 83 x 4
+##    name                       sleep_total sleep_total_vs_AVG sleep_total_~
+##    &lt;chr&gt;                            &lt;dbl&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Cheetah                          12.1               1.70          10.2 
+##  2 Owl monkey                       17.0               6.60          15.1 
+##  3 Mountain beaver                  14.4               4.00          12.5 
+##  4 Greater short-tailed shrew       14.9               4.50          13.0 
+##  5 Cow                               4.00             -6.40           2.10
+##  6 Three-toed sloth                 14.4               4.00          12.5 
+##  7 Northern fur seal                 8.70             -1.70           6.80
+##  8 Vesper mouse                      7.00             -3.40           5.10
+##  9 Dog                              10.1              -0.300          8.20
+## 10 Roe deer                          3.00             -7.40           1.10
+## # ... with 73 more rows
+</code></pre>
+
+<p>The <code>ifelse()</code> function deserves a special mention because it is
+particularly useful if you don&rsquo;t want to mutate the whole column in the
+same way. With <code>ifelse()</code>, you first specify a logical statement,
+afterwards what needs to happen if the statement returns <code>TRUE</code>, and
+lastly what needs to happen if it&rsquo;s <code>FALSE</code>.</p>
+
+<p>Imagine that we have a database with two large values which we assume
+are typos or measurement errors, and we want to exclude them. The below
+code will take any <code>brainwt</code> value above 4 and return NA. In this case,
+the code won&rsquo;t change for anything below 4.</p>
+
+<pre><code>msleep %&gt;%
+  mutate(brainwt2 = ifelse(brainwt &gt; 4, NA, brainwt)) %&gt;%
+  select(starts_with(&quot;brain&quot;)) %&gt;%
+  arrange(desc(brainwt))
+
+## # A tibble: 83 x 2
+##    brainwt brainwt2
+##      &lt;dbl&gt;    &lt;dbl&gt;
+##  1   5.71    NA    
+##  2   4.60    NA    
+##  3   1.32     1.32 
+##  4   0.655    0.655
+##  5   0.440    0.440
+##  6   0.423    0.423
+##  7   0.419    0.419
+##  8   0.325    0.325
+##  9   0.180    0.180
+## 10   0.180    0.180
+## # ... with 73 more rows
+</code></pre>
+
+<p>You can also mutate string columns with stringr&rsquo;s <code>str_extract()</code>
+function in combination with any character or regex patterns.<br />
+The sample code will return the last word of the animal name and makes
+it lower case.</p>
+
+<pre><code>msleep %&gt;%
+  mutate(name_last_word = tolower(str_extract(name, pattern = &quot;\\w+$&quot;))) %&gt;%
+  select(name, name_last_word)
+
+## # A tibble: 83 x 2
+##    name                       name_last_word
+##    &lt;chr&gt;                      &lt;chr&gt;         
+##  1 Cheetah                    cheetah       
+##  2 Owl monkey                 monkey        
+##  3 Mountain beaver            beaver        
+##  4 Greater short-tailed shrew shrew         
+##  5 Cow                        cow           
+##  6 Three-toed sloth           sloth         
+##  7 Northern fur seal          seal          
+##  8 Vesper mouse               mouse         
+##  9 Dog                        dog           
+## 10 Roe deer                   deer          
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="mutating-several-columns-at-once"><strong>Mutating several columns at once</strong></h2>
+
+<p>This is where the magic really happens. Just like with the <code>select()</code>
+functions in part 1, there are variants to <code>mutate()</code>: <code>mutate_all()</code>,
+<code>mutate_if()</code>, <code>mutate_at()</code>.</p>
+
+<h3 id="mutate-all"><strong>Mutate_all</strong></h3>
+
+<p>The <code>mutate_all()</code> version is the easiest to understand, and pretty
+nifty when cleaning your data.<br />
+Something easy to start with: turning all the data to lower case:</p>
+
+<pre><code>msleep %&gt;%
+  mutate_all(tolower)
+
+## # A tibble: 83 x 11
+##    name     genus  vore  order  conse~ slee~ slee~ slee~ awake brai~ body~
+##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 cheetah  acino~ carni carni~ lc     12.1  &lt;NA&gt;  &lt;NA&gt;  11.9  &lt;NA&gt;  50   
+##  2 owl mon~ aotus  omni  prima~ &lt;NA&gt;   17    1.8   &lt;NA&gt;  7     0.01~ 0.48 
+##  3 mountai~ aplod~ herbi roden~ nt     14.4  2.4   &lt;NA&gt;  9.6   &lt;NA&gt;  1.35 
+##  4 greater~ blari~ omni  soric~ lc     14.9  2.3   0.13~ 9.1   0.00~ 0.019
+##  5 cow      bos    herbi artio~ domes~ 4     0.7   0.66~ 20    0.423 600  
+##  6 three-t~ brady~ herbi pilosa &lt;NA&gt;   14.4  2.2   0.76~ 9.6   &lt;NA&gt;  3.85 
+##  7 norther~ callo~ carni carni~ vu     8.7   1.4   0.38~ 15.3  &lt;NA&gt;  20.49
+##  8 vesper ~ calom~ &lt;NA&gt;  roden~ &lt;NA&gt;   7     &lt;NA&gt;  &lt;NA&gt;  17    &lt;NA&gt;  0.045
+##  9 dog      canis  carni carni~ domes~ 10.1  2.9   0.33~ 13.9  0.07  14   
+## 10 roe deer capre~ herbi artio~ lc     3     &lt;NA&gt;  &lt;NA&gt;  21    0.09~ 14.8 
+## # ... with 73 more rows
+</code></pre>
+
+<p>But I&rsquo;ve also used it to trim whitespaces into an entire table without
+issues using: <code>mutate_all(str_trim)</code>.<br />
+Or when scraping the web, I&rsquo;ve often had plenty off empty spaces and
+many <code>\n</code> signs across the data.</p>
+
+<p>I&rsquo;m first going to use <code>mutate_all()</code> to screw things up:</p>
+
+<pre><code>msleep_ohno &lt;- msleep %&gt;%
+  mutate_all(~paste(., &quot;  /n  &quot;))
+
+msleep_ohno[,1:4]
+
+## # A tibble: 83 x 4
+##    name                                genus                vore    order 
+##    &lt;chr&gt;                               &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt; 
+##  1 &quot;Cheetah   /n  &quot;                    &quot;Acinonyx   /n  &quot;    &quot;carni~ &quot;Carn~
+##  2 &quot;Owl monkey   /n  &quot;                 &quot;Aotus   /n  &quot;       &quot;omni ~ &quot;Prim~
+##  3 &quot;Mountain beaver   /n  &quot;            &quot;Aplodontia   /n  &quot;  &quot;herbi~ &quot;Rode~
+##  4 &quot;Greater short-tailed shrew   /n  &quot; &quot;Blarina   /n  &quot;     &quot;omni ~ &quot;Sori~
+##  5 &quot;Cow   /n  &quot;                        &quot;Bos   /n  &quot;         &quot;herbi~ &quot;Arti~
+##  6 &quot;Three-toed sloth   /n  &quot;           &quot;Bradypus   /n  &quot;    &quot;herbi~ &quot;Pilo~
+##  7 &quot;Northern fur seal   /n  &quot;          &quot;Callorhinus   /n  &quot; &quot;carni~ &quot;Carn~
+##  8 &quot;Vesper mouse   /n  &quot;               &quot;Calomys   /n  &quot;     &quot;NA   ~ &quot;Rode~
+##  9 &quot;Dog   /n  &quot;                        &quot;Canis   /n  &quot;       &quot;carni~ &quot;Carn~
+## 10 &quot;Roe deer   /n  &quot;                   &quot;Capreolus   /n  &quot;   &quot;herbi~ &quot;Arti~
+## # ... with 73 more rows
+</code></pre>
+
+<p>Let&rsquo;s clean it up again:<br />
+In this code I am assume that not all values show the same amount of
+extra white spaces as is often the case with parsed data: it frst
+removes all extra white spaces and then removes any <code>/n</code>.</p>
+
+<pre><code>msleep_ohno %&gt;%
+  mutate_all(str_trim) %&gt;%
+  mutate_all(~str_replace_all(., &quot;/n&quot;, &quot;&quot;)) %&gt;%
+  select(1:4)
+
+## # A tibble: 83 x 4
+##    name                            genus            vore       order      
+##    &lt;chr&gt;                           &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;      
+##  1 &quot;Cheetah   &quot;                    &quot;Acinonyx   &quot;    &quot;carni   &quot; &quot;Carnivora~
+##  2 &quot;Owl monkey   &quot;                 &quot;Aotus   &quot;       &quot;omni   &quot;  &quot;Primates ~
+##  3 &quot;Mountain beaver   &quot;            &quot;Aplodontia   &quot;  &quot;herbi   &quot; &quot;Rodentia ~
+##  4 &quot;Greater short-tailed shrew   &quot; &quot;Blarina   &quot;     &quot;omni   &quot;  &quot;Soricomor~
+##  5 &quot;Cow   &quot;                        &quot;Bos   &quot;         &quot;herbi   &quot; &quot;Artiodact~
+##  6 &quot;Three-toed sloth   &quot;           &quot;Bradypus   &quot;    &quot;herbi   &quot; &quot;Pilosa   &quot;
+##  7 &quot;Northern fur seal   &quot;          &quot;Callorhinus   &quot; &quot;carni   &quot; &quot;Carnivora~
+##  8 &quot;Vesper mouse   &quot;               &quot;Calomys   &quot;     &quot;NA   &quot;    &quot;Rodentia ~
+##  9 &quot;Dog   &quot;                        &quot;Canis   &quot;       &quot;carni   &quot; &quot;Carnivora~
+## 10 &quot;Roe deer   &quot;                   &quot;Capreolus   &quot;   &quot;herbi   &quot; &quot;Artiodact~
+## # ... with 73 more rows
+</code></pre>
+
+<p>Obviously you can use any regex inside <code>mutate_all()</code> as well. The
+sample code will remove any vowels:</p>
+
+<pre><code>msleep %&gt;%
+  mutate_all(~str_replace_all(., &quot;[aeiou]&quot;, &quot;&quot;))
+
+## # A tibble: 83 x 11
+##    name    genus  vore  order  conse~ sleep~ slee~ slee~ awake brai~ body~
+##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 Chth    Acnnyx crn   Crnvr  lc     12.1   &lt;NA&gt;  &lt;NA&gt;  11.9  &lt;NA&gt;  50   
+##  2 Owl mn~ Ats    mn    Prmts  &lt;NA&gt;   17     1.8   &lt;NA&gt;  7     0.01~ 0.48 
+##  3 Mntn b~ Apldnt hrb   Rdnt   nt     14.4   2.4   &lt;NA&gt;  9.6   &lt;NA&gt;  1.35 
+##  4 Grtr s~ Blrn   mn    Srcmr~ lc     14.9   2.3   0.13~ 9.1   0.00~ 0.019
+##  5 Cw      Bs     hrb   Artdc~ dmstc~ 4      0.7   0.66~ 20    0.423 600  
+##  6 Thr-td~ Brdyps hrb   Pls    &lt;NA&gt;   14.4   2.2   0.76~ 9.6   &lt;NA&gt;  3.85 
+##  7 Nrthrn~ Cllrh~ crn   Crnvr  v      8.7    1.4   0.38~ 15.3  &lt;NA&gt;  20.49
+##  8 Vspr ms Clmys  &lt;NA&gt;  Rdnt   &lt;NA&gt;   7      &lt;NA&gt;  &lt;NA&gt;  17    &lt;NA&gt;  0.045
+##  9 Dg      Cns    crn   Crnvr  dmstc~ 10.1   2.9   0.33~ 13.9  0.07  14   
+## 10 R dr    Cprls  hrb   Artdc~ lc     3      &lt;NA&gt;  &lt;NA&gt;  21    0.09~ 14.8 
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="mutate-if"><strong>Mutate_if</strong></h3>
+
+<p>Not all cleaning functions can be done with <code>mutate_all()</code>. Trying to
+round your data will lead to an error if you have both numerical and
+character columns.</p>
+
+<pre><code>msleep %&gt;%
+  mutate_all(round)
+
+## Error in mutate_impl(.data, dots) : Evaluation error: 
+non-numeric argument to mathematical function.
+</code></pre>
+
+<p>In these cases we have to add the condition that columns need to be
+numeric before giving <code>round()</code> instructions:<br />
+To note: if you want to round to a few digits you will need to make a
+function on the fly by using a tilde: such as
+<code>mutate_if(is.numeric, ~round(. ,2))</code>.</p>
+
+<pre><code>msleep %&gt;%
+  mutate_if(is.numeric, round) %&gt;%
+  select(name, sleep_total:bodywt)
+
+## # A tibble: 83 x 7
+##    name                       sleep_total sleep~ sleep~ awake brai~ bodywt
+##    &lt;chr&gt;                            &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Cheetah                          12.0   NA     NA    12.0     NA  50.0 
+##  2 Owl monkey                       17.0    2.00  NA     7.00     0   0   
+##  3 Mountain beaver                  14.0    2.00  NA    10.0     NA   1.00
+##  4 Greater short-tailed shrew       15.0    2.00   0     9.00     0   0   
+##  5 Cow                               4.00   1.00   1.00 20.0      0 600   
+##  6 Three-toed sloth                 14.0    2.00   1.00 10.0     NA   4.00
+##  7 Northern fur seal                 9.00   1.00   0    15.0     NA  20.0 
+##  8 Vesper mouse                      7.00  NA     NA    17.0     NA   0   
+##  9 Dog                              10.0    3.00   0    14.0      0  14.0 
+## 10 Roe deer                          3.00  NA     NA    21.0      0  15.0 
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="mutate-at-to-change-specific-columns"><strong>Mutate_at to change specific columns</strong></h3>
+
+<p>All columns containing the word sleep are in hours. If I want those in
+minutes, I can use <code>mutate_at()</code>. To indicate that I want the condition
+to be based on the column name I can use <code>vars(contains(&quot;sleep&quot;))</code>.
+Inside <code>vars()</code> you can use any of the <code>select()</code>helpers.<br />
+The second argument of <code>mutate_at()</code> needs to be function, so I have to
+wrap my calculation instructions with a tilde to make a function on the
+fly.</p>
+
+<pre><code>msleep %&gt;%
+  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60)) %&gt;%
+  select(sleep_total:bodywt)
+
+## # A tibble: 83 x 6
+##    sleep_total sleep_rem sleep_cycle awake   brainwt   bodywt
+##          &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1         726      NA         NA    11.9  NA         50.0   
+##  2        1020     108         NA     7.00  0.0155     0.480 
+##  3         864     144         NA     9.60 NA          1.35  
+##  4         894     138          8.00  9.10  0.000290   0.0190
+##  5         240      42.0       40.0  20.0   0.423    600     
+##  6         864     132         46.0   9.60 NA          3.85  
+##  7         522      84.0       23.0  15.3  NA         20.5   
+##  8         420      NA         NA    17.0  NA          0.0450
+##  9         606     174         20.0  13.9   0.0700    14.0   
+## 10         180      NA         NA    21.0   0.0982    14.8   
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="working-with-discrete-columns"><strong>Working with discrete columns</strong></h2>
+
+<h3 id="recoding-discrete-columns"><strong>Recoding discrete columns</strong></h3>
+
+<p>To rename or reorganize current discrete columns, you can use <code>recode()</code>
+inside a <code>mutate()</code> statement: this enables you to change the current
+naming, or to group current levels into less levels. The <code>.default</code>
+refers to anything that isn&rsquo;t covered by the before groups with the
+exception of NA. You can change NA into something other than NA by
+adding a <code>.missing</code> argument if you want (see next sample code).</p>
+
+<pre><code>msleep %&gt;%
+  mutate(conservation2 = recode(conservation,
+                        &quot;en&quot; = &quot;Endangered&quot;,
+                        &quot;lc&quot; = &quot;Least_Concern&quot;,
+                        &quot;domesticated&quot; = &quot;Least_Concern&quot;,
+                        .default = &quot;other&quot;)) %&gt;%
+  count(conservation2)
+
+## # A tibble: 4 x 2
+##   conservation2     n
+##   &lt;chr&gt;         &lt;int&gt;
+## 1 Endangered        4
+## 2 Least_Concern    37
+## 3 other            13
+## 4 &lt;NA&gt;             29
+</code></pre>
+
+<p>A special version exists to return a factor: <code>recode_factor()</code>. By
+default the <code>.ordered</code> argument is <code>FALSE</code>. To return an ordered factor
+set the argument to <code>TRUE</code>:</p>
+
+<pre><code>msleep %&gt;%
+  mutate(conservation2 = recode_factor(conservation,
+                        &quot;en&quot; = &quot;Endangered&quot;,
+                        &quot;lc&quot; = &quot;Least_Concern&quot;,
+                        &quot;domesticated&quot; = &quot;Least_Concern&quot;,
+                        .default = &quot;other&quot;,
+                        .missing = &quot;no data&quot;,
+                        .ordered = TRUE)) %&gt;%
+  count(conservation2)
+
+## # A tibble: 4 x 2
+##   conservation2     n
+##   &lt;ord&gt;         &lt;int&gt;
+## 1 Endangered        4
+## 2 Least_Concern    37
+## 3 other            13
+## 4 no data          29
+</code></pre>
+
+<p><br></p>
+
+<h3 id="creating-new-discrete-column-two-levels"><strong>Creating new discrete column (two levels)</strong></h3>
+
+<p>The <code>ifelse()</code> statement can be used to turn a numeric column into a
+discrete one. As mentioned above, <code>ifelse()</code> takes a logical expression,
+then what to do if the expression returns <code>TRUE</code> and lastly what to do
+when it returns <code>FALSE</code>.<br />
+The sample code will divide the current measure <code>sleep_total</code> into a
+discrete &ldquo;long&rdquo; or &ldquo;short&rdquo; sleeper.</p>
+
+<pre><code>msleep %&gt;%
+  mutate(sleep_time = ifelse(sleep_total &gt; 10, &quot;long&quot;, &quot;short&quot;)) %&gt;%
+  select(name, contains(&quot;sleep&quot;))
+
+## # A tibble: 83 x 5
+##    name                       sleep_total sleep_rem sleep_cycle sleep_time
+##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
+##  1 Cheetah                          12.1     NA          NA     long      
+##  2 Owl monkey                       17.0      1.80       NA     long      
+##  3 Mountain beaver                  14.4      2.40       NA     long      
+##  4 Greater short-tailed shrew       14.9      2.30        0.133 long      
+##  5 Cow                               4.00     0.700       0.667 short     
+##  6 Three-toed sloth                 14.4      2.20        0.767 long      
+##  7 Northern fur seal                 8.70     1.40        0.383 short     
+##  8 Vesper mouse                      7.00    NA          NA     short     
+##  9 Dog                              10.1      2.90        0.333 long      
+## 10 Roe deer                          3.00    NA          NA     short     
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="creating-new-discrete-column-multiple-levels"><strong>Creating new discrete column (multiple levels)</strong></h3>
+
+<p>The <code>ifelse()</code> can be nested but if you want more than two levels, but
+it might be even easier to use <code>case_when()</code> which allows as many
+statements as you like and is easier to read than many nested <code>ifelse</code>
+statements.<br />
+The arguments are evaluated in order, so only the rows where the first
+statement is not true will continue to be evaluated for the next
+statement. For everything that is left at the end just use the
+<code>TRUE ~ &quot;newname&quot;</code>.<br />
+Unfortunately there seems to be no easy way to get <code>case_when()</code> to
+return an ordered factor, so you will need to to do that yourself
+afterwards, either by using <code>forcats::fct_relevel()</code>, or just with a
+<code>factor()</code> function. If you have a lot of levels I would advice to make
+a levels vector upfront to avoid cluttering the piple too much.</p>
+
+<pre><code>msleep %&gt;%
+  mutate(sleep_total_discr = case_when(
+    sleep_total &gt; 13 ~ &quot;very long&quot;,
+    sleep_total &gt; 10 ~ &quot;long&quot;,
+    sleep_total &gt; 7 ~ &quot;limited&quot;,
+    TRUE ~ &quot;short&quot;)) %&gt;%
+  mutate(sleep_total_discr = factor(sleep_total_discr, 
+                                    levels = c(&quot;short&quot;, &quot;limited&quot;, 
+                                               &quot;long&quot;, &quot;very long&quot;))) %&gt;%
+  count(sleep_total_discr)
+
+## # A tibble: 4 x 2
+##   sleep_total_discr     n
+##   &lt;fctr&gt;            &lt;int&gt;
+## 1 short                20
+## 2 limited              19
+## 3 long                 21
+## 4 very long            23
+</code></pre>
+
+<p>The <code>case_when()</code> function does not only work inside a column, but can
+be used for grouping across columns:</p>
+
+<pre><code>msleep %&gt;%
+  mutate(silly_groups = case_when(
+    brainwt &lt; 0.001 ~ &quot;light_headed&quot;,
+    sleep_total &gt; 10 ~ &quot;lazy_sleeper&quot;,
+    is.na(sleep_rem) ~ &quot;absent_rem&quot;,
+    TRUE ~ &quot;other&quot;)) %&gt;%
+  count(silly_groups)
+
+## # A tibble: 4 x 2
+##   silly_groups     n
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 absent_rem       8
+## 2 lazy_sleeper    39
+## 3 light_headed     6
+## 4 other           30
+</code></pre>
+
+<p><br></p>
+
+<h2 id="splitting-and-merging-columns"><strong>Splitting and merging columns</strong></h2>
+
+<p>Take for example this dataset</p>
+
+<pre><code>(conservation_expl &lt;- read_csv(&quot;conservation_explanation.csv&quot;))
+
+## Parsed with column specification:
+## cols(
+##   `conservation abbreviation` = col_character()
+## )
+
+## # A tibble: 11 x 1
+##    `conservation abbreviation`                  
+##    &lt;chr&gt;                                        
+##  1 EX = Extinct                                 
+##  2 EW = Extinct in the wild                     
+##  3 CR = Critically Endangered                   
+##  4 EN = Endangered                              
+##  5 VU = Vulnerable                              
+##  6 NT = Near Threatened                         
+##  7 LC = Least Concern                           
+##  8 DD = Data deficient                          
+##  9 NE = Not evaluated                           
+## 10 PE = Probably extinct (informal)             
+## 11 PEW = Probably extinct in the wild (informal)
+</code></pre>
+
+<p>You can unmerge any columns by using tidyr&rsquo;s <code>separate()</code> function. To
+do this, you have to specify the column to be splitted, followed by the
+new column names, and which seperator it has to look for.<br />
+The sample code shows seperating into two columns based on &lsquo;=&rsquo; as a
+separator.</p>
+
+<pre><code>(conservation_table &lt;- conservation_expl %&gt;%
+  separate(`conservation abbreviation`, 
+           into = c(&quot;abbreviation&quot;, &quot;description&quot;), sep = &quot; = &quot;))
+
+## # A tibble: 11 x 2
+##    abbreviation description                            
+##  * &lt;chr&gt;        &lt;chr&gt;                                  
+##  1 EX           Extinct                                
+##  2 EW           Extinct in the wild                    
+##  3 CR           Critically Endangered                  
+##  4 EN           Endangered                             
+##  5 VU           Vulnerable                             
+##  6 NT           Near Threatened                        
+##  7 LC           Least Concern                          
+##  8 DD           Data deficient                         
+##  9 NE           Not evaluated                          
+## 10 PE           Probably extinct (informal)            
+## 11 PEW          Probably extinct in the wild (informal)
+</code></pre>
+
+<p>The opposite is tidyr&rsquo;s <code>unite()</code> function. You specify the new column
+name, and then the columns to be united, and lastly what seperator you
+want to use.</p>
+
+<pre><code>#merging currency and goal columns
+conservation_table %&gt;%
+  unite(united_col, abbreviation, description, sep=&quot;: &quot;) %&gt;%
+  select(united_col)
+
+## # A tibble: 11 x 1
+##    united_col                                  
+##  * &lt;chr&gt;                                       
+##  1 EX: Extinct                                 
+##  2 EW: Extinct in the wild                     
+##  3 CR: Critically Endangered                   
+##  4 EN: Endangered                              
+##  5 VU: Vulnerable                              
+##  6 NT: Near Threatened                         
+##  7 LC: Least Concern                           
+##  8 DD: Data deficient                          
+##  9 NE: Not evaluated                           
+## 10 PE: Probably extinct (informal)             
+## 11 PEW: Probably extinct in the wild (informal)
+</code></pre>
+
+<p><br></p>
+
+<h2 id="bringing-in-columns-from-other-data-tables"><strong>Bringing in columns from other data tables</strong></h2>
+
+<p>If you want to add information from another table, you can use the
+joining functions from <code>dplyr</code>. The msleep data contains abbreviations
+for conservation but if you are not familiar with the topic you might
+need the description we used in the section above inside the msleep
+data.</p>
+
+<p>Joins would be a chapter in itself, but in this particular case you
+would do a <code>left_join()</code>, i.e. keeping my main table (on the left), and
+adding columns from another one to the right. In the <code>by =</code> statement
+you specify which colums are the same, so the join knows what to add
+where.<br />
+The sample code will add the description of the different conservation
+states into our main <code>msleep</code> table. The main data contained an extra
+<code>domisticated</code> label which i wanted to keep. This is done in the last
+line of the table with an <code>ifelse()</code>.</p>
+
+<pre><code>#joining column data
+msleep %&gt;%
+  select(name, conservation) %&gt;%
+  mutate(conservation = toupper(conservation)) %&gt;%
+  left_join(conservation_table, by = c(&quot;conservation&quot; = &quot;abbreviation&quot;)) %&gt;%
+  mutate(description = ifelse(is.na(description), conservation, description))
+
+## # A tibble: 83 x 3
+##    name                       conservation description    
+##    &lt;chr&gt;                      &lt;chr&gt;        &lt;chr&gt;          
+##  1 Cheetah                    LC           Least Concern  
+##  2 Owl monkey                 &lt;NA&gt;         &lt;NA&gt;           
+##  3 Mountain beaver            NT           Near Threatened
+##  4 Greater short-tailed shrew LC           Least Concern  
+##  5 Cow                        DOMESTICATED DOMESTICATED   
+##  6 Three-toed sloth           &lt;NA&gt;         &lt;NA&gt;           
+##  7 Northern fur seal          VU           Vulnerable     
+##  8 Vesper mouse               &lt;NA&gt;         &lt;NA&gt;           
+##  9 Dog                        DOMESTICATED DOMESTICATED   
+## 10 Roe deer                   LC           Least Concern  
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="spreading-and-gathering-data"><strong>Spreading and gathering data</strong></h2>
+
+<p>The <code>gather()</code> function will gather up many columns into one. In this
+case, we have 3 columns that describe a time measure. For some analysis
+and graphs, it might be necessary to get them all into one.<br />
+The <code>gather</code> function needs you to give a name (&ldquo;key&rdquo;) for the new
+descriptive column, and a another name (&ldquo;value&rdquo;) for the value column.
+The columns that you don&rsquo;t want to gather need to be deselected at the
+end. In the sample code I&rsquo;m deselecting the column <code>name</code>.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, contains(&quot;sleep&quot;)) %&gt;%
+  gather(key = &quot;sleep_measure&quot;, value = &quot;time&quot;, -name)
+
+## # A tibble: 249 x 3
+##    name                       sleep_measure  time
+##    &lt;chr&gt;                      &lt;chr&gt;         &lt;dbl&gt;
+##  1 Cheetah                    sleep_total   12.1 
+##  2 Owl monkey                 sleep_total   17.0 
+##  3 Mountain beaver            sleep_total   14.4 
+##  4 Greater short-tailed shrew sleep_total   14.9 
+##  5 Cow                        sleep_total    4.00
+##  6 Three-toed sloth           sleep_total   14.4 
+##  7 Northern fur seal          sleep_total    8.70
+##  8 Vesper mouse               sleep_total    7.00
+##  9 Dog                        sleep_total   10.1 
+## 10 Roe deer                   sleep_total    3.00
+## # ... with 239 more rows
+</code></pre>
+
+<p>A useful attribute in gathering is the <code>factor_key</code> argument which is
+<code>FALSE</code>by default. In the previous example the new column
+<code>sleep_measure</code> is a character vector. If you are going to summarise or
+plot afterwards, that column will be ordered alphabetically.<br />
+If you want to preserve the original order, add <code>factor_key = TRUE</code>
+which will make the new column an ordered factor.</p>
+
+<pre><code>(msleep_g &lt;- msleep %&gt;%
+  select(name, contains(&quot;sleep&quot;)) %&gt;%
+  gather(key = &quot;sleep_measure&quot;, value = &quot;time&quot;, -name, factor_key = TRUE))
+
+## # A tibble: 249 x 3
+##    name                       sleep_measure  time
+##    &lt;chr&gt;                      &lt;fctr&gt;        &lt;dbl&gt;
+##  1 Cheetah                    sleep_total   12.1 
+##  2 Owl monkey                 sleep_total   17.0 
+##  3 Mountain beaver            sleep_total   14.4 
+##  4 Greater short-tailed shrew sleep_total   14.9 
+##  5 Cow                        sleep_total    4.00
+##  6 Three-toed sloth           sleep_total   14.4 
+##  7 Northern fur seal          sleep_total    8.70
+##  8 Vesper mouse               sleep_total    7.00
+##  9 Dog                        sleep_total   10.1 
+## 10 Roe deer                   sleep_total    3.00
+## # ... with 239 more rows
+</code></pre>
+
+<p>The opposite of gathering is spreading. Spread will take one column and
+make multiple columns out of it. If you would have started with the
+previous column, you could get the differrent sleep measures in
+different columns:</p>
+
+<pre><code>msleep_g %&gt;%
+  spread(sleep_measure, time)
+
+## # A tibble: 83 x 4
+##    name                      sleep_total sleep_rem sleep_cycle
+##  * &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 African elephant                 3.30     NA         NA    
+##  2 African giant pouched rat        8.30      2.00      NA    
+##  3 African striped mouse            8.70     NA         NA    
+##  4 Arctic fox                      12.5      NA         NA    
+##  5 Arctic ground squirrel          16.6      NA         NA    
+##  6 Asian elephant                   3.90     NA         NA    
+##  7 Baboon                           9.40      1.00       0.667
+##  8 Big brown bat                   19.7       3.90       0.117
+##  9 Bottle-nosed dolphin             5.20     NA         NA    
+## 10 Brazilian tapir                  4.40      1.00       0.900
+## # ... with 73 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="turning-data-into-na"><strong>Turning data into NA</strong></h2>
+
+<p>The function <code>na_if()</code> turns particular values into <code>NA</code>. In most cases
+the command probably be <code>na_if(&quot;&quot;)</code> (i.e turn an empty string into NA),
+but in principle you can do anything.</p>
+
+<p>The same code will turn any value that reads &ldquo;omni&rdquo; into NA</p>
+
+<pre><code>msleep %&gt;%
+  na_if(&quot;omni&quot;)
+
+## # A tibble: 83 x 11
+##    name     genus  vore  order  conse~ sleep~ sleep~ sleep~ awake  brainwt
+##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Cheetah  Acino~ carni Carni~ lc      12.1  NA     NA     11.9  NA      
+##  2 Owl mon~ Aotus  &lt;NA&gt;  Prima~ &lt;NA&gt;    17.0   1.80  NA      7.00  1.55e-2
+##  3 Mountai~ Aplod~ herbi Roden~ nt      14.4   2.40  NA      9.60 NA      
+##  4 Greater~ Blari~ &lt;NA&gt;  Soric~ lc      14.9   2.30   0.133  9.10  2.90e-4
+##  5 Cow      Bos    herbi Artio~ domes~   4.00  0.700  0.667 20.0   4.23e-1
+##  6 Three-t~ Brady~ herbi Pilosa &lt;NA&gt;    14.4   2.20   0.767  9.60 NA      
+##  7 Norther~ Callo~ carni Carni~ vu       8.70  1.40   0.383 15.3  NA      
+##  8 Vesper ~ Calom~ &lt;NA&gt;  Roden~ &lt;NA&gt;     7.00 NA     NA     17.0  NA      
+##  9 Dog      Canis  carni Carni~ domes~  10.1   2.90   0.333 13.9   7.00e-2
+## 10 Roe deer Capre~ herbi Artio~ lc       3.00 NA     NA     21.0   9.82e-2
+## # ... with 73 more rows, and 1 more variable: bodywt &lt;dbl&gt;
+</code></pre>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">Dplyr</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/dplyr-tutorial-1/" data-tooltip="Data Wrangling Part 1: Basic to Advanced Ways to Select Columns">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/01/dplyr-tutorial-1/" data-tooltip="Data Wrangling Part 1: Basic to Advanced Ways to Select Columns">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/dplyr-tutorial-2/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F02%2Fdplyr-tutorial-2%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F02%2Fdplyr-tutorial-2%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F02%2Fdplyr-tutorial-2%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-2/">
+                <h3 class="media-heading">Data Wrangling Part 2: Transforming your columns into the right shape</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/dplyr-tutorial-1/">
+                <h3 class="media-heading">Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         6 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/02\/dplyr-tutorial-2\/';
+          
+            this.page.identifier = '\/2018\/02\/dplyr-tutorial-2\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+
