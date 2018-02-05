@@ -12,7 +12,7 @@
 # For developpers, if you modify this theme, put your images in `source/images` folder and
 # use grunt task `build` to synchronize assets
 
-baseURL = "https://suzanbaert.netlify.com/"
+baseURL = "https://suzan.rbind.io/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "Suzan"
@@ -59,24 +59,24 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   name = "About"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
   url = "/#about"
-#[[menu.main]]
-#  weight = 3
-#  identifier = "categories"
-#  name = "Categories"
-#  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
-#  url = "/categories"
+[[menu.main]]
+  weight = 3
+  identifier = "categories"
+  name = "Categories"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+  url = "/categories"
 #[[menu.main]]
 #  weight = 4
 #  identifier = "tags"
 #  name = "Tags"
 #  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-tags\"></i>"
 #  url = "/tags"
-#[[menu.main]]
-# weight = 5
-  #identifier = "archives"
-  #name = "Archives"
-  #pre = "<i class=\"sidebar-button-icon fa fa-lg fa-archive\"></i>"
-  #url = "/archives"
+[[menu.main]]
+  weight = 5
+  identifier = "archives"
+  name = "Archives"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-archive\"></i>"
+  url = "/archives"
 
 
 [[menu.links]]
