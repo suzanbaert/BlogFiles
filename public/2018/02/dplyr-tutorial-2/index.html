@@ -32,10 +32,10 @@
     
     <meta name="description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
 This second one covers tools to manipulate your columns to get them the way you want them.
- Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
     <meta property="og:description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
 This second one covers tools to manipulate your columns to get them the way you want them.
- Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Data Wrangling Part 2: Transforming your columns into the right shape">
     <meta property="og:url" content="/2018/02/dplyr-tutorial-2/">
@@ -44,7 +44,7 @@ This second one covers tools to manipulate your columns to get them the way you 
     <meta name="twitter:title" content="Suzan">
     <meta name="twitter:description" content="This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
 This second one covers tools to manipulate your columns to get them the way you want them.
- Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA">
     
     
 
@@ -253,7 +253,8 @@ once</strong></a>
 <ul>
 <li><strong>Mutate_all</strong></li>
 <li><strong>Mutate_if</strong></li>
-<li><strong>Mutate_at</strong></li>
+<li><strong>Mutate_at to change specific</strong>
+columns**](#mutate_at-to-change-specifc-columns)</li>
 </ul></li>
 <li><a href="#working-with-discrete-columns"><strong>Working with discrete columns</strong></a>
 
@@ -371,23 +372,23 @@ code will take any <code>brainwt</code> value above 4 and return NA. In this cas
 the code won&rsquo;t change for anything below 4.</p>
 
 <pre><code>msleep %&gt;%
-  select(brainwt)) %&gt;%
+  select(name, brainwt) %&gt;%
   mutate(brainwt2 = ifelse(brainwt &gt; 4, NA, brainwt)) %&gt;%
   arrange(desc(brainwt))
 
-## # A tibble: 83 x 2
-##    brainwt brainwt2
-##      &lt;dbl&gt;    &lt;dbl&gt;
-##  1   5.71    NA    
-##  2   4.60    NA    
-##  3   1.32     1.32 
-##  4   0.655    0.655
-##  5   0.440    0.440
-##  6   0.423    0.423
-##  7   0.419    0.419
-##  8   0.325    0.325
-##  9   0.180    0.180
-## 10   0.180    0.180
+## # A tibble: 83 x 3
+##    name             brainwt brainwt2
+##    &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;
+##  1 African elephant   5.71    NA    
+##  2 Asian elephant     4.60    NA    
+##  3 Human              1.32     1.32 
+##  4 Horse              0.655    0.655
+##  5 Chimpanzee         0.440    0.440
+##  6 Cow                0.423    0.423
+##  7 Donkey             0.419    0.419
+##  8 Gray seal          0.325    0.325
+##  9 Baboon             0.180    0.180
+## 10 Pig                0.180    0.180
 ## # ... with 73 more rows
 </code></pre>
 
@@ -482,24 +483,25 @@ In this code I am assume that not all values show the same amount of
 extra white spaces as is often the case with parsed data: it frst
 removes all extra white spaces and then removes any <code>/n</code>.</p>
 
-<pre><code>msleep_ohno %&gt;%
-  mutate_all(str_trim) %&gt;%
+<pre><code>msleep_corr &lt;- msleep_ohno %&gt;%
   mutate_all(~str_replace_all(., &quot;/n&quot;, &quot;&quot;)) %&gt;%
-  select(1:4)
+  mutate_all(str_trim)
+
+msleep_corr[,1:4]
 
 ## # A tibble: 83 x 4
-##    name                            genus            vore       order      
-##    &lt;chr&gt;                           &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;      
-##  1 &quot;Cheetah   &quot;                    &quot;Acinonyx   &quot;    &quot;carni   &quot; &quot;Carnivora~
-##  2 &quot;Owl monkey   &quot;                 &quot;Aotus   &quot;       &quot;omni   &quot;  &quot;Primates ~
-##  3 &quot;Mountain beaver   &quot;            &quot;Aplodontia   &quot;  &quot;herbi   &quot; &quot;Rodentia ~
-##  4 &quot;Greater short-tailed shrew   &quot; &quot;Blarina   &quot;     &quot;omni   &quot;  &quot;Soricomor~
-##  5 &quot;Cow   &quot;                        &quot;Bos   &quot;         &quot;herbi   &quot; &quot;Artiodact~
-##  6 &quot;Three-toed sloth   &quot;           &quot;Bradypus   &quot;    &quot;herbi   &quot; &quot;Pilosa   &quot;
-##  7 &quot;Northern fur seal   &quot;          &quot;Callorhinus   &quot; &quot;carni   &quot; &quot;Carnivora~
-##  8 &quot;Vesper mouse   &quot;               &quot;Calomys   &quot;     &quot;NA   &quot;    &quot;Rodentia ~
-##  9 &quot;Dog   &quot;                        &quot;Canis   &quot;       &quot;carni   &quot; &quot;Carnivora~
-## 10 &quot;Roe deer   &quot;                   &quot;Capreolus   &quot;   &quot;herbi   &quot; &quot;Artiodact~
+##    name                       genus       vore  order       
+##    &lt;chr&gt;                      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       
+##  1 Cheetah                    Acinonyx    carni Carnivora   
+##  2 Owl monkey                 Aotus       omni  Primates    
+##  3 Mountain beaver            Aplodontia  herbi Rodentia    
+##  4 Greater short-tailed shrew Blarina     omni  Soricomorpha
+##  5 Cow                        Bos         herbi Artiodactyla
+##  6 Three-toed sloth           Bradypus    herbi Pilosa      
+##  7 Northern fur seal          Callorhinus carni Carnivora   
+##  8 Vesper mouse               Calomys     NA    Rodentia    
+##  9 Dog                        Canis       carni Carnivora   
+## 10 Roe deer                   Capreolus   herbi Artiodactyla
 ## # ... with 73 more rows
 </code></pre>
 
@@ -507,25 +509,24 @@ removes all extra white spaces and then removes any <code>/n</code>.</p>
 sample code will remove any vowels:</p>
 
 <pre><code>msleep %&gt;%
+  select(name:sleep_total) %&gt;%
   mutate_all(~str_replace_all(., &quot;[aeiou]&quot;, &quot;&quot;))
 
-## # A tibble: 83 x 11
-##    name    genus  vore  order  conse~ sleep~ slee~ slee~ awake brai~ body~
-##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 Chth    Acnnyx crn   Crnvr  lc     12.1   &lt;NA&gt;  &lt;NA&gt;  11.9  &lt;NA&gt;  50   
-##  2 Owl mn~ Ats    mn    Prmts  &lt;NA&gt;   17     1.8   &lt;NA&gt;  7     0.01~ 0.48 
-##  3 Mntn b~ Apldnt hrb   Rdnt   nt     14.4   2.4   &lt;NA&gt;  9.6   &lt;NA&gt;  1.35 
-##  4 Grtr s~ Blrn   mn    Srcmr~ lc     14.9   2.3   0.13~ 9.1   0.00~ 0.019
-##  5 Cw      Bs     hrb   Artdc~ dmstc~ 4      0.7   0.66~ 20    0.423 600  
-##  6 Thr-td~ Brdyps hrb   Pls    &lt;NA&gt;   14.4   2.2   0.76~ 9.6   &lt;NA&gt;  3.85 
-##  7 Nrthrn~ Cllrh~ crn   Crnvr  v      8.7    1.4   0.38~ 15.3  &lt;NA&gt;  20.49
-##  8 Vspr ms Clmys  &lt;NA&gt;  Rdnt   &lt;NA&gt;   7      &lt;NA&gt;  &lt;NA&gt;  17    &lt;NA&gt;  0.045
-##  9 Dg      Cns    crn   Crnvr  dmstc~ 10.1   2.9   0.33~ 13.9  0.07  14   
-## 10 R dr    Cprls  hrb   Artdc~ lc     3      &lt;NA&gt;  &lt;NA&gt;  21    0.09~ 14.8 
+## # A tibble: 83 x 6
+##    name               genus   vore  order    conservation sleep_total
+##    &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;      
+##  1 Chth               Acnnyx  crn   Crnvr    lc           12.1       
+##  2 Owl mnky           Ats     mn    Prmts    &lt;NA&gt;         17         
+##  3 Mntn bvr           Apldnt  hrb   Rdnt     nt           14.4       
+##  4 Grtr shrt-tld shrw Blrn    mn    Srcmrph  lc           14.9       
+##  5 Cw                 Bs      hrb   Artdctyl dmstctd      4          
+##  6 Thr-td slth        Brdyps  hrb   Pls      &lt;NA&gt;         14.4       
+##  7 Nrthrn fr sl       Cllrhns crn   Crnvr    v            8.7        
+##  8 Vspr ms            Clmys   &lt;NA&gt;  Rdnt     &lt;NA&gt;         7          
+##  9 Dg                 Cns     crn   Crnvr    dmstctd      10.1       
+## 10 R dr               Cprls   hrb   Artdctyl lc           3          
 ## # ... with 73 more rows
 </code></pre>
-
-<p><br></p>
 
 <h3 id="mutate-if"><strong>Mutate_if</strong></h3>
 
@@ -535,10 +536,9 @@ character columns.</p>
 
 <pre><code>msleep %&gt;%
   mutate_all(round)
-
-## Error in mutate_impl(.data, dots) : Evaluation error: 
-non-numeric argument to mathematical function.
 </code></pre>
+
+<p><code>Error in mutate_impl(.data, dots) : Evaluation error: non-numeric argument to mathematical function.</code></p>
 
 <p>In these cases we have to add the condition that columns need to be
 numeric before giving <code>round()</code> instructions:<br />
@@ -547,8 +547,8 @@ function on the fly by using a tilde: such as
 <code>mutate_if(is.numeric, ~round(. ,2))</code>.</p>
 
 <pre><code>msleep %&gt;%
-  mutate_if(is.numeric, round) %&gt;%
-  select(name, sleep_total:bodywt)
+  select(name, sleep_total:bodywt) %&gt;%
+  mutate_if(is.numeric, round)
 
 ## # A tibble: 83 x 7
 ##    name                       sleep_total sleep~ sleep~ awake brai~ bodywt
@@ -566,9 +566,7 @@ function on the fly by using a tilde: such as
 ## # ... with 73 more rows
 </code></pre>
 
-<p><br></p>
-
-<h3 id="mutate-at-to-change-specific-columns"><strong>Mutate_at to change specific columns</strong></h3>
+<h3 id="mutate-at-to-change-specifc-columns"><strong>Mutate_at to change specifc columns</strong></h3>
 
 <p>All columns containing the word sleep are in hours. If I want those in
 minutes, I can use <code>mutate_at()</code>. To indicate that I want the condition
@@ -578,24 +576,26 @@ The second argument of <code>mutate_at()</code> needs to be function, so I have 
 wrap my calculation instructions with a tilde to make a function on the
 fly.</p>
 
+<p>The sample code shows that in this case all <code>sleep</code> columns have been
+changed into minutes, but <code>awake</code> did not.</p>
+
 <pre><code>msleep %&gt;%
-  select(sleep_total:bodywt) %&gt;%
-  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60))
+  select(name, sleep_total:awake) %&gt;%
+  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60)) 
 
-
-## # A tibble: 83 x 6
-##    sleep_total sleep_rem sleep_cycle awake   brainwt   bodywt
-##          &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1         726      NA         NA    11.9  NA         50.0   
-##  2        1020     108         NA     7.00  0.0155     0.480 
-##  3         864     144         NA     9.60 NA          1.35  
-##  4         894     138          8.00  9.10  0.000290   0.0190
-##  5         240      42.0       40.0  20.0   0.423    600     
-##  6         864     132         46.0   9.60 NA          3.85  
-##  7         522      84.0       23.0  15.3  NA         20.5   
-##  8         420      NA         NA    17.0  NA          0.0450
-##  9         606     174         20.0  13.9   0.0700    14.0   
-## 10         180      NA         NA    21.0   0.0982    14.8   
+## # A tibble: 83 x 5
+##    name                       sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cheetah                            726      NA         NA    11.9 
+##  2 Owl monkey                        1020     108         NA     7.00
+##  3 Mountain beaver                    864     144         NA     9.60
+##  4 Greater short-tailed shrew         894     138          8.00  9.10
+##  5 Cow                                240      42.0       40.0  20.0 
+##  6 Three-toed sloth                   864     132         46.0   9.60
+##  7 Northern fur seal                  522      84.0       23.0  15.3 
+##  8 Vesper mouse                       420      NA         NA    17.0 
+##  9 Dog                                606     174         20.0  13.9 
+## 10 Roe deer                           180      NA         NA    21.0 
 ## # ... with 73 more rows
 </code></pre>
 
@@ -664,23 +664,22 @@ The sample code will divide the current measure <code>sleep_total</code> into a
 discrete &ldquo;long&rdquo; or &ldquo;short&rdquo; sleeper.</p>
 
 <pre><code>msleep %&gt;%
-  select(name, contains(&quot;sleep&quot;)) %&gt;%
-  mutate(sleep_time = ifelse(sleep_total &gt; 10, &quot;long&quot;, &quot;short&quot;))
+  select(name, sleep_total) %&gt;%
+  mutate(sleep_time = ifelse(sleep_total &gt; 10, &quot;long&quot;, &quot;short&quot;)) 
 
-
-## # A tibble: 83 x 5
-##    name                       sleep_total sleep_rem sleep_cycle sleep_time
-##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
-##  1 Cheetah                          12.1     NA          NA     long      
-##  2 Owl monkey                       17.0      1.80       NA     long      
-##  3 Mountain beaver                  14.4      2.40       NA     long      
-##  4 Greater short-tailed shrew       14.9      2.30        0.133 long      
-##  5 Cow                               4.00     0.700       0.667 short     
-##  6 Three-toed sloth                 14.4      2.20        0.767 long      
-##  7 Northern fur seal                 8.70     1.40        0.383 short     
-##  8 Vesper mouse                      7.00    NA          NA     short     
-##  9 Dog                              10.1      2.90        0.333 long      
-## 10 Roe deer                          3.00    NA          NA     short     
+## # A tibble: 83 x 3
+##    name                       sleep_total sleep_time
+##    &lt;chr&gt;                            &lt;dbl&gt; &lt;chr&gt;     
+##  1 Cheetah                          12.1  long      
+##  2 Owl monkey                       17.0  long      
+##  3 Mountain beaver                  14.4  long      
+##  4 Greater short-tailed shrew       14.9  long      
+##  5 Cow                               4.00 short     
+##  6 Three-toed sloth                 14.4  long      
+##  7 Northern fur seal                 8.70 short     
+##  8 Vesper mouse                      7.00 short     
+##  9 Dog                              10.1  long      
+## 10 Roe deer                          3.00 short     
 ## # ... with 73 more rows
 </code></pre>
 
@@ -703,6 +702,7 @@ afterwards, either by using <code>forcats::fct_relevel()</code>, or just with a
 a levels vector upfront to avoid cluttering the piple too much.</p>
 
 <pre><code>msleep %&gt;%
+  select(name, sleep_total) %&gt;%
   mutate(sleep_total_discr = case_when(
     sleep_total &gt; 13 ~ &quot;very long&quot;,
     sleep_total &gt; 10 ~ &quot;long&quot;,
@@ -710,16 +710,22 @@ a levels vector upfront to avoid cluttering the piple too much.</p>
     TRUE ~ &quot;short&quot;)) %&gt;%
   mutate(sleep_total_discr = factor(sleep_total_discr, 
                                     levels = c(&quot;short&quot;, &quot;limited&quot;, 
-                                               &quot;long&quot;, &quot;very long&quot;))) %&gt;%
-  count(sleep_total_discr)
+                                               &quot;long&quot;, &quot;very long&quot;)))
 
-## # A tibble: 4 x 2
-##   sleep_total_discr     n
-##   &lt;fctr&gt;            &lt;int&gt;
-## 1 short                20
-## 2 limited              19
-## 3 long                 21
-## 4 very long            23
+## # A tibble: 83 x 3
+##    name                       sleep_total sleep_total_discr
+##    &lt;chr&gt;                            &lt;dbl&gt; &lt;fctr&gt;           
+##  1 Cheetah                          12.1  long             
+##  2 Owl monkey                       17.0  very long        
+##  3 Mountain beaver                  14.4  very long        
+##  4 Greater short-tailed shrew       14.9  very long        
+##  5 Cow                               4.00 short            
+##  6 Three-toed sloth                 14.4  very long        
+##  7 Northern fur seal                 8.70 limited          
+##  8 Vesper mouse                      7.00 short            
+##  9 Dog                              10.1  long             
+## 10 Roe deer                          3.00 short            
+## # ... with 73 more rows
 </code></pre>
 
 <p>The <code>case_when()</code> function does not only work inside a column, but can
@@ -749,11 +755,6 @@ be used for grouping across columns:</p>
 <p>Take for example this dataset</p>
 
 <pre><code>(conservation_expl &lt;- read_csv(&quot;conservation_explanation.csv&quot;))
-
-## Parsed with column specification:
-## cols(
-##   `conservation abbreviation` = col_character()
-## )
 
 ## # A tibble: 11 x 1
 ##    `conservation abbreviation`                  
@@ -801,10 +802,8 @@ separator.</p>
 name, and then the columns to be united, and lastly what seperator you
 want to use.</p>
 
-<pre><code>#merging currency and goal columns
-conservation_table %&gt;%
-  unite(united_col, abbreviation, description, sep=&quot;: &quot;) %&gt;%
-  select(united_col)
+<pre><code>conservation_table %&gt;%
+  unite(united_col, abbreviation, description, sep=&quot;: &quot;)
 
 ## # A tibble: 11 x 1
 ##    united_col                                  
@@ -842,8 +841,7 @@ states into our main <code>msleep</code> table. The main data contained an extra
 <code>domisticated</code> label which i wanted to keep. This is done in the last
 line of the table with an <code>ifelse()</code>.</p>
 
-<pre><code>#joining column data
-msleep %&gt;%
+<pre><code>msleep %&gt;%
   select(name, conservation) %&gt;%
   mutate(conservation = toupper(conservation)) %&gt;%
   left_join(conservation_table, by = c(&quot;conservation&quot; = &quot;abbreviation&quot;)) %&gt;%
@@ -948,8 +946,6 @@ different columns:</p>
 ## # ... with 73 more rows
 </code></pre>
 
-<p><br></p>
-
 <h2 id="turning-data-into-na"><strong>Turning data into NA</strong></h2>
 
 <p>The function <code>na_if()</code> turns particular values into <code>NA</code>. In most cases
@@ -959,22 +955,23 @@ but in principle you can do anything.</p>
 <p>The same code will turn any value that reads &ldquo;omni&rdquo; into NA</p>
 
 <pre><code>msleep %&gt;%
+  select(name:order) %&gt;%
   na_if(&quot;omni&quot;)
 
-## # A tibble: 83 x 11
-##    name     genus  vore  order  conse~ sleep~ sleep~ sleep~ awake  brainwt
-##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Cheetah  Acino~ carni Carni~ lc      12.1  NA     NA     11.9  NA      
-##  2 Owl mon~ Aotus  &lt;NA&gt;  Prima~ &lt;NA&gt;    17.0   1.80  NA      7.00  1.55e-2
-##  3 Mountai~ Aplod~ herbi Roden~ nt      14.4   2.40  NA      9.60 NA      
-##  4 Greater~ Blari~ &lt;NA&gt;  Soric~ lc      14.9   2.30   0.133  9.10  2.90e-4
-##  5 Cow      Bos    herbi Artio~ domes~   4.00  0.700  0.667 20.0   4.23e-1
-##  6 Three-t~ Brady~ herbi Pilosa &lt;NA&gt;    14.4   2.20   0.767  9.60 NA      
-##  7 Norther~ Callo~ carni Carni~ vu       8.70  1.40   0.383 15.3  NA      
-##  8 Vesper ~ Calom~ &lt;NA&gt;  Roden~ &lt;NA&gt;     7.00 NA     NA     17.0  NA      
-##  9 Dog      Canis  carni Carni~ domes~  10.1   2.90   0.333 13.9   7.00e-2
-## 10 Roe deer Capre~ herbi Artio~ lc       3.00 NA     NA     21.0   9.82e-2
-## # ... with 73 more rows, and 1 more variable: bodywt &lt;dbl&gt;
+## # A tibble: 83 x 4
+##    name                       genus       vore  order       
+##    &lt;chr&gt;                      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       
+##  1 Cheetah                    Acinonyx    carni Carnivora   
+##  2 Owl monkey                 Aotus       &lt;NA&gt;  Primates    
+##  3 Mountain beaver            Aplodontia  herbi Rodentia    
+##  4 Greater short-tailed shrew Blarina     &lt;NA&gt;  Soricomorpha
+##  5 Cow                        Bos         herbi Artiodactyla
+##  6 Three-toed sloth           Bradypus    herbi Pilosa      
+##  7 Northern fur seal          Callorhinus carni Carnivora   
+##  8 Vesper mouse               Calomys     &lt;NA&gt;  Rodentia    
+##  9 Dog                        Canis       carni Carnivora   
+## 10 Roe deer                   Capreolus   herbi Artiodactyla
+## # ... with 73 more rows
 </code></pre>
 
               
@@ -1240,7 +1237,7 @@ but in principle you can do anything.</p>
               </span>
               <div class="media-content hide-xs font-merryweather">This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
 This second one covers tools to manipulate your columns to get them the way you want them.
- Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
