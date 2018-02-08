@@ -9,8 +9,6 @@ tags:
   - Webscraping
   - Rvest
   - Ggplot2
-thumbnailImagePosition: top
-thumbnailImage: https://github.com/suzanbaert/BlogFiles/blob/post4/content/images/180122_cover2.png?raw=true
 ---
 
 <br>
