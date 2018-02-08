@@ -134,8 +134,8 @@ code will take any `brainwt` value above 4 and return NA. In this case,
 the code won't change for anything below 4.
 
     msleep %>%
+      select(brainwt)) %>%
       mutate(brainwt2 = ifelse(brainwt > 4, NA, brainwt)) %>%
-      select(starts_with("brain")) %>%
       arrange(desc(brainwt))
 
     ## # A tibble: 83 x 2
@@ -159,8 +159,8 @@ The sample code will return the last word of the animal name and makes
 it lower case.
 
     msleep %>%
-      mutate(name_last_word = tolower(str_extract(name, pattern = "\\w+$"))) %>%
-      select(name, name_last_word)
+      select(name) %>%
+      mutate(name_last_word = tolower(str_extract(name, pattern = "\\w+$")))
 
     ## # A tibble: 83 x 2
     ##    name                       name_last_word
@@ -335,8 +335,9 @@ wrap my calculation instructions with a tilde to make a function on the
 fly.
 
     msleep %>%
-      mutate_at(vars(contains("sleep")), ~(.*60)) %>%
-      select(sleep_total:bodywt)
+      select(sleep_total:bodywt) %>%
+      mutate_at(vars(contains("sleep")), ~(.*60))
+
 
     ## # A tibble: 83 x 6
     ##    sleep_total sleep_rem sleep_cycle awake   brainwt   bodywt
@@ -417,8 +418,9 @@ The sample code will divide the current measure `sleep_total` into a
 discrete "long" or "short" sleeper.
 
     msleep %>%
-      mutate(sleep_time = ifelse(sleep_total > 10, "long", "short")) %>%
-      select(name, contains("sleep"))
+      select(name, contains("sleep")) %>%
+      mutate(sleep_time = ifelse(sleep_total > 10, "long", "short"))
+
 
     ## # A tibble: 83 x 5
     ##    name                       sleep_total sleep_rem sleep_cycle sleep_time
