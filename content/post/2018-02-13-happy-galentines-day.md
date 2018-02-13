@@ -16,9 +16,8 @@ I had this plan for text analysis by character from the Parks &
 Recreation series to celebrate Galentine's Day but getting the data was
 a struggle. Subtitles are available for pretty much every episode but
 those don't contain data about the character who said the lines. I
-needed scripts, which are a bit harder to come by. I found 6 scripts of
-episodes scattered on the web from the first 3 seasons in pdf format
-that were usable.  
+needed scripts, which are a bit harder to come by. I found [6 scripts of
+episodes](https://scriptslug.com/assets/uploads/scripts/) on the web from the first 3 seasons in pdf format that were usable. Some pdf's were image scans so data was not extractable.  
 That's not even covering 5% of the series episodes, but let's use what
 we've got!
 
