@@ -268,8 +268,6 @@ pdf_script &lt;- pdf_text(&quot;data/parks-and-recreation-3x07-harvest-festival-
 pdf_script &lt;- pdf_script[3:34]
 </code></pre>
 
-<p><br></p>
-
 <p>As per usual, getting the data in good shape took quite a bit of effort
 and regex-playtime, but as this won&rsquo;t be very interesting, I will
 quickly glance past it.</p>
@@ -316,7 +314,7 @@ was all in uppercase and no other text was.</li>
   one_long_text &lt;- paste(clean_indented_text, collapse = &quot; &quot;)
 
   #splitting by speaker
-  clean_script &lt;- str_extract_all(one_long_text,      &quot;[A-Z]{3,}(\\s*\\W*[A-Z]?\\W*[a-z]+\\W*\\d*)+&quot;)  
+  clean_script &lt;- str_extract_all(one_long_text, &quot;[A-Z]{3,}(\\s*\\W*[A-Z]?\\W*[a-z]+\\W*\\d*)+&quot;)  
   clean_script &lt;- unlist(clean_script)
 
 
@@ -370,7 +368,7 @@ script &lt;- bind_rows(script_1x02, script_2x02, script_2x04, script_2x07,
 script
 </code></pre>
 
-<p>Doing all that will give a dataframe of 1840 lines split by character:</p>
+<p>Doing all that will give a dataframe of 1841 lines split by character:</p>
 
 <pre><code>## # A tibble: 1,841 x 3
 ##    episode         speaker text                                           

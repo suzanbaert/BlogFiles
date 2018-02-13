@@ -45,7 +45,7 @@ Extracting the data from pdf
     #remove the first two pages that are cover sheets
     pdf_script <- pdf_script[3:34]
 
-<br>
+
 
 As per usual, getting the data in good shape took quite a bit of effort
 and regex-playtime, but as this won't be very interesting, I will
@@ -91,7 +91,7 @@ row:
       one_long_text <- paste(clean_indented_text, collapse = " ")
       
       #splitting by speaker
-      clean_script <- str_extract_all(one_long_text,      "[A-Z]{3,}(\\s*\\W*[A-Z]?\\W*[a-z]+\\W*\\d*)+")  
+      clean_script <- str_extract_all(one_long_text, "[A-Z]{3,}(\\s*\\W*[A-Z]?\\W*[a-z]+\\W*\\d*)+")  
       clean_script <- unlist(clean_script)
       
       
@@ -143,7 +143,7 @@ part of the function but manually upfront.
                         script_3x05, script_3x07)
     script
 
-Doing all that will give a dataframe of 1840 lines split by character:
+Doing all that will give a dataframe of 1841 lines split by character:
 
     ## # A tibble: 1,841 x 3
     ##    episode         speaker text                                           
