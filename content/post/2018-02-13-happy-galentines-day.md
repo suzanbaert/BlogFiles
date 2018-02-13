@@ -234,7 +234,7 @@ vegetables*?
       mutate(word = reorder_within(word, tf_idf, speaker)) %>% 
       ggplot(aes(word, tf_idf, fill = speaker)) +
       geom_col(alpha = 0.8, show.legend = FALSE) +
-      facet_wrap(~ speaker, scales = "free", ncol = 3) +
+      facet_wrap(~ speaker, scales = "free", nrow = 2) +
       scale_x_reordered() +
       coord_flip()
 
