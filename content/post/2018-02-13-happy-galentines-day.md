@@ -166,8 +166,8 @@ Featured episodes
 -----------------
 
 I'm on avid reader of [Julia Silge's blog](https://juliasilge.com/blog/) on text analysis and I
-noticed her using two functions from a personal package by David
-Robinson that are pretty nifty when you want to make ordered faceted
+noticed her using two functions from a [personal package by David
+Robinson](https://github.com/dgrtwo/drlib) that are pretty nifty when you want to make ordered faceted
 plots with words that appear multiple times.  
 I did not load the entire package, but just copied those two functions
 to use in here:
@@ -321,3 +321,13 @@ Happy Galentine's Day, gals!
 ============================
 
 ![](https://media.giphy.com/media/kLLDVeWnNwRXO/giphy.gif)
+
+<br>
+
+Keep on reading...
+==================
+More parks and recreation R-stats post:
+
+* [Maëlle Salmon's brilliant Galentine's Day card generator with some Leslie-Knope-worthy compliments](http://www.masalmon.eu/2018/01/26/galentinesday/)
+* [Maëlle Salmon's post on Parks and Recs IMDB ratings and worldcloud](http://www.masalmon.eu/2017/11/05/newborn-serie/)  
+* ... (and hopefully many more future Parks & Recreation posts)
