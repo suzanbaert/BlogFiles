@@ -1,0 +1,1005 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Happy Galentine&#39;s Day!</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes scattered on the web from the first 3 seasons in pdf format that were usable.">
+    <meta property="og:description" content="Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes scattered on the web from the first 3 seasons in pdf format that were usable.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Happy Galentine&#39;s Day!">
+    <meta property="og:url" content="/2018/02/happy-galentines-day/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes scattered on the web from the first 3 seasons in pdf format that were usable.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Happy Galentine&#39;s Day!
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-02-13T00:00:00Z">
+        
+  February 13, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/personal-projects">Personal projects</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p>Sometimes you dream big, but you just don&rsquo;t have the data&hellip;<br />
+I had this plan for text analysis by character from the Parks &amp;
+Recreation series to celebrate Galentine&rsquo;s Day but getting the data was
+a struggle. Subtitles are available for pretty much every episode but
+those don&rsquo;t contain data about the character who said the lines. I
+needed scripts, which are a bit harder to come by. I found 6 scripts of
+episodes scattered on the web from the first 3 seasons in pdf format
+that were usable.<br />
+That&rsquo;s not even covering 5% of the series episodes, but let&rsquo;s use what
+we&rsquo;ve got!</p>
+
+<p>But first, what is Galentine&rsquo;s day I hear you ask?
+<img src="https://media.giphy.com/media/l3q2tpNX0icJxe87K/giphy.gif" alt="" /></p>
+
+<p><img src="https://media.giphy.com/media/qjXuMQ4TTaDSg/giphy.gif" alt="" /></p>
+
+<p>On Friday February 13th, the day before Valentine, Leslie Knope from the
+Pawnee Parks department celebrates Galentine&rsquo;s day with her&hellip; gals.</p>
+
+<h2 id="extracting-the-data-from-pdf">Extracting the data from pdf</h2>
+
+<pre><code>library(pdftools)
+library(stringr)
+library(dplyr)
+library(tidyr)
+
+#getting the data from pdf
+pdf_script &lt;- pdf_text(&quot;data/parks-and-recreation-3x07-harvest-festival-2011.pdf&quot;)
+
+#remove the first two pages that are cover sheets
+pdf_script &lt;- pdf_script[3:34]
+</code></pre>
+
+<p><br></p>
+
+<p>As per usual, getting the data in good shape took quite a bit of effort
+and regex-playtime, but as this won&rsquo;t be very interesting, I will
+quickly glance past it.</p>
+
+<p>I needed to extract pdf&rsquo;s 6 times, so I did the first one manually and
+then turned this into a function: The function does a few things in a
+row:</p>
+
+<ul>
+<li>It removes the recurring text on top of the pdfs which contains the
+episode information</li>
+<li>It extracts only the indented text which is where the actual lines
+are. Everything else is descriptions of characters/scenes.</li>
+<li>It removes some other text like &ldquo;ACT ONE&rdquo;, &ldquo;END OF SHOW&rdquo;. It also
+removes anything between brackets which was often to indicate a
+character&rsquo;s reaction like &ldquo;(shouting)&rdquo;.</li>
+<li>After moving it into one long vector, I could split the text into
+lines by character. This was possible because the character&rsquo;s name
+was all in uppercase and no other text was.</li>
+<li>And finally moves everything in a dataframe</li>
+</ul>
+
+<!-- -->
+
+<pre><code>clean_pr_script &lt;- function(pdf_script, episodeinfo){
+
+  indented_text &lt;- pdf_script %&gt;%
+    #removing the first lines on every page that are just title text
+    str_replace(&quot;PARKS.+\\\r\\n.+10&quot;, &quot;&quot;) %&gt;% 
+    #extracting on the indented text
+    str_extract_all(pattern = &quot;\r\n\\s{5,}.+&quot;) %&gt;%
+    unlist()
+
+
+  clean_indented_text &lt;- indented_text %&gt;%
+    str_replace(&quot;(END OF )?COLD OPEN&quot;, &quot;&quot;) %&gt;%  
+    str_replace(&quot;(END OF )?ACT [A-Z]+&quot;, &quot;&quot;) %&gt;%  
+    str_replace(&quot;TAG&quot;, &quot;&quot;) %&gt;%
+    str_replace(&quot;END OF SHOW&quot;, &quot;&quot;) %&gt;%  
+    str_replace(&quot;\\(.+\\)&quot;, &quot;&quot;) %&gt;%  #removes anything between brackets
+    str_replace(&quot;\r\n\\s+&quot;, &quot;&quot;)  #removes the new line and extra spaces 
+
+  #pasting into one long text
+  one_long_text &lt;- paste(clean_indented_text, collapse = &quot; &quot;)
+
+  #splitting by speaker
+  clean_script &lt;- str_extract_all(one_long_text,      &quot;[A-Z]{3,}(\\s*\\W*[A-Z]?\\W*[a-z]+\\W*\\d*)+&quot;)  
+  clean_script &lt;- unlist(clean_script)
+
+
+  #making a dataframe
+  script_split &lt;- str_split(clean_script, pattern = &quot; &quot;, n=2)
+  script_split_t &lt;- purrr::transpose(script_split)
+
+  output &lt;- tibble(episode = episodeinfo,
+         speaker = unlist(script_split_t[[1]]),
+         text = unlist(script_split_t[[2]]))
+
+  mutate_all(output, str_trim)
+}
+</code></pre>
+
+<p><br></p>
+
+<p>Time to get all of the episode info out: Given that the number of pages,
+and especially the number of intro-pages varied, I did not do this as
+part of the function but manually upfront.</p>
+
+<pre><code>pdf_3x07 &lt;- pdf_text(&quot;data/parks-and-recreation-3x07-harvest-festival-2011.pdf&quot;)
+pdf_3x07 &lt;- pdf_3x07[3:36]
+script_3x07 &lt;- clean_pr_script(pdf_3x07, &quot;3x07 Harvest Festival&quot;)
+
+pdf_3x05 &lt;- pdf_text(&quot;data/parks-and-recreation-3x05-media-blitz-2011.pdf&quot;)
+pdf_3x05 &lt;- pdf_3x05[3:36] 
+script_3x05 &lt;- clean_pr_script(pdf_3x05, &quot;3x05 Media Blitz&quot;)
+
+pdf_2x07 &lt;- pdf_text(&quot;data/Parks_and_Recreation_2x07.pdf&quot;)
+pdf_2x07 &lt;- pdf_2x07[3:41] 
+script_2x07 &lt;- clean_pr_script(pdf_2x07, &quot;2x07 Greg Pikitis&quot;)
+script_2x07 &lt;- script_2x07[2:308,]
+script_2x07$text &lt;- str_replace(script_2x07$text, &quot;take one.\\s+&quot;, &quot;&quot;)
+
+pdf_1x02 &lt;- pdf_text(&quot;data/parks-and-recreation-1x02-canvassing-2009.pdf&quot;)
+pdf_1x02 &lt;- pdf_1x02[2:38] 
+script_1x02 &lt;- clean_pr_script(pdf_1x02, &quot;1x02 Canvassing&quot;)
+
+pdf_2x02 &lt;- pdf_text(&quot;data/parks-and-recreation-2x02-the-stakeout-2009.pdf&quot;)
+pdf_2x02 &lt;- pdf_2x02[5:45] 
+script_2x02 &lt;- clean_pr_script(pdf_2x02, &quot;2x02 The Stakeout&quot;)
+
+pdf_2x04 &lt;- pdf_text(&quot;data/parks-and-recreation-2x04-practice-date-2009.pdf&quot;)
+pdf_2x04 &lt;- pdf_2x04[3:36] 
+script_2x04 &lt;- clean_pr_script(pdf_2x04, &quot;2x04 The Practice Date&quot;)
+
+#binding them all together:
+script &lt;- bind_rows(script_1x02, script_2x02, script_2x04, script_2x07,
+                    script_3x05, script_3x07)
+script
+</code></pre>
+
+<p>Doing all that will give a dataframe of 1840 lines split by character:</p>
+
+<pre><code>## # A tibble: 1,841 x 3
+##    episode         speaker text                                           
+##    &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;                                          
+##  1 1x02 Canvassing LESLIE  Hello, Donna. I have the conference room booke~
+##  2 1x02 Canvassing DONNA   Yup.                                           
+##  3 1x02 Canvassing LESLIE  And the large meeting room for tomorrow night? 
+##  4 1x02 Canvassing DONNA   Yes.   Stop asking.                            
+##  5 1x02 Canvassing LESLIE  Tomorrow night is our very first public forum ~
+##  6 1x02 Canvassing TOM     Wet Dream.                                     
+##  7 1x02 Canvassing LESLIE  Really? Okay. Like the proud Wamapoke tribes o~
+##  8 1x02 Canvassing ANN     Mm. Hearty breakfast.                          
+##  9 1x02 Canvassing MARK    Its the most important meal of the day.       
+## 10 1x02 Canvassing ANN     I think lunch is the most important--          
+## # ... with 1,831 more rows
+</code></pre>
+
+<p><br></p>
+
+<h2 id="featured-episodes">Featured episodes</h2>
+
+<p>I&rsquo;m on avid reader of <a href="https://juliasilge.com/blog/">Julia Silge&rsquo;s blog</a> on text analysis and I
+noticed her using two functions from a personal package by David
+Robinson that are pretty nifty when you want to make ordered faceted
+plots with words that appear multiple times.<br />
+I did not load the entire package, but just copied those two functions
+to use in here:</p>
+
+<pre><code>library(tidytext)
+library(ggplot2)
+
+#functions from David Robinson
+reorder_within &lt;- function(x, by, within, fun = mean, sep = &quot;___&quot;, ...) {
+  new_x &lt;- paste(x, within, sep = sep)
+  stats::reorder(new_x, by, FUN = fun)
+}
+
+scale_x_reordered &lt;- function(..., sep = &quot;___&quot;) {
+  reg &lt;- paste0(sep, &quot;.+$&quot;)
+  ggplot2::scale_x_discrete(labels = function(x) gsub(reg, &quot;&quot;, x), ...)
+}
+</code></pre>
+
+<p>Just a reminder for those who know Parks &amp; Recreation: which episodes
+are in and what are they about? Here are the top words by episode - in
+many cases these really are enough to remember what the episode is
+about.</p>
+
+<pre><code>script %&gt;%
+  unnest_tokens(word, text) %&gt;% 
+  count(episode, word, sort=TRUE) %&gt;% 
+  bind_tf_idf(word, episode, n) %&gt;% 
+  group_by(episode) %&gt;% 
+  top_n(10) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(word = reorder_within(word, tf_idf, episode)) %&gt;% 
+  ggplot(aes(word, tf_idf, fill = episode)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~ episode, scales = &quot;free_y&quot;, ncol = 3) +
+  scale_x_reordered() +
+  coord_flip()
+</code></pre>
+
+<p><img src="https://github.com/suzanbaert/BlogFiles/blob/master/content/images/180213_unnamed-chunk-2-1.png?raw=true" alt="" />
+<br></p>
+
+<h2 id="text-analysis-for-the-main-characters">Text analysis for the main characters</h2>
+
+<p>I wasn&rsquo;t really interested in episode descriptions, but in the
+characters - who says what a lot in comparison to others?<br />
+The <code>td_idf</code> scores show some nice things: Leslie obviously is the most
+community orientied with words like: <em>festival, forum, our, community,
+Pawnee and park</em>, but also arch nemisis <em>Greg Pikitis</em> features.<br />
+In the early seasons Ben still gets a lot of explaining to for when he
+became <em>mayor at 18</em> and building <em>Ice Town</em>.<br />
+But although not entirely readable, Andy&rsquo;s set of words is a true star
+for me - what a set of random words: <em>sugar rush, rock, walrus,
+vegetables</em>?</p>
+
+<pre><code>script %&gt;%
+  filter(speaker %in% c(&quot;LESLIE&quot;, &quot;TOM&quot;, &quot;ANN&quot;, &quot;RON&quot;, &quot;APRIL&quot;, &quot;BEN&quot;, &quot;ANDY&quot;)) %&gt;%
+  unnest_tokens(word, text) %&gt;% 
+  count(speaker, word, sort=TRUE) %&gt;% 
+  bind_tf_idf(word, speaker, n) %&gt;% 
+  group_by(speaker) %&gt;% 
+  top_n(10) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(word = reorder_within(word, tf_idf, speaker)) %&gt;% 
+  ggplot(aes(word, tf_idf, fill = speaker)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(~ speaker, scales = &quot;free&quot;, ncol = 3) +
+  scale_x_reordered() +
+  coord_flip()
+</code></pre>
+
+<p><img src="https://github.com/suzanbaert/BlogFiles/blob/master/content/images/180213_unnamed-chunk-3-1.png?raw=true" alt="" /></p>
+
+<p>What about sentiments? Who is the most positive person in the bunch?</p>
+
+<pre><code>ratio_posneg &lt;- script %&gt;%
+  unnest_tokens(word, text) %&gt;% 
+  inner_join(get_sentiments(&quot;bing&quot;), by=&quot;word&quot;) %&gt;% 
+  count(speaker, sentiment, sort=TRUE) %&gt;% 
+  spread(sentiment, n) %&gt;% 
+  mutate(total = positive + negative, ratio = positive/negative) %&gt;% 
+  filter(total &gt; 12, speaker != &quot;GREG&quot;) %&gt;% 
+  mutate(speaker = reorder(speaker, ratio))
+
+ggplot(ratio_posneg, aes(x= ratio, y=speaker)) +
+  geom_point(size = 3, col = &quot;cadetblue4&quot;) +
+  labs(title = &quot;Characters according to their positive/negative words ratio&quot;,
+       x = &quot;Ratio positive to negative words using Bing lexicon&quot;,
+       y = &quot;Character&quot;)
+</code></pre>
+
+<p><img src="https://github.com/suzanbaert/BlogFiles/blob/master/content/images/180213_unnamed-chunk-4-1.png?raw=true" alt="" /></p>
+
+<p>Houston, we sure have no data interpretation issues here: by a long, long mile, the winner is&hellip;
+<img src="https://media.giphy.com/media/1HigJa2vahd4s/giphy.gif" alt="" /></p>
+
+<p><br></p>
+
+<h1 id="leslie-knope-style-compliments">Leslie-Knope-style compliments</h1>
+
+<p>There was so much more I wanted to do, but the data was really limited.
+Strangely enough, none of these episodes even contained a
+Leslie-Knope-style compliment to Ann!<br />
+Here are all Leslie&rsquo;s lines featuring the word &lsquo;Ann&rsquo;.</p>
+
+<pre><code>script %&gt;%
+  filter(speaker == &quot;LESLIE&quot;) %&gt;% 
+  filter(str_detect(text, pattern = &quot;Ann&quot;)) %&gt;% 
+  pull(text)
+
+##  [1] &quot;Going door-to-door, talking to Anns neighbors, whipping them into an excited, positive frenzy, and getting them to come to the forum. Canvassing!&quot;                               
+##  [2] &quot;Exactly. Teams are me and Ann, Tom and Mark.  And were gonna win!&quot;                                                                                                               
+##  [3] &quot;Ann, wait--&quot;                                                                                                                                                                      
+##  [4] &quot;Never wish that. Ann, the whole point of democracy is decisions are made by the people, as a group. This is a gift, to be able to talk to them. A gift from the founding fathers.&quot;
+##  [5] &quot;Hello there! Im Leslie Knope, from the Parks Department, and this is my colleague Ann.&quot;                                                                                          
+##  [6] &quot;Jinx!  No backsies. We all had the same idea.  Mark and Ann -- power team.&quot;                                                                                                       
+##  [7] &quot;I just have to prove to Ann that its about perseverance. All I need is one strong Ill be there. The next person I meet, Im converting.&quot;                                      
+##  [8] &quot;Mark, Ann?&quot;                                                                                                                                                                       
+##  [9] &quot;Ann, please. It is absolutely fine. The most important thing to me is our friendship. You know my code -- hoes before bros.&quot;                                                      
+## [10] &quot;You know Anns name.&quot;                                                                                                                                                             
+## [11] &quot;Ann is great. But I bet she misses you.&quot;                                                                                                                                          
+## [12] &quot;So, do you... spy on Ann from the pit?&quot;                                                                                                                                           
+## [13] &quot;Im not sure thats healthy.   I mean, youre not with Ann anymore.   She may even be dating other guys.&quot;                                                                         
+## [14] &quot;I hope Mark and Ann got home okay. I mean, I hope Ann is home, and okay, and Mark is also okay, in his home--&quot;                                                                    
+## [15] &quot;Oh, thats a way better idea. Awesome. Thanks, Ann.  Oh God -- Im getting so nervous.&quot;                                                                                           
+## [16] &quot;Ann is so awesome. Im lucky to have a friend who would spend her night off pretending to treat me so poorly.&quot;
+</code></pre>
+
+<p><br></p>
+
+<p>&ldquo;Ann is great&rdquo;, &ldquo;Ann is awesome&rdquo; - yes, those are compliments, but this
+is not what Leslie is known for!</p>
+
+<p>So I will leave you with a few quotes I got from <a href="http://www.vulture.com/2015/02/leslie-knope-ann-perkins-compliments.html">this
+website</a></p>
+
+<p>“Ann, you beautiful tropical fish.”</p>
+
+<p>&ldquo;Oh, Ann, you beautiful, rule-breaking moth.&rdquo;</p>
+
+<p>“Ann, you are such a good friend, you’re a beautiful, talented,
+brilliant, powerful musk-ox. Thank you, ox.”</p>
+
+<p>“Ann, you cunning, pliable, chestnut-haired sunfish.”</p>
+
+<p>“Oh, Ann. You beautiful, naïve, sophisticated newborn baby.”</p>
+
+<p>“Ann, you poetic, noble land-mermaid.”</p>
+
+<h1 id="happy-galentine-s-day-gals">Happy Galentine&rsquo;s Day, gals!</h1>
+
+<p><img src="https://media.giphy.com/media/kLLDVeWnNwRXO/giphy.gif" alt="" /></p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/tidytext/">Tidytext</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/ggplot2/">Ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/pdftools/">Pdftools</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/02/dplyr-tutorial-2/" data-tooltip="Data Wrangling Part 2: Transforming your columns into the right shape">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/happy-galentines-day/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/happy-galentines-day/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/happy-galentines-day/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/02/dplyr-tutorial-2/" data-tooltip="Data Wrangling Part 2: Transforming your columns into the right shape">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/happy-galentines-day/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/happy-galentines-day/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/happy-galentines-day/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F02%2Fhappy-galentines-day%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F02%2Fhappy-galentines-day%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F02%2Fhappy-galentines-day%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/happy-galentines-day/">
+                <h3 class="media-heading">Happy Galentine&#39;s Day!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes scattered on the web from the first 3 seasons in pdf format that were usable.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-2/">
+                <h3 class="media-heading">Data Wrangling Part 2: Transforming your columns into the right shape</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/dplyr-tutorial-1/">
+                <h3 class="media-heading">Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         7 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/02\/happy-galentines-day\/';
+          
+            this.page.identifier = '\/2018\/02\/happy-galentines-day\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+

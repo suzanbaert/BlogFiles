@@ -6,10 +6,20 @@
     <description>Recent content on Suzan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Happy Galentine&#39;s Day!</title>
+      <link>/2018/02/happy-galentines-day/</link>
+      <pubDate>Tue, 13 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/happy-galentines-day/</guid>
+      <description>Sometimes you dream big, but you just don&amp;rsquo;t have the data&amp;hellip;
+I had this plan for text analysis by character from the Parks &amp;amp; Recreation series to celebrate Galentine&amp;rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&amp;rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes scattered on the web from the first 3 seasons in pdf format that were usable.</description>
+    </item>
     
     <item>
       <title>Data Wrangling Part 2: Transforming your columns into the right shape</title>
