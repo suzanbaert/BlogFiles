@@ -1,0 +1,1242 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Data Wrangling Part 3: Basic and more advanced ways to filter rows</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data">
+    <meta property="og:description" content="This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Data Wrangling Part 3: Basic and more advanced ways to filter rows">
+    <meta property="og:url" content="/2018/02/dplyr-tutorial-3/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Data Wrangling Part 3: Basic and more advanced ways to filter rows
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-02-27T00:00:00Z">
+        
+  February 27, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/tutorial">Tutorial</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p>This is the third blog post in a series of dplyr tutorials:</p>
+
+<ul>
+<li><a href="https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/">Part 1: Basic to Advanced Ways to Select
+Columns</a></li>
+<li><a href="https://suzan.rbind.io/2018/02/dplyr-tutorial-2/">Part 2: Transforming your columns into the right
+shape</a></li>
+</ul>
+
+<p><br></p>
+
+<p><strong>Content:</strong></p>
+
+<ul>
+<li><a href="#basic-row-filters"><strong>Basic row filters</strong></a>
+
+<ul>
+<li><a href="#filtering-rows-based-on-a-numeric-variable"><strong>Filtering rows based on a numeric
+variable</strong></a></li>
+<li><a href="#filtering-based-on-a-exact-character-variable-matches"><strong>Filtering based on a exact character variable
+matches</strong></a></li>
+<li><a href="#filtering-rows-based-on-regex"><strong>Filtering rows based on
+regex</strong></a></li>
+<li><a href="#filtering-based-on-multiple-conditions"><strong>Filtering based on multiple
+conditions</strong></a></li>
+<li><a href="#filtering-out-empty-rows"><strong>Filtering out empty rows</strong></a></li>
+</ul></li>
+<li><a href="#filtering-across-multiple-columns"><strong>Filtering across multiple
+columns</strong></a>
+
+<ul>
+<li><a href="#filter-all"><strong>Filter_all</strong></a></li>
+<li><a href="#filter-if"><strong>Filter_if</strong></a></li>
+<li><a href="#filter-at"><strong>Filter_at</strong></a></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<p><strong>The data</strong><br />
+As per previous blog posts, many of these functions truly shine when you
+have a lot of columns, but to make it easy on people to copy paste code
+and experiment, I&rsquo;m using a built-in dataset. This dataset is built into
+ggplot2, so if you load tidyverse you will get it. Otherwise, just add
+once <code>msleep &lt;- ggplot2::msleep</code> argument to have the dataset available.</p>
+
+<pre><code>library(dplyr)
+library(stringr)
+msleep &lt;- ggplot2::msleep
+
+glimpse(msleep)
+
+## Observations: 83
+## Variables: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.38...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9,...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="basic-row-filters"><strong>Basic row filters</strong></h2>
+
+<p>In many cases you don&rsquo;t want to include all rows in your analysis but
+only a selection of rows. The function to use only specific rows is
+called <code>filter()</code> in dplyr. The general syntax of filter is:
+<code>filter(dataset, condition)</code>. In case you filter inside a pipeline, you
+will only see the condition argument as the dataset is piped into the
+function.</p>
+
+<h3 id="filtering-rows-based-on-a-numeric-variable"><strong>Filtering rows based on a numeric variable</strong></h3>
+
+<p>You can filter numeric variables based on their values. The most used
+operators for this are <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code> and <code>!=</code>.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total) %&gt;% 
+  filter(sleep_total &gt; 18)
+
+## # A tibble: 4 x 2
+##   name                 sleep_total
+##   &lt;chr&gt;                      &lt;dbl&gt;
+## 1 Big brown bat               19.7
+## 2 Thick-tailed opposum        19.4
+## 3 Little brown bat            19.9
+## 4 Giant armadillo             18.1
+</code></pre>
+
+<p>If you want to select a range of values you can use two logical
+requirements. For instance to select all animals with a total sleep time
+between 15 and 18 hours, I could use:
+<code>filter(sleep_total &gt;= 16, sleep_total &lt;= 18)</code>, but there is a slightly
+shorter way by using the <code>between()</code> function.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total) %&gt;% 
+  filter(between(sleep_total, 16, 18))
+
+## # A tibble: 4 x 2
+##   name                   sleep_total
+##   &lt;chr&gt;                        &lt;dbl&gt;
+## 1 Owl monkey                    17.0
+## 2 Long-nosed armadillo          17.4
+## 3 North American Opossum        18.0
+## 4 Arctic ground squirrel        16.6
+</code></pre>
+
+<p>Another function that can come in handy is <code>near()</code>, which will select
+all code that is nearly a given value. You have to specify a tolerance
+<code>tol</code> to indicate how far the values can be. You can add a specific
+number: <code>filter(near(sleep_total, 17, tol = 0.5))</code> for instance will
+return any rows where <code>sleep_total</code> is between 16.5 and 17.5, or you can
+add a formula.<br />
+The sample code will return all rows that are within one standard
+deviation of 17.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total) %&gt;% 
+  filter(near(sleep_total, 17, tol = sd(sleep_total)))
+
+## # A tibble: 26 x 2
+##    name                       sleep_total
+##    &lt;chr&gt;                            &lt;dbl&gt;
+##  1 Owl monkey                        17.0
+##  2 Mountain beaver                   14.4
+##  3 Greater short-tailed shrew        14.9
+##  4 Three-toed sloth                  14.4
+##  5 Long-nosed armadillo              17.4
+##  6 North American Opossum            18.0
+##  7 Big brown bat                     19.7
+##  8 Western american chipmunk         14.9
+##  9 Thick-tailed opposum              19.4
+## 10 Mongolian gerbil                  14.2
+## # ... with 16 more rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="filtering-based-on-a-exact-character-variable-matches"><strong>Filtering based on a exact character variable matches</strong></h3>
+
+<p>If you want to select a specific group of animals for instance you can
+use the <code>==</code> comparison operator:</p>
+
+<pre><code>msleep %&gt;% 
+  select(order, name, sleep_total) %&gt;% 
+  filter(order == &quot;Didelphimorphia&quot;)
+
+## # A tibble: 2 x 3
+##   order           name                   sleep_total
+##   &lt;chr&gt;           &lt;chr&gt;                        &lt;dbl&gt;
+## 1 Didelphimorphia North American Opossum        18.0
+## 2 Didelphimorphia Thick-tailed opposum          19.4
+</code></pre>
+
+<p>Simarly you can use the other operators:<br />
+<code>filter(order != &quot;Rodentia&quot;)</code> will select everything except the Rodentia
+rows.<br />
+<code>filter(name &gt; &quot;v&quot;)</code> will just select the rows with a name in the
+alphabet after the letter v.</p>
+
+<p>If you want to select more than one animal you can use the <code>%in%</code>
+operator. The following code will just select the rows with animals
+belonging to the order of Didelphimorphia and Diprotodontia.</p>
+
+<pre><code>msleep %&gt;% 
+  select(order, name, sleep_total) %&gt;% 
+  filter(order %in% c(&quot;Didelphimorphia&quot;, &quot;Diprotodontia&quot;))
+
+## # A tibble: 4 x 3
+##   order           name                   sleep_total
+##   &lt;chr&gt;           &lt;chr&gt;                        &lt;dbl&gt;
+## 1 Didelphimorphia North American Opossum        18.0
+## 2 Didelphimorphia Thick-tailed opposum          19.4
+## 3 Diprotodontia   Phalanger                     13.7
+## 4 Diprotodontia   Potoroo                       11.1
+</code></pre>
+
+<p>You can use the <code>%in%</code> operator to deselect certain groups as well, in
+this case you have to negate by adding an exclamation mark at the
+beginning of your <code>filter</code>. Making a <code>!%in%</code> might seem logic but it
+won&rsquo;t work.</p>
+
+<pre><code>remove &lt;- c(&quot;Rodentia&quot;, &quot;Carnivora&quot;, &quot;Primates&quot;)
+msleep %&gt;% 
+  select(order, name, sleep_total) %&gt;% 
+  filter(!order %in% remove)
+
+## # A tibble: 37 x 3
+##    order           name                       sleep_total
+##    &lt;chr&gt;           &lt;chr&gt;                            &lt;dbl&gt;
+##  1 Soricomorpha    Greater short-tailed shrew       14.9 
+##  2 Artiodactyla    Cow                               4.00
+##  3 Pilosa          Three-toed sloth                 14.4 
+##  4 Artiodactyla    Roe deer                          3.00
+##  5 Artiodactyla    Goat                              5.30
+##  6 Soricomorpha    Star-nosed mole                  10.3 
+##  7 Soricomorpha    Lesser short-tailed shrew         9.10
+##  8 Cingulata       Long-nosed armadillo             17.4 
+##  9 Hyracoidea      Tree hyrax                        5.30
+## 10 Didelphimorphia North American Opossum           18.0 
+## # ... with 27 more rows
+</code></pre>
+
+<p><br></p>
+
+<h3 id="filtering-rows-based-on-regex"><strong>Filtering rows based on regex</strong></h3>
+
+<p>The above options will only work if you can use the full variable
+content. In some cases though it will be needed to filter based on
+partial matches. In this case, we need a function that will evaluate
+regular expressions on strings and return boolean values. Whenever the
+statement is <code>TRUE</code> the row will be filtered.<br />
+There are two main options for this: base R&rsquo;s <code>grepl()</code> function, or
+<code>str_detect()</code> from the <code>stringr</code> package.</p>
+
+<p>Whenever you are looking for partial matches, it is important to
+remember that R is case sensitive. By just using
+<code>filter(str_detect(name, pattern=&quot;mouse&quot;))</code> we would leave out any row
+called Mouse. In this case it does not make a difference, but it&rsquo;s a
+good habit to create.</p>
+
+<p>I used <code>str_detect()</code> below as it is easier to understand. For those
+interested, the alternative would be:
+<code>filter(grepl(pattern=&quot;mouse&quot;, tolower(name)))</code>.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total) %&gt;% 
+  filter(str_detect(tolower(name), pattern = &quot;mouse&quot;))
+
+## # A tibble: 5 x 2
+##   name                       sleep_total
+##   &lt;chr&gt;                            &lt;dbl&gt;
+## 1 Vesper mouse                      7.00
+## 2 House mouse                      12.5 
+## 3 Northern grasshopper mouse       14.5 
+## 4 Deer mouse                       11.5 
+## 5 African striped mouse             8.70
+</code></pre>
+
+<p><br></p>
+
+<h3 id="filtering-based-on-multiple-conditions"><strong>Filtering based on multiple conditions</strong></h3>
+
+<p>All the above just returns rows based on a single condition, but the
+filter option allows also AND and OR style filters:</p>
+
+<ul>
+<li><code>filter(condition1, condition2)</code> will return rows where both
+conditions are met.<br /></li>
+<li><code>filter(condition1, !condition2)</code> will return all rows where
+condition one is true but condition 2 is not.<br /></li>
+<li><code>filter(condition1 | condition2)</code> will return rows where condition 1
+and/or condition 2 is met.<br /></li>
+<li><code>filter(xor(condition1, condition2)</code> will return all rows where only
+one of the conditions is met, and not when both conditions are met.</li>
+</ul>
+
+<p>Multipe AND, OR and NOT conditions can be combined. The sample code will
+return all rows with a bodywt above 100 and either have a sleep_total
+above 15 or are not part of the Carnivora order.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, order, sleep_total:bodywt) %&gt;% 
+  filter(bodywt &gt; 100, (sleep_total &gt; 15 | order != &quot;Carnivora&quot;))
+
+## # A tibble: 10 x 8
+##    name      order  sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##    &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Cow       Artio~        4.00     0.700       0.667 20.0    0.423    600
+##  2 Asian el~ Probo~        3.90    NA          NA     20.1    4.60    2547
+##  3 Horse     Peris~        2.90     0.600       1.00  21.1    0.655    521
+##  4 Donkey    Peris~        3.10     0.400      NA     20.9    0.419    187
+##  5 Giraffe   Artio~        1.90     0.400      NA     22.1   NA        900
+##  6 Pilot wh~ Cetac~        2.70     0.100      NA     21.4   NA        800
+##  7 African ~ Probo~        3.30    NA          NA     20.7    5.71    6654
+##  8 Tiger     Carni~       15.8     NA          NA      8.20  NA        163
+##  9 Brazilia~ Peris~        4.40     1.00        0.900 19.6    0.169    208
+## 10 Bottle-n~ Cetac~        5.20    NA          NA     18.8   NA        173
+</code></pre>
+
+<p>Example with <code>xor()</code></p>
+
+<pre><code>msleep %&gt;%
+  select(name, bodywt:brainwt) %&gt;% 
+  filter(xor(bodywt &gt; 100, brainwt &gt; 1))
+
+## # A tibble: 5 x 3
+##   name            bodywt brainwt
+##   &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Cow              600     0.423
+## 2 Horse            521     0.655
+## 3 Donkey           187     0.419
+## 4 Human             62.0   1.32 
+## 5 Brazilian tapir  208     0.169
+</code></pre>
+
+<p>Example with <code>!</code>:<br />
+The sample code will select all rows where <code>brainwt</code> is larger than 1,
+but <code>bodywt</code> does not exceed 100.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total, brainwt, bodywt) %&gt;% 
+  filter(brainwt &gt; 1, !bodywt &gt; 100)
+
+## # A tibble: 1 x 4
+##   name  sleep_total brainwt bodywt
+##   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Human        8.00    1.32   62.0
+</code></pre>
+
+<p><br></p>
+
+<h3 id="filtering-out-empty-rows"><strong>Filtering out empty rows</strong></h3>
+
+<p>To filter out empty rows, you negate the <code>is.na()</code> function inside a
+filter:<br />
+The sample code will remove any rows where <code>conservation</code> is <code>NA</code>.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, conservation:sleep_cycle) %&gt;% 
+  filter(!is.na(conservation))
+
+## # A tibble: 54 x 5
+##    name                     conservation sleep_total sleep_rem sleep_cycle
+##    &lt;chr&gt;                    &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Cheetah                  lc                 12.1     NA          NA    
+##  2 Mountain beaver          nt                 14.4      2.40       NA    
+##  3 Greater short-tailed sh~ lc                 14.9      2.30        0.133
+##  4 Cow                      domesticated        4.00     0.700       0.667
+##  5 Northern fur seal        vu                  8.70     1.40        0.383
+##  6 Dog                      domesticated       10.1      2.90        0.333
+##  7 Roe deer                 lc                  3.00    NA          NA    
+##  8 Goat                     lc                  5.30     0.600      NA    
+##  9 Guinea pig               domesticated        9.40     0.800       0.217
+## 10 Grivet                   lc                 10.0      0.700      NA    
+## # ... with 44 more rows
+</code></pre>
+
+<p><br><br>
+<hr>
+<br></p>
+
+<h2 id="filtering-across-multiple-columns"><strong>Filtering across multiple columns</strong></h2>
+
+<p>The <code>dplyr</code> package has a few powerful variants to filter across
+multiple columns in one go:</p>
+
+<ul>
+<li><code>Filter_all</code> to filter across all columns<br /></li>
+<li><code>Filter_if</code> and <code>filter_at</code> to filter across a few specified columns</li>
+</ul>
+
+<p>In these cases, there is a general syntax: first you specify which
+columns, then you mention the condition for the filter. In many cases
+you will need a <code>.</code> operator within the condition which refers to the
+values we are looking at.</p>
+
+<h3 id="filter-all"><strong>Filter all</strong></h3>
+
+<p>Admittedly, <code>msleep</code> is not the best database to showcase this power,
+but imagine you have a database with a few columns and you want to
+select all rows that have a certain word in either column. Take a
+financial dataframe for instance and you want to select all rows with
+&lsquo;food&rsquo;, whether food is mentioned in the main category column, the
+subcategory column, the comments column or the place you&rsquo;ve spent it.<br />
+You could make a long filter statement with 4 different conditions
+wrapped inside OR statements. Or you just filter across all columns for
+the string &ldquo;food&rdquo;.</p>
+
+<p>In the sample code below I&rsquo;m searching for the string &ldquo;Ca&rdquo; across all
+columns. I want to keep rows where the string &ldquo;Ca&rdquo; is present in ANY of
+the variables, so I will wrqp the condition in <code>any_vars()</code>.<br />
+The below code basically asks to retain any rows where any of the
+variables has the pattern &ldquo;Ca&rdquo; inside.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name:order, sleep_total, -vore) %&gt;% 
+  filter_all(any_vars(str_detect(., pattern = &quot;Ca&quot;)))
+
+## # A tibble: 16 x 4
+##    name              genus        order        sleep_total
+##    &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;
+##  1 Cheetah           Acinonyx     Carnivora          12.1 
+##  2 Northern fur seal Callorhinus  Carnivora           8.70
+##  3 Vesper mouse      Calomys      Rodentia            7.00
+##  4 Dog               Canis        Carnivora          10.1 
+##  5 Roe deer          Capreolus    Artiodactyla        3.00
+##  6 Goat              Capri        Artiodactyla        5.30
+##  7 Guinea pig        Cavis        Rodentia            9.40
+##  8 Domestic cat      Felis        Carnivora          12.5 
+##  9 Gray seal         Haliochoerus Carnivora           6.20
+## 10 Tiger             Panthera     Carnivora          15.8 
+## 11 Jaguar            Panthera     Carnivora          10.4 
+## 12 Lion              Panthera     Carnivora          13.5 
+## 13 Caspian seal      Phoca        Carnivora           3.50
+## 14 Genet             Genetta      Carnivora           6.30
+## 15 Arctic fox        Vulpes       Carnivora          12.5 
+## 16 Red fox           Vulpes       Carnivora           9.80
+</code></pre>
+
+<p>The same can be done for numerical values: This code will retain any
+rows that has any value below 0.1:</p>
+
+<pre><code>msleep %&gt;%  
+  select(name, sleep_total:bodywt) %&gt;% 
+  filter_all(any_vars(. &lt; 0.1))
+
+## # A tibble: 47 x 7
+##    name           sleep_total sleep_rem sleep_cycle awake  brainwt  bodywt
+##    &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Owl monkey           17.0      1.80       NA      7.00  1.55e-2 4.80e-1
+##  2 Greater short~       14.9      2.30        0.133  9.10  2.90e-4 1.90e-2
+##  3 Vesper mouse          7.00    NA          NA     17.0  NA       4.50e-2
+##  4 Dog                  10.1      2.90        0.333 13.9   7.00e-2 1.40e+1
+##  5 Roe deer              3.00    NA          NA     21.0   9.82e-2 1.48e+1
+##  6 Guinea pig            9.40     0.800       0.217 14.6   5.50e-3 7.28e-1
+##  7 Chinchilla           12.5      1.50        0.117 11.5   6.40e-3 4.20e-1
+##  8 Star-nosed mo~       10.3      2.20       NA     13.7   1.00e-3 6.00e-2
+##  9 African giant~        8.30     2.00       NA     15.7   6.60e-3 1.00e+0
+## 10 Lesser short-~        9.10     1.40        0.150 14.9   1.40e-4 5.00e-3
+## # ... with 37 more rows
+</code></pre>
+
+<p>The <code>any_vars()</code> statement is equivalent to OR, so of course there is an
+equivalent for AND statements as well:<code>all_vars()</code>. The below code will
+retain any rows where all values are above 1.</p>
+
+<pre><code>msleep %&gt;%  
+  select(name, sleep_total:bodywt, -awake) %&gt;% 
+  filter_all(all_vars(. &gt; 1))
+
+## # A tibble: 1 x 6
+##   name  sleep_total sleep_rem sleep_cycle brainwt bodywt
+##   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Human        8.00      1.90        1.50    1.32   62.0
+</code></pre>
+
+<p><br></p>
+
+<h3 id="filter-if"><strong>Filter if</strong></h3>
+
+<p>The <code>filter_all()</code> function can sometimes go a bit wild. The <code>msleep</code>
+dataset has a set of sleep and weight measurements where some data is
+missing - there is nothing I can do to add data there. But the first few
+set of columns just contain info on animals. The vore of Vesper Mouse is
+missing, but that is info I can still dig up and add to the dataframe if
+I wanted.<br />
+So imagine I want to find out all data rows where we NA in the first few
+columns. <code>filter_all(any_vars(is.na(.)))</code> will be quite useless because
+it would return 27 rows, many of which are missing data in the
+measurement section.</p>
+
+<p>In this case: <code>filter_if()</code> comes in handy. The describing columns are
+all character columns, while the measurement data is numeric. So using
+<code>filter_if()</code> I can specify that I want to just filter on character
+variables. In this case I onnly get 7 rows.</p>
+
+<pre><code>msleep %&gt;% 
+  select(name:order, sleep_total:sleep_rem) %&gt;% 
+  filter_if(is.character, any_vars(is.na(.)))
+
+## # A tibble: 7 x 6
+##   name            genus       vore  order          sleep_total sleep_rem
+##   &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Vesper mouse    Calomys     &lt;NA&gt;  Rodentia              7.00    NA    
+## 2 Desert hedgehog Paraechinus &lt;NA&gt;  Erinaceomorpha       10.3      2.70 
+## 3 Deer mouse      Peromyscus  &lt;NA&gt;  Rodentia             11.5     NA    
+## 4 Phalanger       Phalanger   &lt;NA&gt;  Diprotodontia        13.7      1.80 
+## 5 Rock hyrax      Procavia    &lt;NA&gt;  Hyracoidea            5.40     0.500
+## 6 Mole rat        Spalax      &lt;NA&gt;  Rodentia             10.6      2.40 
+## 7 Musk shrew      Suncus      &lt;NA&gt;  Soricomorpha         12.8      2.00
+</code></pre>
+
+<p>Similarly, you can add <code>is.numeric</code>, <code>is.integer</code>, <code>is.double</code>,
+<code>is.logical</code>, <code>is.factor</code>. If you have data columns, you can load the
+lubridate package, and use <code>is.POSIXt</code> or <code>is.Date</code>.</p>
+
+<p><br></p>
+
+<h3 id="filter-at"><strong>Filter at</strong></h3>
+
+<p>One of the more powerful functions is <code>filter_at()</code>: it does not filter
+all columns, nor does it need you to specify the type of column, you can
+just select columns to which the change should happen via the <code>vars()</code>
+argument. This argument allows anything that can be done within a select
+statement: so you can refer to them by name, but also by logical
+numerical functions, regex, etc (See my first blog post for select
+options).</p>
+
+<p>The second argument is the condition for selection. Similar to the
+examples above, you can use <code>all_vars()</code> if all columns need to return
+TRUE (AND equivalent), or <code>any_vars()</code> in case just one variable needs
+to return TRUE (OR equivalent).</p>
+
+<p>Example: refer to columns by their name:</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total:sleep_rem, brainwt:bodywt) %&gt;% 
+  filter_at(vars(sleep_total, sleep_rem), all_vars(.&gt;5))
+
+## # A tibble: 2 x 5
+##   name                 sleep_total sleep_rem brainwt bodywt
+##   &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Thick-tailed opposum        19.4      6.60 NA       0.370
+## 2 Giant armadillo             18.1      6.10  0.0810 60.0
+</code></pre>
+
+<p>Example: using another select option:</p>
+
+<pre><code>msleep %&gt;% 
+  select(name, sleep_total:sleep_rem, brainwt:bodywt) %&gt;% 
+  filter_at(vars(contains(&quot;sleep&quot;)), all_vars(.&gt;5))
+
+## # A tibble: 2 x 5
+##   name                 sleep_total sleep_rem brainwt bodywt
+##   &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Thick-tailed opposum        19.4      6.60 NA       0.370
+## 2 Giant armadillo             18.1      6.10  0.0810 60.0
+</code></pre>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">Dplyr</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/02/happy-galentines-day/" data-tooltip="Happy Galentine&#39;s Day!">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/02/happy-galentines-day/" data-tooltip="Happy Galentine&#39;s Day!">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/02/dplyr-tutorial-3/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F02%2Fdplyr-tutorial-3%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F02%2Fdplyr-tutorial-3%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F02%2Fdplyr-tutorial-3%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-3/">
+                <h3 class="media-heading">Data Wrangling Part 3: Basic and more advanced ways to filter rows</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/happy-galentines-day/">
+                <h3 class="media-heading">Happy Galentine&#39;s Day!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes on the web from the first 3 seasons in pdf format that were usable.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-2/">
+                <h3 class="media-heading">Data Wrangling Part 2: Transforming your columns into the right shape</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/dplyr-tutorial-1/">
+                <h3 class="media-heading">Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         8 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/02\/dplyr-tutorial-3\/';
+          
+            this.page.identifier = '\/2018\/02\/dplyr-tutorial-3\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+

@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Suzan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data Wrangling Part 3: Basic and more advanced ways to filter rows</title>
+      <link>/2018/02/dplyr-tutorial-3/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/dplyr-tutorial-3/</guid>
+      <description>This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data</description>
+    </item>
     
     <item>
       <title>Happy Galentine&#39;s Day!</title>
