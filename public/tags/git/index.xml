@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Suzan</title>
+    <link>/tags/git/</link>
+    <description>Recent content in Git on Suzan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Reflections on 4 months of GitHub: my advice to beginners</title>
+      <link>/2018/03/reflections-4-months-of-github/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/reflections-4-months-of-github/</guid>
+      <description>Yesterday marked my four months membership of GitHub. Back then, I had seen many GitHub repos pass by after joining Twitter a few weeks earlier, and I wanted to star some of them to find them back more easily. It took another 23 days before I actually committed something myself.
+Now, four months later, I use GitHub (private) and GitLab (work) as good as daily, and I have inspired others to start using it.</description>
+    </item>
+    
+  </channel>
+</rss>
