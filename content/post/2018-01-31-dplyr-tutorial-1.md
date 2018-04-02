@@ -16,11 +16,11 @@ pipes, which resulted in a few "aha!" moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others. 
   
-This first post will cover **ordering, naming and selecting columns**. The
-next post will be about recoding and transforming columns, and after
-that I will move on to row selection. I changed dataset versus the talk
-last week to one that is built-in to R so code can be copy pasted and
-experimented with easily.  
+This first post will cover **ordering, naming and selecting columns**. 
+
+<!--more-->
+
+
   
 **Content:**
   
@@ -516,3 +516,12 @@ If you want this column to be an actual column, you can use the
     ## 4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
     ## 5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
     ## 6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+
+
+<br><hr>
+
+## Want to learn more?
+
++ [Part 2: Transforming your columns into the right shape](https://suzan.rbind.io/2018/02/dplyr-tutorial-2/)
++ [Part 3: Filtering rows](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/)
++ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/)

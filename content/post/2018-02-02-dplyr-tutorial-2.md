@@ -11,12 +11,11 @@ tags:
 ---
 
 
-This is a second post in a series of dplyr functions. The first one
-covered basic and advanced ways to select, rename and reorder
-columns,and can be found here: [Data Wrangling Part 1](https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/)
+This is a second post in a series of dplyr functions. It covers tools to manipulate your columns to get them the
+way you want them: this can be the calculation of a new column, changing a column into discrete values or splitting/merging columns.  
 
-This second one covers tools to manipulate your columns to get them the
-way you want them.  
+<!--more-->
+
 
 -   [**Mutating columns: the basics**](#mutating-columns-the-basics)
 -   [**Mutating several columns at
@@ -720,3 +719,11 @@ The same code will turn any value that reads "omni" into NA
     ##  9 Dog                        Canis       carni Carnivora   
     ## 10 Roe deer                   Capreolus   herbi Artiodactyla
     ## # ... with 73 more rows
+
+<br><hr>
+
+## Want to learn more?
+
++ [Part 1: Basic to Advanced Ways to Select Columns](https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/)
++ [Part 3: Filtering rows](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/)
++ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/)

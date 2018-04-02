@@ -17,9 +17,10 @@
       <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/02/dplyr-tutorial-2/</guid>
-      <description>This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
-This second one covers tools to manipulate your columns to get them the way you want them.
- Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</description>
+      <description>&lt;p&gt;This is a second post in a series of dplyr functions. It covers tools to manipulate your columns to get them the
+way you want them: this can be the calculation of a new column, changing a column into discrete values or splitting/merging columns.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -28,8 +29,14 @@ This second one covers tools to manipulate your columns to get them the way you 
       <pubDate>Wed, 31 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/01/dplyr-tutorial-1/</guid>
-      <description>I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &amp;ldquo;aha!&amp;rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
-This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</description>
+      <description>&lt;p&gt;I went through the entire dplyr documentation for a talk last week about
+pipes, which resulted in a few &amp;ldquo;aha!&amp;rdquo; moments. I discovered and
+re-discovered a few useful functions, which I wanted to collect in a few
+blog posts so I can share them with others.&lt;/p&gt;
+
+&lt;p&gt;This first post will cover &lt;strong&gt;ordering, naming and selecting columns&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

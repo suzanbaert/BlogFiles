@@ -9,14 +9,10 @@ tags:
   - Dplyr
 ---
 
-This is the third blog post in a series of dplyr tutorials:
+This is the third blog post in a series of dplyr tutorials. In this post, we will cover how to filter your data. Apart from the basics of filtering, it covers some more nifty ways to filter numerical columns with `near()` and `between()`, or string columns with regex. 
 
--   [Part 1: Basic to Advanced Ways to Select
-    Columns](https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/)
--   [Part 2: Transforming your columns into the right
-    shape](https://suzan.rbind.io/2018/02/dplyr-tutorial-2/)
+<!--more-->
 
-<br>
 
 **Content:**
 
@@ -343,13 +339,18 @@ The sample code will remove any rows where `conservation` is `NA`.
 The `dplyr` package has a few powerful variants to filter across
 multiple columns in one go:
 
--   `Filter_all` to filter across all columns  
--   `Filter_if` and `filter_at` to filter across a few specified columns
+-   `filter_all()` will filter all columns based on your further
+    instructions
+-   `filter_if()` requires a function that returns a boolean to indicate which columns to filter on. If that
+    is true, the filter instructions will be followed for those columns.
+-   `filter_at()` requires you to specify columns inside a `vars()`
+    argument for which the filtering will be done.
 
 In these cases, there is a general syntax: first you specify which
 columns, then you mention the condition for the filter. In many cases
 you will need a `.` operator within the condition which refers to the
 values we are looking at.
+
 
 ### **Filter all**
 
@@ -365,7 +366,7 @@ the string "food".
 
 In the sample code below I'm searching for the string "Ca" across all
 columns. I want to keep rows where the string "Ca" is present in ANY of
-the variables, so I will wrqp the condition in `any_vars()`.  
+the variables, so I will wrap the condition in `any_vars()`.  
 The below code basically asks to retain any rows where any of the
 variables has the pattern "Ca" inside.
 
@@ -508,3 +509,11 @@ Example: using another select option:
     ## 1 Thick-tailed opposum        19.4      6.60 NA       0.370
     ## 2 Giant armadillo             18.1      6.10  0.0810 60.0
 
+
+<br><hr>
+
+## Want to learn more?
+
++ [Part 1: Basic to Advanced Ways to Select Columns](https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/)
++ [Part 2: Transforming your columns into the right shape](https://suzan.rbind.io/2018/02/dplyr-tutorial-2/)
++ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/)
