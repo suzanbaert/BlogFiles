@@ -9,7 +9,7 @@ tags:
   - Dplyr
 ---
 
-This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using `summarise()` and it's `summarise_all()`, `_if()` and `_at()` variants, and iii) pulling the maximum and minimum row values..
+This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using `summarise()` and it's `summarise_all()`, `_if()` and `_at()` variants, and iii) pulling the maximum and minimum row values.
 
 Content:
 
