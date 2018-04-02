@@ -33,7 +33,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [author]
   name = "Suzan Baert"
-  bio = "Site very much under construction, please bear with me :)<br><br>Full-time consumer researcher. <br>Part-time enthusiastic R student, painter, musician and house renovator."
+  bio = "Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator."
   job = "Principal Researcher"
   location = "Belgium"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
@@ -42,7 +42,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
   picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
   # Your Twitter username without the @. E.g : thibaudlepretre
-  # twitter = "thibaudlepretre"
+  # twitter = "suzanbaert"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
   # googlePlus = "+ThibaudLepretre"
 

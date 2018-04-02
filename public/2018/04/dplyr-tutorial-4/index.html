@@ -1,0 +1,1352 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Data Wrangling Part 4: Summarizing and slicing your data</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+    
+
+    
+    <meta name="description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values..
+Content:
+   Counting cases and adding counts  Counting the number of observations Adding the number of observations in a column  Summarising data  Summarise all Summarise if Summarise at  Arranging rows Showing only part of your data  The 5 lowest and highest values A random selection of rows A user-defined slice of rows    Note: as per previous blog posts, I will present everything in the form of a pipe.">
+    <meta property="og:description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values..
+Content:
+   Counting cases and adding counts  Counting the number of observations Adding the number of observations in a column  Summarising data  Summarise all Summarise if Summarise at  Arranging rows Showing only part of your data  The 5 lowest and highest values A random selection of rows A user-defined slice of rows    Note: as per previous blog posts, I will present everything in the form of a pipe.">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Data Wrangling Part 4: Summarizing and slicing your data">
+    <meta property="og:url" content="/2018/04/dplyr-tutorial-4/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values..
+Content:
+   Counting cases and adding counts  Counting the number of observations Adding the number of observations in a column  Summarising data  Summarise all Summarise if Summarise at  Arranging rows Showing only part of your data  The 5 lowest and highest values A random selection of rows A user-defined slice of rows    Note: as per previous blog posts, I will present everything in the form of a pipe.">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+        
+          <h5 class="sidebar-profile-bio">Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Data Wrangling Part 4: Summarizing and slicing your data
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-04-02T00:00:00Z">
+        
+  April 2, 2018
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/tutorial">Tutorial</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+<p>This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using <code>summarise()</code> and it&rsquo;s <code>summarise_all()</code>, <code>_if()</code> and <code>_at()</code> variants, and iii) pulling the maximum and minimum row values..</p>
+
+<p>Content:</p>
+
+<ul>
+<li>
+
+<ul>
+<li><a href="#counting-cases-and-adding-counts"><strong>Counting cases and adding
+counts</strong></a>
+
+<ul>
+<li><a href="#counting-the-number-of-observations">Counting the number of
+observations</a></li>
+<li><a href="#adding-the-number-of-observations-in-a-column">Adding the number of observations in a
+column</a></li>
+</ul></li>
+<li><a href="#summarising-data"><strong>Summarising data</strong></a>
+
+<ul>
+<li><a href="#summarise-all-1"><strong>Summarise all</strong></a></li>
+<li><a href="#summarise-if"><strong>Summarise if</strong></a></li>
+<li><a href="#summarise-at"><strong>Summarise at</strong></a></li>
+</ul></li>
+<li><a href="#arranging-rows"><strong>Arranging rows</strong></a></li>
+<li><a href="#showing-only-part-of-your-data"><strong>Showing only part of your
+data</strong></a>
+
+<ul>
+<li><a href="#the-5-lowest-and-highest-values">The 5 lowest and highest
+values</a></li>
+<li><a href="#a-random-selection-of-rows">A random selection of rows</a></li>
+<li><a href="#a-user-defined-slice-of-rows">A user-defined slice of
+rows</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>Note: as per previous blog posts, I will present everything in the form
+of a pipe. In some of the below cases, this might not be necessary and
+it would be just as easy to write it as a single function, but as I want
+to present options that you can use in your pipes, all below examples
+will be piped.</p>
+
+<p><br></p>
+
+<p><strong>The data</strong><br />
+As per previous blog posts many of these functions truly shine when you
+have a lot of columns, but to make it easy on people to copy paste code
+and experiment, I&rsquo;m using a built-in dataset:</p>
+
+<pre><code>library(dplyr)
+msleep &lt;- ggplot2::msleep
+glimpse(msleep)
+
+## Observations: 83
+## Variables: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bo...
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi...
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorph...
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1...
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0....
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.38...
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9,...
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0....
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
+</code></pre>
+
+<p><br></p>
+
+<h2 id="counting-cases-and-adding-counts"><strong>Counting cases and adding counts</strong></h2>
+
+<h3 id="counting-the-number-of-observations">Counting the number of observations</h3>
+
+<p>The easiest way to know how many observations you have for a specific
+variable, is to use <code>count()</code>. By adding the <code>sort = TRUE</code> argument, it
+immediately returns a sorted table with descending number of
+observations:</p>
+
+<pre><code>msleep %&gt;%
+  count(order, sort = TRUE)
+
+## # A tibble: 19 x 2
+##    order               n
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 Rodentia           22
+##  2 Carnivora          12
+##  3 Primates           12
+##  4 Artiodactyla        6
+##  5 Soricomorpha        5
+##  6 Cetacea             3
+##  7 Hyracoidea          3
+##  8 Perissodactyla      3
+##  9 Chiroptera          2
+## 10 Cingulata           2
+## 11 Didelphimorphia     2
+## 12 Diprotodontia       2
+## 13 Erinaceomorpha      2
+## 14 Proboscidea         2
+## 15 Afrosoricida        1
+## 16 Lagomorpha          1
+## 17 Monotremata         1
+## 18 Pilosa              1
+## 19 Scandentia          1
+</code></pre>
+
+<p>You can add multiple variables to a <code>count()</code> statement; the example
+below is counting by order and vore:</p>
+
+<pre><code>msleep %&gt;%
+  count(order, vore, sort = TRUE)
+
+## # A tibble: 32 x 3
+##    order          vore        n
+##    &lt;chr&gt;          &lt;chr&gt;   &lt;int&gt;
+##  1 Rodentia       herbi      16
+##  2 Carnivora      carni      12
+##  3 Primates       omni       10
+##  4 Artiodactyla   herbi       5
+##  5 Cetacea        carni       3
+##  6 Perissodactyla herbi       3
+##  7 Rodentia       &lt;NA&gt;        3
+##  8 Soricomorpha   omni        3
+##  9 Chiroptera     insecti     2
+## 10 Hyracoidea     herbi       2
+## # ... with 22 more rows
+</code></pre>
+
+<h3 id="adding-the-number-of-observations-in-a-column">Adding the number of observations in a column</h3>
+
+<p>If you&rsquo;re only interested in counting the total number of cases for a
+dataframe, you could use <code>tally()</code>, which behaves simarly to <code>nrow()</code>.</p>
+
+<p>You can&rsquo;t provide a variable to count with <code>tally()</code>, it only works to
+count the overall number of observations. In fact, as is described in
+the <code>dplyr</code> documentation, <code>count()</code> is a short-hand for <code>group_by()</code>
+and <code>tally()</code>.</p>
+
+<pre><code>msleep %&gt;%
+  tally()
+
+## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1    83
+</code></pre>
+
+<p>More interesting is the <code>add_tally()</code> function which automatically adds
+a column with the overall number of observations. This would be the same
+as <code>mutate(n = n())</code>.</p>
+
+<pre><code>msleep %&gt;%
+  select(1:3) %&gt;%
+  add_tally()
+
+## # A tibble: 83 x 4
+##    name                       genus       vore      n
+##    &lt;chr&gt;                      &lt;chr&gt;       &lt;chr&gt; &lt;int&gt;
+##  1 Cheetah                    Acinonyx    carni    83
+##  2 Owl monkey                 Aotus       omni     83
+##  3 Mountain beaver            Aplodontia  herbi    83
+##  4 Greater short-tailed shrew Blarina     omni     83
+##  5 Cow                        Bos         herbi    83
+##  6 Three-toed sloth           Bradypus    herbi    83
+##  7 Northern fur seal          Callorhinus carni    83
+##  8 Vesper mouse               Calomys     &lt;NA&gt;     83
+##  9 Dog                        Canis       carni    83
+## 10 Roe deer                   Capreolus   herbi    83
+## # ... with 73 more rows
+</code></pre>
+
+<p>Even more interesting is <code>add_count()</code> which takes a variable as
+argument, and adds a column which the number of observations. This saves
+the combination of grouping, mutating and ungrouping again.</p>
+
+<pre><code>msleep %&gt;%
+  select(name:vore) %&gt;%
+  add_count(vore)
+
+## # A tibble: 83 x 4
+##    name                       genus       vore      n
+##    &lt;chr&gt;                      &lt;chr&gt;       &lt;chr&gt; &lt;int&gt;
+##  1 Cheetah                    Acinonyx    carni    19
+##  2 Owl monkey                 Aotus       omni     20
+##  3 Mountain beaver            Aplodontia  herbi    32
+##  4 Greater short-tailed shrew Blarina     omni     20
+##  5 Cow                        Bos         herbi    32
+##  6 Three-toed sloth           Bradypus    herbi    32
+##  7 Northern fur seal          Callorhinus carni    19
+##  8 Vesper mouse               Calomys     &lt;NA&gt;      7
+##  9 Dog                        Canis       carni    19
+## 10 Roe deer                   Capreolus   herbi    32
+## # ... with 73 more rows
+</code></pre>
+
+<p><br>
+<hr></p>
+
+<h2 id="summarising-data"><strong>Summarising data</strong></h2>
+
+<p><em>To note: for some functions, <code>dplyr</code> foresees both an American English
+and a UK English variant. The function <code>summarise()</code> is the equivalent
+of <code>summarize()</code>.</em></p>
+
+<p>If you just want to know the number of observations <code>count()</code> does the
+job, but to produce summaries of the average, sum, standard deviation,
+minimum, maximum of the data, we need <code>summarise()</code>. To use the function
+you just add your new column name, and after the equal sign the
+mathematics of what needs to happen: <code>column_name = function(variable)</code>.
+You can add multiple summary functions behind each other.</p>
+
+<pre><code>msleep %&gt;%
+  summarise(n = n(), average = mean(sleep_total), maximum = max(sleep_total))
+
+## # A tibble: 1 x 3
+##       n average maximum
+##   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1    83    10.4    19.9
+</code></pre>
+
+<p>In most cases, we don&rsquo;t just want to summarise the whole data table, but
+we want to get summaries by a group. To do this, you first need to
+specify by which variable(s) you want to divide the data using
+<code>group_by()</code>. You can add one of more variables as arguments in
+<code>group_by()</code>.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise(n = n(), average = mean(sleep_total), maximum = max(sleep_total))
+
+## # A tibble: 5 x 4
+##   vore        n average maximum
+##   &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 carni      19   10.4     19.4
+## 2 herbi      32    9.51    16.6
+## 3 insecti     5   14.9     19.9
+## 4 omni       20   10.9     18.0
+## 5 &lt;NA&gt;        7   10.2     13.7
+</code></pre>
+
+<p>The <code>summarise()</code> call works with nearly any aggregate function, and
+allows for additional arithmetics:</p>
+
+<ul>
+<li><code>n()</code> - gives the number of observations</li>
+<li><code>n_distinct(var)</code> - gives the numbers of unique values of <code>var</code></li>
+<li><code>sum(var)</code>, <code>max(var)</code>, <code>min(var)</code>, &hellip;</li>
+<li><code>mean(var)</code>, <code>median(var)</code>, <code>sd(var)</code>, <code>IQR(var)</code>, &hellip;</li>
+<li>&hellip;</li>
+</ul>
+
+<p>The sample code will average sleep_total and divide by 24, to get
+the amount of sleep as a fraction of a day.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise(avg_sleep_day = mean(sleep_total)/24)
+
+## # A tibble: 5 x 2
+##   vore    avg_sleep_day
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 carni           0.432
+## 2 herbi           0.396
+## 3 insecti         0.622
+## 4 omni            0.455
+## 5 &lt;NA&gt;            0.424
+</code></pre>
+
+<p><br>
+<hr></p>
+
+<h2 id="summarise-all"><strong>Summarise all</strong></h2>
+
+<p>Similarly to the filter, select and mutate functions, <code>summarise()</code>
+comes with three additional functions for doing things to multiple
+columns in one go:</p>
+
+<ul>
+<li><code>summarise_all()</code> will summarise all columns based on your further
+instructions</li>
+<li><code>summarise_if()</code> requires a function that returns a boolean. If that
+is true, the summary instructions will be followed</li>
+<li><code>sumarise_at()</code> requires you to specify columns inside a <code>vars()</code>
+argument for which the summary will be done.</li>
+</ul>
+
+<h3 id="summarise-all-1"><strong>Summarise all</strong></h3>
+
+<p>The function <code>summarise_all()</code> requires a function as argument, which it
+will apply to all columns. The sample code first selects all numeric
+columns, and then calculates the mean for each of them. I had to add the
+<code>na.rm = TRUE</code> argument to ignore <code>NA</code> values.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise_all(mean, na.rm=TRUE)
+
+## # A tibble: 5 x 11
+##   vore     name genus order conservation sleep_total sleep_rem sleep_cycle
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 carni      NA    NA    NA           NA       10.4       2.29       0.373
+## 2 herbi      NA    NA    NA           NA        9.51      1.37       0.418
+## 3 insecti    NA    NA    NA           NA       14.9       3.52       0.161
+## 4 omni       NA    NA    NA           NA       10.9       1.96       0.592
+## 5 &lt;NA&gt;       NA    NA    NA           NA       10.2       1.88       0.183
+## # ... with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+</code></pre>
+
+<p>The instructions for summarizing have to be a function. When there is no
+function availble in base R or a package to do what you want, you can
+either make a function upfront, or make a function on the fly.</p>
+
+<p>The sample code will add 5 to the mean of each column. The function on the
+fly can be made by either using <code>funs(mean(., na.rm = TRUE) + 5)</code>, or
+via a tilde: <code>~mean(., na.rm = TRUE) + 5</code>.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise_all(~mean(., na.rm = TRUE) + 5)
+
+## # A tibble: 5 x 11
+##   vore     name genus order conservation sleep_total sleep_rem sleep_cycle
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 carni      NA    NA    NA           NA        15.4      7.29        5.37
+## 2 herbi      NA    NA    NA           NA        14.5      6.37        5.42
+## 3 insecti    NA    NA    NA           NA        19.9      8.52        5.16
+## 4 omni       NA    NA    NA           NA        15.9      6.96        5.59
+## 5 &lt;NA&gt;       NA    NA    NA           NA        15.2      6.88        5.18
+## # ... with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+</code></pre>
+
+<p><br></p>
+
+<h3 id="summarise-if"><strong>Summarise if</strong></h3>
+
+<p>The function <code>summarise_if()</code> requires two arguments:</p>
+
+<ul>
+<li><p>First it needs information about the columns you want it to
+consider. This information needs to be a function that returns a
+boolean value. The easiest cases are functions like <code>is.numeric</code>,
+<code>is.integer</code>, <code>is.double</code>, <code>is.logical</code>, <code>is.factor</code>,
+<code>lubridate::is.POSIXt</code> or <code>lubridate::is.Date</code>.</p></li>
+
+<li><p>Secondly, it needs information about how to summarise that data,
+which as above needs to be a function. If not a function, you can
+create a function on the fly using <code>funs()</code> or a tilde (see above).</p></li>
+</ul>
+
+<p>The sample code below will return the average of all numeric columns:</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise_if(is.numeric, mean, na.rm=TRUE)
+
+## # A tibble: 5 x 7
+##   vore    sleep_total sleep_rem sleep_cycle awake brainwt  bodywt
+##   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 carni         10.4       2.29       0.373 13.6  0.0793   90.8  
+## 2 herbi          9.51      1.37       0.418 14.5  0.622   367    
+## 3 insecti       14.9       3.52       0.161  9.06 0.0216   12.9  
+## 4 omni          10.9       1.96       0.592 13.1  0.146    12.7  
+## 5 &lt;NA&gt;          10.2       1.88       0.183 13.8  0.00763   0.858
+</code></pre>
+
+<p>One of the downsides of the aggregate summarise functions is that you do
+not require a new column title. It therefore might not always be clear
+what this new value is (average? median? minimum?). Luckily thanks to
+similar <code>rename_*()</code> functions, it only takes one line extra to rename
+them all:</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise_if(is.numeric, mean, na.rm=TRUE) %&gt;%
+  rename_if(is.numeric, ~paste0(&quot;avg_&quot;, .))
+
+## # A tibble: 5 x 7
+##   vore    avg_sleep_total avg_sleep_rem avg_sleep_cycle avg_awake
+##   &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+## 1 carni             10.4           2.29           0.373     13.6
+## 2 herbi              9.51          1.37           0.418     14.5
+## 3 insecti           14.9           3.52           0.161      9.06
+## 4 omni              10.9           1.96           0.592     13.1
+## 5 &lt;NA&gt;              10.2           1.88           0.183     13.8
+## # ... with 2 more variables: avg_brainwt &lt;dbl&gt;, avg_bodywt &lt;dbl&gt;
+</code></pre>
+
+<p><br></p>
+
+<h3 id="summarise-at"><strong>Summarise at</strong></h3>
+
+<p>The function <code>summarise_at()</code> also requires two arguments:</p>
+
+<ul>
+<li><p>First it needs information about the columns you want it to
+consider. In this case you need to wrap them inside a <code>vars()</code>
+statement. Inside <code>vars()</code> you can use anything that can be used
+inside a <code>select()</code> statement. Have a look here if you need more
+info.</p></li>
+
+<li><p>Secondly, it needs information about how to summarise that data,
+which as above needs to be a function. If not a function, you can
+create a function on the fly using <code>funs()</code> or a tilde (see above).</p></li>
+</ul>
+
+<p>The sample code below will return the average of all columns which
+contain the word &lsquo;sleep&rsquo;, and also rename them to &ldquo;avg_<em>var</em>&rdquo; for
+clarity.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise_at(vars(contains(&quot;sleep&quot;)), mean, na.rm=TRUE) %&gt;%
+  rename_at(vars(contains(&quot;sleep&quot;)), ~paste0(&quot;avg_&quot;, .))
+
+## # A tibble: 5 x 4
+##   vore    avg_sleep_total avg_sleep_rem avg_sleep_cycle
+##   &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+## 1 carni             10.4           2.29           0.373
+## 2 herbi              9.51          1.37           0.418
+## 3 insecti           14.9           3.52           0.161
+## 4 omni              10.9           1.96           0.592
+## 5 &lt;NA&gt;              10.2           1.88           0.183
+</code></pre>
+
+<p><br>
+<hr></p>
+
+<h2 id="arranging-rows"><strong>Arranging rows</strong></h2>
+
+<p>It&rsquo;s useful if your summary tables are arranged, which is <code>arrange()</code>&rsquo;s
+job. The default format for numeric variables is to sort ascending, but
+you can add the <code>desc()</code> function in your call to change the default.
+For string variables, it will sort alphabetically.</p>
+
+<p>Sorting numeric variables:<br />
+<code>arrange(sleep_total)</code> will arrange it from short sleepers to long
+sleepers. In this case I wanted the opposite:</p>
+
+<pre><code>msleep %&gt;%
+  group_by(vore) %&gt;%
+  summarise(avg_sleep = mean(sleep_total)) %&gt;%
+  arrange(desc(avg_sleep))
+
+## # A tibble: 5 x 2
+##   vore    avg_sleep
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 insecti     14.9
+## 2 omni        10.9
+## 3 carni       10.4
+## 4 &lt;NA&gt;        10.2
+## 5 herbi        9.51
+</code></pre>
+
+<p>If you already grouped your data, you can refer to that group within the
+<code>arrange()</code> statement as well by adding a <code>.by_group = TRUE</code> statement.
+This will sort by descending total sleep time, but within each group.</p>
+
+<pre><code>msleep %&gt;%
+  select(order, name, sleep_total) %&gt;%
+  group_by(order) %&gt;%
+  arrange(desc(sleep_total), .by_group = TRUE)
+
+## # A tibble: 83 x 3
+## # Groups:   order [19]
+##    order        name         sleep_total
+##    &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;
+##  1 Afrosoricida Tenrec             15.6
+##  2 Artiodactyla Pig                 9.10
+##  3 Artiodactyla Goat                5.30
+##  4 Artiodactyla Cow                 4.00
+##  5 Artiodactyla Sheep               3.80
+##  6 Artiodactyla Roe deer            3.00
+##  7 Artiodactyla Giraffe             1.90
+##  8 Carnivora    Tiger              15.8
+##  9 Carnivora    Lion               13.5
+## 10 Carnivora    Domestic cat       12.5
+## # ... with 73 more rows
+</code></pre>
+
+<p><br>
+<hr></p>
+
+<h2 id="showing-only-part-of-your-data"><strong>Showing only part of your data</strong></h2>
+
+<p>In some cases, you don&rsquo;t just want to show all rows available. Here are
+some nice shortcuts which can save time</p>
+
+<h3 id="the-5-lowest-and-highest-values">The 5 lowest and highest values</h3>
+
+<p>In some cases, you don&rsquo;t just want to show all rows available. You can
+filter of course, but there are some shortcuts for specific needs: if
+you want to select the highests 5 cases, you could combine an <code>arrange</code>
+call with a <code>head(n=5)</code>. Or you can use <code>top_n(5)</code> which will retain
+(unsorted) the 5 highest values.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(order) %&gt;%
+  summarise(average = mean(sleep_total)) %&gt;%
+  top_n(5)
+
+## # A tibble: 5 x 2
+##   order           average
+##   &lt;chr&gt;             &lt;dbl&gt;
+## 1 Afrosoricida       15.6
+## 2 Chiroptera         19.8
+## 3 Cingulata          17.8
+## 4 Didelphimorphia    18.7
+## 5 Pilosa             14.4
+</code></pre>
+
+<p>The five lowest values can be found using <code>top_n(-5)</code>:</p>
+
+<pre><code>msleep %&gt;%
+  group_by(order) %&gt;%
+  summarise(average = mean(sleep_total)) %&gt;%
+  top_n(-5)
+
+## # A tibble: 5 x 2
+##   order          average
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 Artiodactyla      4.52
+## 2 Cetacea           4.50
+## 3 Hyracoidea        5.67
+## 4 Perissodactyla    3.47
+## 5 Proboscidea       3.60
+</code></pre>
+
+<p>If you have more than one column, you can add the variable you want it
+to use. The sample code will retain the 5 highest values of
+average_sleep.</p>
+
+<pre><code>msleep %&gt;%
+  group_by(order) %&gt;%
+  summarise(average_sleep = mean(sleep_total), max_sleep = max(sleep_total)) %&gt;%
+  top_n(5, average_sleep)
+
+## # A tibble: 5 x 3
+##   order           average_sleep max_sleep
+##   &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Afrosoricida             15.6      15.6
+## 2 Chiroptera               19.8      19.9
+## 3 Cingulata                17.8      18.1
+## 4 Didelphimorphia          18.7      19.4
+## 5 Pilosa                   14.4      14.4
+</code></pre>
+
+<h3 id="a-random-selection-of-rows">A random selection of rows</h3>
+
+<p>Using <code>sample_n()</code> you can sample a random selection of rows.<br />
+Alternative is <code>sample_frac()</code> allowing you to randomly select a
+fraction of rows (here 10%).</p>
+
+<pre><code>msleep %&gt;%
+  sample_frac(.1)
+
+## # A tibble: 8 x 11
+##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Africa~ Rhab~ omni  Rode~ &lt;NA&gt;                8.70    NA          NA    
+## 2 Giraffe Gira~ herbi Arti~ cd                  1.90     0.400      NA    
+## 3 Northe~ Onyc~ carni Rode~ lc                 14.5     NA          NA    
+## 4 Squirr~ Saim~ omni  Prim~ &lt;NA&gt;                9.60     1.40       NA    
+## 5 Three-~ Brad~ herbi Pilo~ &lt;NA&gt;               14.4      2.20        0.767
+## 6 Galago  Gala~ omni  Prim~ &lt;NA&gt;                9.80     1.10        0.550
+## 7 &quot;Vole &quot; Micr~ herbi Rode~ &lt;NA&gt;               12.8     NA          NA    
+## 8 Caspia~ Phoca carni Carn~ vu                  3.50     0.400      NA    
+## # ... with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+</code></pre>
+
+<h3 id="a-user-defined-slice-of-rows">A user-defined slice of rows</h3>
+
+<p>The <code>head()</code> call will standard show the first 6 rows, which can be
+modified by adding a n-argument: <code>head(n=10)</code>. Similarly <code>tail()</code> will
+show the final 6 rows, which again can be modified by adding a
+n-argument. If you want to slice somewhere in the middle, you can use
+<code>slice()</code>. The sample code will show rows 50 to 55.</p>
+
+<pre><code>msleep %&gt;%
+  slice(50:55)
+
+## # A tibble: 6 x 11
+##   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle
+##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Chimp~ Pan    omni  Prim~ &lt;NA&gt;                9.70      1.40       1.42
+## 2 Tiger  Panth~ carni Carn~ en                 15.8      NA         NA    
+## 3 Jaguar Panth~ carni Carn~ nt                 10.4      NA         NA    
+## 4 Lion   Panth~ carni Carn~ vu                 13.5      NA         NA    
+## 5 Baboon Papio  omni  Prim~ &lt;NA&gt;                9.40      1.00       0.667
+## 6 Deser~ Parae~ &lt;NA&gt;  Erin~ lc                 10.3       2.70      NA    
+## # ... with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+</code></pre>
+
+<p><br><hr></p>
+
+<h2 id="want-to-learn-more">Want to learn more?</h2>
+
+<ul>
+<li><a href="https://suzanbaert.netlify.com/2018/01/dplyr-tutorial-1/">Part 1: Basic to Advanced Ways to Select      Columns</a></li>
+<li><a href="https://suzan.rbind.io/2018/02/dplyr-tutorial-2/">Part 2: Transforming your columns into the right         shape</a></li>
+<li><a href="https://suzan.rbind.io/2018/02/dplyr-tutorial-3/">Part 3: Filtering         rows</a></li>
+</ul>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">Dplyr</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/reflections-4-months-of-github/" data-tooltip="Reflections on 4 months of GitHub: my advice to beginners">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Suzan Baert. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/reflections-4-months-of-github/" data-tooltip="Reflections on 4 months of GitHub: my advice to beginners">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/04/dplyr-tutorial-4/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F04%2Fdplyr-tutorial-4%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F04%2Fdplyr-tutorial-4%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F04%2Fdplyr-tutorial-4%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/c4b49053fa3b43c34d68b77f44d4837b?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Suzan Baert</h4>
+    
+      <div id="about-card-bio">Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Principal Researcher
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Belgium
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/04/dplyr-tutorial-4/">
+                <h3 class="media-heading">Data Wrangling Part 4: Summarizing and slicing your data</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values..
+Content:
+   Counting cases and adding counts  Counting the number of observations Adding the number of observations in a column  Summarising data  Summarise all Summarise if Summarise at  Arranging rows Showing only part of your data  The 5 lowest and highest values A random selection of rows A user-defined slice of rows    Note: as per previous blog posts, I will present everything in the form of a pipe.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/03/reflections-4-months-of-github/">
+                <h3 class="media-heading">Reflections on 4 months of GitHub: my advice to beginners</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Yesterday marked my four months membership of GitHub. Back then, I had seen many GitHub repos pass by after joining Twitter a few weeks earlier, and I wanted to star some of them to find them back more easily. It took another 23 days before I actually committed something myself.
+Now, four months later, I use GitHub (private) and GitLab (work) as good as daily, and I have inspired others to start using it.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-3/">
+                <h3 class="media-heading">Data Wrangling Part 3: Basic and more advanced ways to filter rows</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is the third blog post in a series of dplyr tutorials:
+ Part 1: Basic to Advanced Ways to Select Columns Part 2: Transforming your columns into the right shape  
+Content:
+ Basic row filters  Filtering rows based on a numeric variable Filtering based on a exact character variable matches Filtering rows based on regex Filtering based on multiple conditions Filtering out empty rows  Filtering across multiple columns  Filter_all Filter_if Filter_at    The data</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/happy-galentines-day/">
+                <h3 class="media-heading">Happy Galentine&#39;s Day!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Sometimes you dream big, but you just don&rsquo;t have the data&hellip;
+I had this plan for text analysis by character from the Parks &amp; Recreation series to celebrate Galentine&rsquo;s Day but getting the data was a struggle. Subtitles are available for pretty much every episode but those don&rsquo;t contain data about the character who said the lines. I needed scripts, which are a bit harder to come by. I found 6 scripts of episodes on the web from the first 3 seasons in pdf format that were usable.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/02/dplyr-tutorial-2/">
+                <h3 class="media-heading">Data Wrangling Part 2: Transforming your columns into the right shape</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Feb 2, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">This is a second post in a series of dplyr functions. The first one covered basic and advanced ways to select, rename and reorder columns,and can be found here: Data Wrangling Part 1
+This second one covers tools to manipulate your columns to get them the way you want them.
+ Mutating columns: the basics Mutating several columns at once  Mutate_all Mutate_if Mutate_at to change specific columns**](#mutate_at-to-change-specifc-columns)  Working with discrete columns  Recoding discrete columns Creating new discrete column (two levels) Creating new discrete column (multiple levels)  Splitting and merging columns Bringing in columns from other data tables Spreading and gathering data Turning data into NA</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/dplyr-tutorial-1/">
+                <h3 class="media-heading">Data Wrangling Part 1: Basic to Advanced Ways to Select Columns</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I went through the entire dplyr documentation for a talk last week about pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and re-discovered a few useful functions, which I wanted to collect in a few blog posts so I can share them with others.
+This first post will cover ordering, naming and selecting columns. The next post will be about recoding and transforming columns, and after that I will move on to row selection.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/postmortemplaylist/">
+                <h3 class="media-heading">The Postmortem Airtime Effect</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I was busy on a little side project on radio playlists when the news broke about the death of Dolores O’Riordan, front singer of The Cranberries. And sure enough, a few hours later I could see The Cranberries starting to pop up in the playlists.
+Their second album No Need to Argue was one of my favourite CD&rsquo;s as a teenager, and so I wondered: how many times would they be played?</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/2017radiohitlist/">
+                <h3 class="media-heading">Who&#39;s on everyone&#39;s 2017 &#34;hit list&#34;?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">At the end of the year, everyone is making lists. And radio stations are no exceptions.
+Many of our radio stations have a weekly &ldquo;people&rsquo;s choice&rdquo; music chart. Throughout the week, people submit their top 3 recent songs, and every week those votes turn into a music chart. At the end of the year, they collapse all those weekly charts into a larger one covering the entire year.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/bilingualtowns/">
+                <h3 class="media-heading">Bilingual Town Names</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">It seems that we Belgians just love confusing foreigners…
+Imagine wanting to take a train to Mons from Ghent but there only is one driving to Bergen. Or driving south with a GPS telling you to follow the direcion of Liège, but for a while you will only see signs to Luik.
+Mons/Bergen, Liège/Luik, Ypres/Ieper… those names refer to exactly the same city - one of them is the official French name, the other one the official Dutch one.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/12/any-joke-s-left-in-belgium/">
+                <h3 class="media-heading">Any Joke&#39;s left in Belgium?</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Dec 12, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">What I was wondering: are there still Joke&rsquo;s born in Belgium? Every time I pass by a colleague named Joke, I wonder. Let me explain: Joke is quite regular Dutch first name for a girl. You pronounce it [yo-ke], like blending &lsquo;yoghurt&rsquo; and &lsquo;kebab&rsquo; together and put the accent on the &lsquo;yo&rsquo;. &lsquo;Joke&rsquo; is just a diminutive form of Jo, kind of like Jenny, Abby and Debby. No-one who grew up speaking Dutch would bat an eye to hear about someone named Joke, but everyone else on this planet probably would.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         10 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/04\/dplyr-tutorial-4\/';
+          
+            this.page.identifier = '\/2018\/04\/dplyr-tutorial-4\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+    
+  </body>
+</html>
+
