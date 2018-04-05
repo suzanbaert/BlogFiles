@@ -25,8 +25,8 @@ way you want them: this can be the calculation of a new column, changing a colum
     -   [**Mutate if**](#mutate-if)
     -   [**Mutate at to change specific
         columns**](#mutate-at-to-change-specific-columns)
-    -   [**Changing multiple columns
-        names**](#changing-multiple-columns-names)
+    -   [**Changing column names after
+        mutation**](#changing-column-names-after-mutation)
 -   [**Working with discrete columns**](#working-with-discrete-columns)
     -   [**Recoding discrete columns**](#recoding-discrete-columns)
     -   [**Creating new discrete column (two
@@ -38,7 +38,6 @@ way you want them: this can be the calculation of a new column, changing a colum
     tables**](#bringing-in-columns-from-other-data-tables)
 -   [**Spreading and gathering data**](#spreading-and-gathering-data)
 -   [**Turning data into NA**](#turning-data-into-na)
-
 <br>
 
 **The data**  
@@ -406,7 +405,7 @@ changed into minutes, but `awake` did not.
     ## 10 Roe deer                           180      NA         NA    21.0
     ## # ... with 73 more rows
 
-### **Changing multiple columns names**
+### **Changing column names after mutation**
 
 With a singular `mutate()` statement, you immediately have the option to
 change the columns name. In the above example for instance it is
