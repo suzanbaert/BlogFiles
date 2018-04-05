@@ -684,10 +684,10 @@ that by calling a rename function:</p>
 
 <p>Or as <a href="https://twitter.com/TomasMcManus1/status/981187099649912832">Tomas
 McManus</a>
-pointed out: you can assign new column names inside <code>funs()</code>, which will be appended to the current name. In the
+pointed out: you can assign a &ldquo;tag&rdquo; inside <code>funs()</code> which will be appended to the current name. The
 main difference between both options: the <code>funs()</code> version is one line
-of code less, but columns will be added, rather than replaced. Depending
-on your scenario, either can be useful.</p>
+of code less, but columns will be added rather than replaced. Depending
+on your scenario, either could be useful.</p>
 
 <pre><code>msleep %&gt;%
   select(name, sleep_total:awake) %&gt;%

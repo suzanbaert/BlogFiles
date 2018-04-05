@@ -435,10 +435,10 @@ that by calling a rename function:
 
 Or as [Tomas
 McManus](https://twitter.com/TomasMcManus1/status/981187099649912832)
-pointed out: you can assign new column names inside `funs()`, which will be appended to the current name. In the
+pointed out: you can assign a "tag" inside `funs()` which will be appended to the current name. The
 main difference between both options: the `funs()` version is one line
-of code less, but columns will be added, rather than replaced. Depending
-on your scenario, either can be useful.
+of code less, but columns will be added rather than replaced. Depending
+on your scenario, either could be useful.
 
     msleep %>%
       select(name, sleep_total:awake) %>%
