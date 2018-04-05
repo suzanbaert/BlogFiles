@@ -244,16 +244,20 @@ way you want them: this can be the calculation of a new column, changing a colum
 
 <p></p>
 
+<p><strong>Content</strong></p>
+
 <ul>
 <li><a href="#mutating-columns-the-basics"><strong>Mutating columns: the basics</strong></a></li>
 <li><a href="#mutating-several-columns-at-once"><strong>Mutating several columns at
 once</strong></a>
 
 <ul>
-<li><strong>Mutate_all</strong></li>
-<li><strong>Mutate_if</strong></li>
-<li><strong>Mutate_at to change specific</strong>
-columns**](#mutate_at-to-change-specifc-columns)</li>
+<li><a href="#mutate-all"><strong>Mutate all</strong></a></li>
+<li><a href="#mutate-if"><strong>Mutate if</strong></a></li>
+<li><a href="#mutate-at-to-change-specific-columns"><strong>Mutate at to change specific
+columns</strong></a></li>
+<li><a href="#changing-multiple-columns-names"><strong>Changing multiple columns
+names</strong></a></li>
 </ul></li>
 <li><a href="#working-with-discrete-columns"><strong>Working with discrete columns</strong></a>
 
@@ -359,6 +363,39 @@ versus the animal with the least sleep.</p>
 ## # ... with 73 more rows
 </code></pre>
 
+<p>In the below comments, Steve asked about aggregate functions across
+columns. These functions by nature will want to summarise a column (like
+shown above), if however you want to <code>sum()</code> or <code>mean()</code> across columns,
+you might run into errors or absurd answers. In these cases you can either revert to actually spelling out the arithmetics:
+<code>mutate(average = (sleep_rem + sleep_cycle) / 2)</code> or you have to add a
+special instruction to the pipe that it should perform these aggregate
+functions not on the entire column, but by row:</p>
+
+<pre><code>#alternative to using the actual arithmetics:
+msleep %&gt;%
+  select(name, contains(&quot;sleep&quot;)) %&gt;%
+  rowwise() %&gt;%
+  mutate(avg = mean(c(sleep_rem, sleep_cycle)))
+
+## Source: local data frame [83 x 5]
+## Groups: &lt;by row&gt;
+##
+## # A tibble: 83 x 5
+##    name                       sleep_total sleep_rem sleep_cycle    avg
+##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Cheetah                          12.1     NA          NA     NA    
+##  2 Owl monkey                       17.0      1.80       NA     NA    
+##  3 Mountain beaver                  14.4      2.40       NA     NA    
+##  4 Greater short-tailed shrew       14.9      2.30        0.133  1.22
+##  5 Cow                               4.00     0.700       0.667  0.683
+##  6 Three-toed sloth                 14.4      2.20        0.767  1.48
+##  7 Northern fur seal                 8.70     1.40        0.383  0.892
+##  8 Vesper mouse                      7.00    NA          NA     NA    
+##  9 Dog                              10.1      2.90        0.333  1.62
+## 10 Roe deer                          3.00    NA          NA     NA    
+## # ... with 73 more rows
+</code></pre>
+
 <p>The <code>ifelse()</code> function deserves a special mention because it is
 particularly useful if you don&rsquo;t want to mutate the whole column in the
 same way. With <code>ifelse()</code>, you first specify a logical statement,
@@ -421,38 +458,60 @@ it lower case.</p>
 <h2 id="mutating-several-columns-at-once"><strong>Mutating several columns at once</strong></h2>
 
 <p>This is where the magic really happens. Just like with the <code>select()</code>
-functions in part 1, there are variants to <code>mutate()</code>: <code>mutate_all()</code>,
-<code>mutate_if()</code>, <code>mutate_at()</code>.</p>
+functions in part 1, there are variants to <code>mutate()</code>:</p>
 
-<h3 id="mutate-all"><strong>Mutate_all</strong></h3>
+<ul>
+<li><code>mutate_all()</code> will mutate all columns based on your further
+instructions</li>
+<li><code>mutate_if()</code> first requires a function that returns a boolean to
+select columns. If that is true, the mutate instructions will be
+followed on those variables.</li>
+<li><code>mutate_at()</code> requires you to specify columns inside a <code>vars()</code>
+argument for which the mutation will be done.</li>
+</ul>
+
+<h3 id="mutate-all"><strong>Mutate all</strong></h3>
 
 <p>The <code>mutate_all()</code> version is the easiest to understand, and pretty
-nifty when cleaning your data.<br />
-Something easy to start with: turning all the data to lower case:</p>
+nifty when cleaning your data. You just pass an action (in the form of a
+function) that you want to apply across all columns.</p>
+
+<p>Something easy to start with: turning all the data to lower case:</p>
 
 <pre><code>msleep %&gt;%
   mutate_all(tolower)
 
 ## # A tibble: 83 x 11
-##    name     genus  vore  order  conse~ slee~ slee~ slee~ awake brai~ body~
-##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 cheetah  acino~ carni carni~ lc     12.1  &lt;NA&gt;  &lt;NA&gt;  11.9  &lt;NA&gt;  50   
-##  2 owl mon~ aotus  omni  prima~ &lt;NA&gt;   17    1.8   &lt;NA&gt;  7     0.01~ 0.48 
-##  3 mountai~ aplod~ herbi roden~ nt     14.4  2.4   &lt;NA&gt;  9.6   &lt;NA&gt;  1.35 
-##  4 greater~ blari~ omni  soric~ lc     14.9  2.3   0.13~ 9.1   0.00~ 0.019
-##  5 cow      bos    herbi artio~ domes~ 4     0.7   0.66~ 20    0.423 600  
-##  6 three-t~ brady~ herbi pilosa &lt;NA&gt;   14.4  2.2   0.76~ 9.6   &lt;NA&gt;  3.85 
-##  7 norther~ callo~ carni carni~ vu     8.7   1.4   0.38~ 15.3  &lt;NA&gt;  20.49
-##  8 vesper ~ calom~ &lt;NA&gt;  roden~ &lt;NA&gt;   7     &lt;NA&gt;  &lt;NA&gt;  17    &lt;NA&gt;  0.045
-##  9 dog      canis  carni carni~ domes~ 10.1  2.9   0.33~ 13.9  0.07  14   
-## 10 roe deer capre~ herbi artio~ lc     3     &lt;NA&gt;  &lt;NA&gt;  21    0.09~ 14.8 
-## # ... with 73 more rows
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      
+##  1 cheet~ acin~ carni carn~ lc           12.1        &lt;NA&gt;      &lt;NA&gt;       
+##  2 owl m~ aotus omni  prim~ &lt;NA&gt;         17          1.8       &lt;NA&gt;       
+##  3 mount~ aplo~ herbi rode~ nt           14.4        2.4       &lt;NA&gt;       
+##  4 great~ blar~ omni  sori~ lc           14.9        2.3       0.133333333
+##  5 cow    bos   herbi arti~ domesticated 4           0.7       0.666666667
+##  6 three~ brad~ herbi pilo~ &lt;NA&gt;         14.4        2.2       0.766666667
+##  7 north~ call~ carni carn~ vu           8.7         1.4       0.383333333
+##  8 vespe~ calo~ &lt;NA&gt;  rode~ &lt;NA&gt;         7           &lt;NA&gt;      &lt;NA&gt;       
+##  9 dog    canis carni carn~ domesticated 10.1        2.9       0.333333333
+## 10 roe d~ capr~ herbi arti~ lc           3           &lt;NA&gt;      &lt;NA&gt;       
+## # ... with 73 more rows, and 3 more variables: awake &lt;chr&gt;, brainwt &lt;chr&gt;,
+## #   bodywt &lt;chr&gt;
 </code></pre>
 
-<p>But I&rsquo;ve also used it to trim whitespaces into an entire table without
-issues using: <code>mutate_all(str_trim)</code>.<br />
-Or when scraping the web, I&rsquo;ve often had plenty off empty spaces and
-many <code>\n</code> signs across the data.</p>
+<p>The mutating action needs to be a function: in many cases you can pass
+the function name without the brackets, but in some cases you need
+arguments or you want to combine elements. In this case you have some
+options: either you make a function up front (useful if it&rsquo;s longer), or
+you make a function on the fly by wrapping it inside <code>funs()</code> or via a
+tilde.</p>
+
+<p>The below paste mutation requires a function on the fly. You can either
+use <code>~paste(., &quot;  /n  &quot;)</code> or <code>funs(paste(., &quot;  /n  &quot;))</code>. When making a
+function on the fly, you usually need a way to refer to the value you
+are replacing: which is what the <code>.</code> symbolizes.</p>
+
+<p>For instance, after scraping the web, you often have tables with too
+many spaces and extra <code>\n</code> signs, but you can clean it all in one go.</p>
 
 <p>I&rsquo;m first going to use <code>mutate_all()</code> to screw things up:</p>
 
@@ -462,8 +521,8 @@ many <code>\n</code> signs across the data.</p>
 msleep_ohno[,1:4]
 
 ## # A tibble: 83 x 4
-##    name                                genus                vore    order 
-##    &lt;chr&gt;                               &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt; 
+##    name                                genus                vore    order
+##    &lt;chr&gt;                               &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;
 ##  1 &quot;Cheetah   /n  &quot;                    &quot;Acinonyx   /n  &quot;    &quot;carni~ &quot;Carn~
 ##  2 &quot;Owl monkey   /n  &quot;                 &quot;Aotus   /n  &quot;       &quot;omni ~ &quot;Prim~
 ##  3 &quot;Mountain beaver   /n  &quot;            &quot;Aplodontia   /n  &quot;  &quot;herbi~ &quot;Rode~
@@ -479,8 +538,8 @@ msleep_ohno[,1:4]
 
 <p>Let&rsquo;s clean it up again:<br />
 In this code I am assume that not all values show the same amount of
-extra white spaces as is often the case with parsed data: it frst
-removes all extra white spaces and then removes any <code>/n</code>.</p>
+extra white spaces as is often the case with parsed data: it first
+removes any <code>/n</code>, and then trims any additional white spaces:</p>
 
 <pre><code>msleep_corr &lt;- msleep_ohno %&gt;%
   mutate_all(~str_replace_all(., &quot;/n&quot;, &quot;&quot;)) %&gt;%
@@ -504,30 +563,7 @@ msleep_corr[,1:4]
 ## # ... with 73 more rows
 </code></pre>
 
-<p>Obviously you can use any regex inside <code>mutate_all()</code> as well. The
-sample code will remove any vowels:</p>
-
-<pre><code>msleep %&gt;%
-  select(name:sleep_total) %&gt;%
-  mutate_all(~str_replace_all(., &quot;[aeiou]&quot;, &quot;&quot;))
-
-## # A tibble: 83 x 6
-##    name               genus   vore  order    conservation sleep_total
-##    &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;      
-##  1 Chth               Acnnyx  crn   Crnvr    lc           12.1       
-##  2 Owl mnky           Ats     mn    Prmts    &lt;NA&gt;         17         
-##  3 Mntn bvr           Apldnt  hrb   Rdnt     nt           14.4       
-##  4 Grtr shrt-tld shrw Blrn    mn    Srcmrph  lc           14.9       
-##  5 Cw                 Bs      hrb   Artdctyl dmstctd      4          
-##  6 Thr-td slth        Brdyps  hrb   Pls      &lt;NA&gt;         14.4       
-##  7 Nrthrn fr sl       Cllrhns crn   Crnvr    v            8.7        
-##  8 Vspr ms            Clmys   &lt;NA&gt;  Rdnt     &lt;NA&gt;         7          
-##  9 Dg                 Cns     crn   Crnvr    dmstctd      10.1       
-## 10 R dr               Cprls   hrb   Artdctyl lc           3          
-## # ... with 73 more rows
-</code></pre>
-
-<h3 id="mutate-if"><strong>Mutate_if</strong></h3>
+<h3 id="mutate-if"><strong>Mutate if</strong></h3>
 
 <p>Not all cleaning functions can be done with <code>mutate_all()</code>. Trying to
 round your data will lead to an error if you have both numerical and
@@ -540,65 +576,142 @@ character columns.</p>
 <p><code>Error in mutate_impl(.data, dots) : Evaluation error: non-numeric argument to mathematical function.</code></p>
 
 <p>In these cases we have to add the condition that columns need to be
-numeric before giving <code>round()</code> instructions:<br />
-To note: if you want to round to a few digits you will need to make a
-function on the fly by using a tilde: such as
-<code>mutate_if(is.numeric, ~round(. ,2))</code>.</p>
+numeric before giving <code>round()</code> instructions, which can be done with mutate_if.</p>
+
+<p>By using <code>mutate_if()</code> we need two arguments inside a pipe:</p>
+
+<ul>
+<li><p>First it needs information about the columns you want it to
+consider. This information needs to be a function that returns a
+boolean value. The easiest cases are functions like <code>is.numeric</code>,
+<code>is.integer</code>, <code>is.double</code>, <code>is.logical</code>, <code>is.factor</code>,
+<code>lubridate::is.POSIXt</code> or <code>lubridate::is.Date</code>.</p></li>
+
+<li><p>Secondly, it needs instructions about the mutation in the form of a
+function. If needed, use a tilde or <code>funs()</code> before (see above).</p></li>
+</ul>
+
+<!-- -->
 
 <pre><code>msleep %&gt;%
   select(name, sleep_total:bodywt) %&gt;%
   mutate_if(is.numeric, round)
 
 ## # A tibble: 83 x 7
-##    name                       sleep_total sleep~ sleep~ awake brai~ bodywt
-##    &lt;chr&gt;                            &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Cheetah                          12.0   NA     NA    12.0     NA  50.0 
-##  2 Owl monkey                       17.0    2.00  NA     7.00     0   0   
-##  3 Mountain beaver                  14.0    2.00  NA    10.0     NA   1.00
-##  4 Greater short-tailed shrew       15.0    2.00   0     9.00     0   0   
-##  5 Cow                               4.00   1.00   1.00 20.0      0 600   
-##  6 Three-toed sloth                 14.0    2.00   1.00 10.0     NA   4.00
-##  7 Northern fur seal                 9.00   1.00   0    15.0     NA  20.0 
-##  8 Vesper mouse                      7.00  NA     NA    17.0     NA   0   
-##  9 Dog                              10.0    3.00   0    14.0      0  14.0 
-## 10 Roe deer                          3.00  NA     NA    21.0      0  15.0 
+##    name             sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##    &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Cheetah                12.0      NA          NA    12.0       NA  50.0
+##  2 Owl monkey             17.0       2.00       NA     7.00       0   0   
+##  3 Mountain beaver        14.0       2.00       NA    10.0       NA   1.00
+##  4 Greater short-t~       15.0       2.00        0     9.00       0   0   
+##  5 Cow                     4.00      1.00        1.00 20.0        0 600   
+##  6 Three-toed sloth       14.0       2.00        1.00 10.0       NA   4.00
+##  7 Northern fur se~        9.00      1.00        0    15.0       NA  20.0
+##  8 Vesper mouse            7.00     NA          NA    17.0       NA   0   
+##  9 Dog                    10.0       3.00        0    14.0        0  14.0
+## 10 Roe deer                3.00     NA          NA    21.0        0  15.0
 ## # ... with 73 more rows
 </code></pre>
 
-<h3 id="mutate-at-to-change-specifc-columns"><strong>Mutate_at to change specifc columns</strong></h3>
+<h3 id="mutate-at-to-change-specific-columns"><strong>Mutate at to change specific columns</strong></h3>
 
-<p>All columns containing the word sleep are in hours. If I want those in
-minutes, I can use <code>mutate_at()</code>. To indicate that I want the condition
-to be based on the column name I can use <code>vars(contains(&quot;sleep&quot;))</code>.
-Inside <code>vars()</code> you can use any of the <code>select()</code>helpers.<br />
-The second argument of <code>mutate_at()</code> needs to be function, so I have to
-wrap my calculation instructions with a tilde to make a function on the
-fly.</p>
+<p>By using <code>mutate_at()</code> we need two arguments inside a pipe:</p>
 
-<p>The sample code shows that in this case all <code>sleep</code> columns have been
+<ul>
+<li><p>First it needs information about the columns you want it to
+consider. In this case you can wrap any selection of columns (using
+all the options possible inside a <code>select()</code> function) and wrap it
+inside <code>vars()</code>.</p></li>
+
+<li><p>Secondly, it needs instructions about the mutation in the form of a
+function. If needed, use a tilde or <code>funs()</code> before (see above).</p></li>
+</ul>
+
+<p>All sleep-measuring columns are in hours. If I want those in minutes, I
+can use <code>mutate_at()</code> and wrap all &lsquo;sleep&rsquo; containing columns inside
+<code>vars()</code>. Secondly, I make a function in the fly to multiple every value
+by 60.<br />
+The sample code shows that in this case all <code>sleep</code> columns have been
 changed into minutes, but <code>awake</code> did not.</p>
 
 <pre><code>msleep %&gt;%
   select(name, sleep_total:awake) %&gt;%
-  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60)) 
+  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60))
 
 ## # A tibble: 83 x 5
 ##    name                       sleep_total sleep_rem sleep_cycle awake
 ##    &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
-##  1 Cheetah                            726      NA         NA    11.9 
+##  1 Cheetah                            726      NA         NA    11.9
 ##  2 Owl monkey                        1020     108         NA     7.00
 ##  3 Mountain beaver                    864     144         NA     9.60
 ##  4 Greater short-tailed shrew         894     138          8.00  9.10
-##  5 Cow                                240      42.0       40.0  20.0 
+##  5 Cow                                240      42.0       40.0  20.0
 ##  6 Three-toed sloth                   864     132         46.0   9.60
-##  7 Northern fur seal                  522      84.0       23.0  15.3 
-##  8 Vesper mouse                       420      NA         NA    17.0 
-##  9 Dog                                606     174         20.0  13.9 
-## 10 Roe deer                           180      NA         NA    21.0 
+##  7 Northern fur seal                  522      84.0       23.0  15.3
+##  8 Vesper mouse                       420      NA         NA    17.0
+##  9 Dog                                606     174         20.0  13.9
+## 10 Roe deer                           180      NA         NA    21.0
 ## # ... with 73 more rows
 </code></pre>
 
-<p><br></p>
+<h3 id="changing-multiple-columns-names"><strong>Changing multiple columns names</strong></h3>
+
+<p>With a singular <code>mutate()</code> statement, you immediately have the option to
+change the columns name. In the above example for instance it is
+confusing that the sleep columns are in a different unit, you can change
+that by calling a rename function:</p>
+
+<pre><code>msleep %&gt;%
+  select(name, sleep_total:awake) %&gt;%
+  mutate_at(vars(contains(&quot;sleep&quot;)), ~(.*60)) %&gt;%
+  rename_at(vars(contains(&quot;sleep&quot;)), ~paste0(.,&quot;_min&quot;))
+
+## # A tibble: 83 x 5
+##    name                sleep_total_min sleep_rem_min sleep_cycle_min awake
+##    &lt;chr&gt;                         &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cheetah                         726          NA             NA    11.9
+##  2 Owl monkey                     1020         108             NA     7.00
+##  3 Mountain beaver                 864         144             NA     9.60
+##  4 Greater short-tail~             894         138              8.00  9.10
+##  5 Cow                             240          42.0           40.0  20.0
+##  6 Three-toed sloth                864         132             46.0   9.60
+##  7 Northern fur seal               522          84.0           23.0  15.3
+##  8 Vesper mouse                    420          NA             NA    17.0
+##  9 Dog                             606         174             20.0  13.9
+## 10 Roe deer                        180          NA             NA    21.0
+## # ... with 73 more rows
+</code></pre>
+
+<p>Or as <a href="https://twitter.com/TomasMcManus1/status/981187099649912832">Tomas
+McManus</a>
+pointed out: you can assign new column names inside <code>funs()</code>, which will be appended to the current name. In the
+main difference between both options: the <code>funs()</code> version is one line
+of code less, but columns will be added, rather than replaced. Depending
+on your scenario, either can be useful.</p>
+
+<pre><code>msleep %&gt;%
+  select(name, sleep_total:awake) %&gt;%
+  mutate_at(vars(contains(&quot;sleep&quot;)), funs(min = .*60))
+
+## # A tibble: 83 x 8
+##    name            sleep_total sleep_rem sleep_cycle awake sleep_total_min
+##    &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;
+##  1 Cheetah               12.1     NA          NA     11.9              726
+##  2 Owl monkey            17.0      1.80       NA      7.00            1020
+##  3 Mountain beaver       14.4      2.40       NA      9.60             864
+##  4 Greater short-~       14.9      2.30        0.133  9.10             894
+##  5 Cow                    4.00     0.700       0.667 20.0              240
+##  6 Three-toed slo~       14.4      2.20        0.767  9.60             864
+##  7 Northern fur s~        8.70     1.40        0.383 15.3              522
+##  8 Vesper mouse           7.00    NA          NA     17.0              420
+##  9 Dog                   10.1      2.90        0.333 13.9              606
+## 10 Roe deer               3.00    NA          NA     21.0              180
+## # ... with 73 more rows, and 2 more variables: sleep_rem_min &lt;dbl&gt;,
+## #   sleep_cycle_min &lt;dbl&gt;
+</code></pre>
+
+<p><br>
+<hr></p>
 
 <h2 id="working-with-discrete-columns"><strong>Working with discrete columns</strong></h2>
 
@@ -747,7 +860,8 @@ be used for grouping across columns:</p>
 ## 4 other           30
 </code></pre>
 
-<p><br></p>
+<p><br>
+<hr></p>
 
 <h2 id="splitting-and-merging-columns"><strong>Splitting and merging columns</strong></h2>
 
@@ -820,7 +934,8 @@ want to use.</p>
 ## 11 PEW: Probably extinct in the wild (informal)
 </code></pre>
 
-<p><br></p>
+<p><br>
+<hr></p>
 
 <h2 id="bringing-in-columns-from-other-data-tables"><strong>Bringing in columns from other data tables</strong></h2>
 
