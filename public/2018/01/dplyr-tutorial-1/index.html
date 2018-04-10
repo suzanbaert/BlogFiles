@@ -33,7 +33,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns.
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
 
 ">
     <meta property="og:description" content="I went through the entire dplyr documentation for a talk last week about
@@ -41,7 +41,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns.
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
 
 ">
     <meta property="og:type" content="blog">
@@ -55,7 +55,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns.
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
 
 ">
     
@@ -254,11 +254,21 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.</p>
 
-<p>This first post will cover <strong>ordering, naming and selecting columns</strong>.</p>
+<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code></p>
 
 <p></p>
 
-<p><strong>Content:</strong></p>
+<p>Other posts in this series:</p>
+
+<ul>
+<li><a href="https://suzan.rbind.io/2018/02/dplyr-tutorial-2/">Part 2: Transforming your columns into the right shape</a>, which covers functions such as <code>mutate_all()</code>, <code>mutate_if()</code> and <code>mutate_at()</code>, but also ways to code into discrete columns with <code>case-when()</code>.</li>
+<li><a href="https://suzan.rbind.io/2018/02/dplyr-tutorial-3/">Part 3: Filtering rows</a>, which includes tricks like the nifty <code>near()</code> functions and the <code>filter_all</code>/<code>fitler_if</code>/<code>filter_at</code> family.</li>
+<li><a href="https://suzan.rbind.io/2018/04/dplyr-tutorial-4/">Part 4: Summarising your data</a>, which includes the <code>add_count()</code> shortcut, and the the <code>summarise_all</code>/<code>summarise_if</code>/<code>summarise_at</code> family.
+
+<br /></li>
+</ul>
+
+<p><strong>Content Part 1:</strong></p>
 
 <ul>
 <li><a href="#selecting-columns"><strong>Selecting columns</strong></a>
@@ -1129,7 +1139,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.</p>
 
-<p>This first post will cover <strong>ordering, naming and selecting columns</strong>.</p>
+<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code></p>
 
 <p></p></div>
             </div>

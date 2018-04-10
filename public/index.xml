@@ -76,7 +76,7 @@ pipes, which resulted in a few &amp;ldquo;aha!&amp;rdquo; moments. I discovered 
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.&lt;/p&gt;
 
-&lt;p&gt;This first post will cover &lt;strong&gt;ordering, naming and selecting columns&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;This first post will cover &lt;strong&gt;ordering, naming and selecting columns&lt;/strong&gt;, it covers the basics of selecting columns and more advanced functions like &lt;code&gt;select_all()&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

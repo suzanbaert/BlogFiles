@@ -16,13 +16,19 @@ pipes, which resulted in a few "aha!" moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others. 
   
-This first post will cover **ordering, naming and selecting columns**. 
+This first post will cover **ordering, naming and selecting columns**, it covers the basics of selecting columns and more advanced functions like `select_all()`
+
 
 <!--more-->
 
+Other posts in this series:
+
++ [Part 2: Transforming your columns into the right shape](https://suzan.rbind.io/2018/02/dplyr-tutorial-2/), which covers functions such as `mutate_all()`, `mutate_if()` and `mutate_at()`, but also ways to code into discrete columns with `case-when()`.
++ [Part 3: Filtering rows](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/), which includes tricks like the nifty `near()` functions and the `filter_all`/`fitler_if`/`filter_at` family. 
++ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/), which includes the `add_count()` shortcut, and the the `summarise_all`/`summarise_if`/`summarise_at` family. 
 
   
-**Content:**
+**Content Part 1:**
   
 -   [**Selecting columns**](#selecting-columns)
     -   [**Selecting columns: the
