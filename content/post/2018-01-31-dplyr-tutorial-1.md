@@ -25,7 +25,7 @@ This first post will cover **ordering, naming and selecting columns**, it covers
 
 + [Part 2: Transforming your columns into the right shape](https://suzan.rbind.io/2018/02/dplyr-tutorial-2/), which covers functions such as `mutate_all()`, `mutate_if()` and `mutate_at()`, but also ways to code into discrete columns with `case_when()`.
 + [Part 3: Filtering rows](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/), which includes tricks like the nifty `near()` functions and the `filter_all`/`fitler_if`/`filter_at` family. 
-+ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/), which includes the `add_count()` shortcut, and the the `summarise_all`/`summarise_if`/`summarise_at` family. 
++ [Part 4: Summarising your data](https://suzan.rbind.io/2018/04/dplyr-tutorial-4/), which includes the `add_count()` shortcut, and the `summarise_all`/`summarise_if`/`summarise_at` family. 
 
 <br><hr>
 
