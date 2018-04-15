@@ -277,7 +277,7 @@ tables</strong></a></li>
 <p><strong>The data</strong><br />
 As per previous blog posts, many of these functions truly shine when you
 have a lot of columns, but to make it easy on people to copy paste code
-and experiment, I&rsquo;m using a built-in dataset:</p>
+and experiment, I&rsquo;m using a ggplot2 built-in dataset:</p>
 
 <pre><code>library(tidyverse)
 
@@ -502,15 +502,14 @@ options: either you make a function up front (useful if it&rsquo;s longer), or
 you make a function on the fly by wrapping it inside <code>funs()</code> or via a
 tilde.</p>
 
-<p>The below paste mutation requires a function on the fly. You can either
-use <code>~paste(., &quot;  /n  &quot;)</code> or <code>funs(paste(., &quot;  /n  &quot;))</code>. When making a
-function on the fly, you usually need a way to refer to the value you
-are replacing: which is what the <code>.</code> symbolizes.</p>
-
 <p>For instance, after scraping the web, you often have tables with too
 many spaces and extra <code>\n</code> signs, but you can clean it all in one go.</p>
 
-<p>I&rsquo;m first going to use <code>mutate_all()</code> to screw things up:</p>
+<p>I&rsquo;m first going to use <code>mutate_all()</code> to screw things up:
+The below paste mutation requires a function on the fly. You can either
+use <code>~paste(., &quot;  /n  &quot;)</code> or <code>funs(paste(., &quot;  /n  &quot;))</code>. When making a
+function on the fly, you usually need a way to refer to the value you
+are replacing: which is what the <code>.</code> symbolizes.</p>
 
 <pre><code>msleep_ohno &lt;- msleep %&gt;%
   mutate_all(~paste(., &quot;  /n  &quot;))
@@ -862,7 +861,7 @@ be used for grouping across columns:</p>
 
 <h2 id="splitting-and-merging-columns"><strong>Splitting and merging columns</strong></h2>
 
-<p>Take for example this dataset</p>
+<p>Take for example <a href="https://raw.githubusercontent.com/suzanbaert/RTutorials/master/Rmd_originals/conservation_explanation.csv">this</a> dataset</p>
 
 <pre><code>(conservation_expl &lt;- read_csv(&quot;conservation_explanation.csv&quot;))
 

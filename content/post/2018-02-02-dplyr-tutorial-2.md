@@ -43,7 +43,7 @@ way you want them: this can be the calculation of a new column, changing a colum
 **The data**  
 As per previous blog posts, many of these functions truly shine when you
 have a lot of columns, but to make it easy on people to copy paste code
-and experiment, I'm using a built-in dataset:
+and experiment, I'm using a ggplot2 built-in dataset:
 
     library(tidyverse)
 
@@ -265,15 +265,16 @@ options: either you make a function up front (useful if it's longer), or
 you make a function on the fly by wrapping it inside `funs()` or via a
 tilde.
 
-The below paste mutation requires a function on the fly. You can either
-use `~paste(., "  /n  ")` or `funs(paste(., "  /n  "))`. When making a
-function on the fly, you usually need a way to refer to the value you
-are replacing: which is what the `.` symbolizes.
 
 For instance, after scraping the web, you often have tables with too
 many spaces and extra `\n` signs, but you can clean it all in one go.
 
 I'm first going to use `mutate_all()` to screw things up:
+The below paste mutation requires a function on the fly. You can either
+use `~paste(., "  /n  ")` or `funs(paste(., "  /n  "))`. When making a
+function on the fly, you usually need a way to refer to the value you
+are replacing: which is what the `.` symbolizes.
+
 
     msleep_ohno <- msleep %>%
       mutate_all(~paste(., "  /n  "))
@@ -611,7 +612,7 @@ be used for grouping across columns:
 **Splitting and merging columns**
 ---------------------------------
 
-Take for example this dataset
+Take for example [this](https://raw.githubusercontent.com/suzanbaert/RTutorials/master/Rmd_originals/conservation_explanation.csv) dataset
 
     (conservation_expl <- read_csv("conservation_explanation.csv"))
 
