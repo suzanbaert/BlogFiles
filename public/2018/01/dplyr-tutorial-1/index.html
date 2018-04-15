@@ -33,7 +33,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all(), select_if() and shortcuts like everything().
 
 ">
     <meta property="og:description" content="I went through the entire dplyr documentation for a talk last week about
@@ -41,7 +41,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all(), select_if() and shortcuts like everything().
 
 ">
     <meta property="og:type" content="blog">
@@ -55,7 +55,7 @@ pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.
 
-This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all()
+This first post will cover ordering, naming and selecting columns, it covers the basics of selecting columns and more advanced functions like select_all(), select_if() and shortcuts like everything().
 
 ">
     
@@ -249,12 +249,12 @@ ga('send', 'pageview');
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>I went through the entire dplyr documentation for a talk last week about
+              <p>I went through the entire <code>dplyr</code> documentation for a talk last week about
 pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.</p>
 
-<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code></p>
+<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code>, <code>select_if()</code> and shortcuts like <code>everything()</code>.</p>
 
 <p></p>
 
@@ -347,6 +347,8 @@ appear in the output.</p>
 ## $ awake       &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, ...
 </code></pre>
 
+<p><br></p>
+
 <p>If you want to add a lot of columns, it can save you some typing to have
 a good look at your data and see whether you can&rsquo;t get to your selection
 by using chunks, deselecting or even deselect a column and re-add it
@@ -356,7 +358,7 @@ straight after.</p>
 
 <pre><code>msleep %&gt;%
   select(name:order, sleep_total:sleep_cycle) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 7
@@ -369,12 +371,14 @@ straight after.</p>
 ## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
 </code></pre>
 
+<p><br></p>
+
 <p>An alternative is to <strong>deselect columns</strong> by adding a minus sign in
 front of the column name. You can also deselect chunks of columns.</p>
 
 <pre><code>msleep %&gt;% 
   select(-conservation, -(sleep_total:awake)) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 6
@@ -386,15 +390,18 @@ front of the column name. You can also deselect chunks of columns.</p>
 ## $ bodywt  &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0...
 </code></pre>
 
+<p><br></p>
+
 <p>It&rsquo;s even possible to deselect a whole chunk, and then re-add a column
 again.<br />
-The below sample code deselects the whole chunk from &lsquo;name&rsquo; to &lsquo;awake&rsquo;, but
-re-adds the &lsquo;conservation&rsquo;, even though it was part of the deselected chunk.
-This only works if you re-add it in the same <code>select()</code> statement.</p>
+The below sample code deselects the whole chunk from ID to pledged, but
+re-adds column &lsquo;conservation&rsquo;, even though it was part of the deselected
+chunk. This only works if you re-add it in the same <code>select()</code>
+statement.</p>
 
 <pre><code>msleep %&gt;%
   select(-(name:awake), conservation) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 3
@@ -403,45 +410,45 @@ This only works if you re-add it in the same <code>select()</code> statement.</p
 ## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
 </code></pre>
 
+<p><br></p>
+
 <p>There is another option which avoids the continuous retyping of columns
 names: <code>one_of()</code>. You can set up column names upfront, and then refer
-to them inside a <code>select()</code> statement.</p>
+to them inside a <code>select()</code> statement. This is particularly useful if
+you will have a few pipes with the same columns.</p>
 
-<pre><code>classification_info &lt;- c(&quot;name&quot;, &quot;genus&quot;, &quot;vore&quot;, &quot;order&quot;, &quot;conservation&quot;)
-sleep_cols &lt;- c(&quot;sleep_total&quot;, &quot;sleep_rem&quot;, &quot;sleep_cycle&quot;)
-weight_cols &lt;- c(&quot;brainwt&quot;, &quot;bodywt&quot;)
+<pre><code>major_cols &lt;- c(&quot;name&quot;, &quot;order&quot;, &quot;sleep_total&quot;)
 
 msleep %&gt;%
-  select(one_of(sleep_cols))
+  select(one_of(major_cols))
 
 ## # A tibble: 83 x 3
-##    sleep_total sleep_rem sleep_cycle
-##          &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1       12.1     NA          NA    
-##  2       17.0      1.80       NA    
-##  3       14.4      2.40       NA    
-##  4       14.9      2.30        0.133
-##  5        4.00     0.700       0.667
-##  6       14.4      2.20        0.767
-##  7        8.70     1.40        0.383
-##  8        7.00    NA          NA    
-##  9       10.1      2.90        0.333
-## 10        3.00    NA          NA    
+##    name                       order        sleep_total
+##    &lt;chr&gt;                      &lt;chr&gt;              &lt;dbl&gt;
+##  1 Cheetah                    Carnivora          12.1 
+##  2 Owl monkey                 Primates           17.0 
+##  3 Mountain beaver            Rodentia           14.4 
+##  4 Greater short-tailed shrew Soricomorpha       14.9 
+##  5 Cow                        Artiodactyla        4.00
+##  6 Three-toed sloth           Pilosa             14.4 
+##  7 Northern fur seal          Carnivora           8.70
+##  8 Vesper mouse               Rodentia            7.00
+##  9 Dog                        Carnivora          10.1 
+## 10 Roe deer                   Artiodactyla        3.00
 ## # ... with 73 more rows
 </code></pre>
 
-<p><br></p>
+<p>`</p>
 
 <h2 id="selecting-columns-based-on-partial-column-names"><strong>Selecting columns based on partial column names</strong></h2>
 
 <p>If you have a lot of columns with a similar structure you can use
 partial matching by adding <code>starts_with()</code>, <code>ends_with()</code> or
-<code>contains()</code> in your select statement depending on how you want to match
-columns.</p>
+<code>contains()</code> in your select statement.</p>
 
 <pre><code>msleep %&gt;%
   select(name, starts_with(&quot;sleep&quot;)) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 4
@@ -449,13 +456,10 @@ columns.</p>
 ## $ sleep_total &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1,...
 ## $ sleep_rem   &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6...
 ## $ sleep_cycle &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.383...
-</code></pre>
 
-<p>or</p>
-
-<pre><code>msleep %&gt;%
+msleep %&gt;%
   select(contains(&quot;eep&quot;), ends_with(&quot;wt&quot;)) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 5
@@ -466,20 +470,20 @@ columns.</p>
 ## $ bodywt      &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.49...
 </code></pre>
 
-<p><br></p>
+<p><br><br></p>
 
 <h2 id="selecting-columns-based-on-regex"><strong>Selecting columns based on regex</strong></h2>
 
 <p>The previous helper functions work with exact pattern matches. If you
 have similar patterns that are not entirely the same you can use any
 regular expression inside <code>matches()</code>.<br />
-The below example code will add any column that contains an &lsquo;o&rsquo;,
-followed by one or more other letters, and &ldquo;er&rdquo;.</p>
+The below sample code will add any column that contains an &lsquo;o&rsquo;, followed
+by one or more other letters, and &lsquo;er&rsquo;.</p>
 
 <pre><code>#selecting based on regex
 msleep %&gt;%
   select(matches(&quot;o.+er&quot;)) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 2
@@ -487,20 +491,20 @@ msleep %&gt;%
 ## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
 </code></pre>
 
-<p><br></p>
+<p><br><br></p>
 
 <h2 id="selecting-columns-by-their-data-type"><strong>Selecting columns by their data type</strong></h2>
 
 <p>The <code>select_if</code> function allows you to pass functions which return
-logical statements. For instance you can select all the string columns
-by using <code>select_if(is.character)</code>. Similarly, you can add <code>is.numeric</code>,
+logical statements. For instance you can select all string columns by
+using <code>select_if(is.character)</code>. Similarly, you can add <code>is.numeric</code>,
 <code>is.integer</code>, <code>is.double</code>, <code>is.logical</code>, <code>is.factor</code>.<br />
-If you have data columns, you can load the <code>lubridate</code> package, and use
+If you have date columns, you can load the <code>lubridate</code> package, and use
 <code>is.POSIXt</code> or <code>is.Date</code>.</p>
 
 <pre><code>msleep %&gt;%
   select_if(is.numeric) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 6
@@ -512,12 +516,18 @@ If you have data columns, you can load the <code>lubridate</code> package, and u
 ## $ bodywt      &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.49...
 </code></pre>
 
+<p><br></p>
+
 <p>You can also select the negation but in this case you will need to add a
-tilde to ensure that you still pass a function to <code>select_if</code>.</p>
+tilde to ensure that you still pass a function to <code>select_if</code>. The
+select_all/if/at functions require that a function is passed as an
+argument. If you have to add any negation or arguments, you will have to
+wrap your function inside <code>funs()</code> or add a tilde before to remake it a
+function.</p>
 
 <pre><code>msleep %&gt;%
   select_if(~!is.numeric(.)) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 5
@@ -528,24 +538,25 @@ tilde to ensure that you still pass a function to <code>select_if</code>.</p>
 ## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
 </code></pre>
 
-<p><br></p>
+<p><br><br></p>
 
 <h2 id="selecting-columns-by-logical-expressions"><strong>Selecting columns by logical expressions</strong></h2>
 
 <p>In fact, <code>select_if</code> allows you to select based on any logical function,
-not just based on data type. It is possible to select all columns which
-average is above 500 for instance. To avoid errors you do have to also
+not just based on data type. It is possible to select all columns with
+an average above 500 for instance. To avoid errors you do have to also
 select numeric columns only, which you can do either upfront for easier
 syntax, or in the same line.<br />
 Similarly <code>mean &gt; 500</code> is not a function in itself, so you will need to
-add a tilde upfront to turn the statement into a function.</p>
+add a tilde upfront, or wrap it insie <code>funs()</code> to turn the statement
+into a function.</p>
 
 <pre><code>msleep %&gt;%
   select_if(is.numeric) %&gt;%
   select_if(~mean(., na.rm=TRUE) &gt; 10)
 </code></pre>
 
-<p>or shorter:</p>
+<p><br> or shorter:</p>
 
 <pre><code>msleep %&gt;%
   select_if(~is.numeric(.) &amp; mean(., na.rm=TRUE) &gt; 10)
@@ -566,8 +577,10 @@ add a tilde upfront to turn the statement into a function.</p>
 ## # ... with 73 more rows
 </code></pre>
 
-<p>One of the useful functions for <code>select_if</code> is <code>n_distinct()</code>, which
-counts the amount of distinct values that can be found in a column.<br />
+<p><br></p>
+
+<p>Another useful function for <code>select_if</code> is <code>n_distinct()</code>, which counts
+the amount of distinct values that can be found in a column.<br />
 To return the columns that have less than 20 distinct answers for
 instance you pass <code>~n_distinct(.) &lt; 20</code> within the select_if statement.
 Given that <code>n_distinct(.) &lt; 20</code> is not a function, you will need to put
@@ -592,6 +605,8 @@ a tilde in front.</p>
 ## # ... with 73 more rows
 </code></pre>
 
+<p><br></p>
+
 <hr />
 
 <h1 id="re-ordering-columns"><strong>Re-ordering columns</strong></h1>
@@ -601,7 +616,7 @@ order in which you select them will determine the final order.</p>
 
 <pre><code>msleep %&gt;%
   select(conservation, sleep_total, name) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 3
@@ -610,13 +625,15 @@ order in which you select them will determine the final order.</p>
 ## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Grea...
 </code></pre>
 
+<p><br></p>
+
 <p>If you are just moving a few columns to the front, you can use
 <code>everything()</code> afterwards which will add all the remaining columns and
 save a lot of typing.</p>
 
 <pre><code>msleep %&gt;%
   select(conservation, sleep_total, everything()) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 11
@@ -633,6 +650,8 @@ save a lot of typing.</p>
 ## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
 </code></pre>
 
+<p><br></p>
+
 <hr />
 
 <h1 id="column-names"><strong>Column names</strong></h1>
@@ -646,7 +665,7 @@ the <code>select</code> function.</p>
 
 <pre><code>msleep %&gt;%
   select(animal = name, sleep_total, extinction_threat = conservation) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 3
@@ -655,12 +674,14 @@ the <code>select</code> function.</p>
 ## $ extinction_threat &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;v...
 </code></pre>
 
+<p><br></p>
+
 <p>If you want to retain all columns and therefore have no <code>select()</code>
 statement, you can rename by adding a <code>rename()</code> statement.</p>
 
 <pre><code>msleep %&gt;% 
   rename(animal = name, extinction_threat = conservation) %&gt;%
-  glimpse()
+  glimpse
 
 ## Observations: 83
 ## Variables: 11
@@ -677,7 +698,7 @@ statement, you can rename by adding a <code>rename()</code> statement.</p>
 ## $ bodywt            &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850,...
 </code></pre>
 
-<p><br></p>
+<p><br><br></p>
 
 <h2 id="reformatting-all-column-names"><strong>Reformatting all column names</strong></h2>
 
@@ -691,20 +712,23 @@ you could use <code>tolower()</code>.</p>
   select_all(toupper)
 
 ## # A tibble: 83 x 11
-##    NAME     GENUS  VORE  ORDER  CONSE~ SLEEP~ SLEEP~ SLEEP~ AWAKE  BRAINWT
-##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Cheetah  Acino~ carni Carni~ lc      12.1  NA     NA     11.9  NA      
-##  2 Owl mon~ Aotus  omni  Prima~ &lt;NA&gt;    17.0   1.80  NA      7.00  1.55e-2
-##  3 Mountai~ Aplod~ herbi Roden~ nt      14.4   2.40  NA      9.60 NA      
-##  4 Greater~ Blari~ omni  Soric~ lc      14.9   2.30   0.133  9.10  2.90e-4
-##  5 Cow      Bos    herbi Artio~ domes~   4.00  0.700  0.667 20.0   4.23e-1
-##  6 Three-t~ Brady~ herbi Pilosa &lt;NA&gt;    14.4   2.20   0.767  9.60 NA      
-##  7 Norther~ Callo~ carni Carni~ vu       8.70  1.40   0.383 15.3  NA      
-##  8 Vesper ~ Calom~ &lt;NA&gt;  Roden~ &lt;NA&gt;     7.00 NA     NA     17.0  NA      
-##  9 Dog      Canis  carni Carni~ domes~  10.1   2.90   0.333 13.9   7.00e-2
-## 10 Roe deer Capre~ herbi Artio~ lc       3.00 NA     NA     21.0   9.82e-2
-## # ... with 73 more rows, and 1 more variable: BODYWT &lt;dbl&gt;
+##    NAME   GENUS VORE  ORDER CONSERVATION SLEEP_TOTAL SLEEP_REM SLEEP_CYCLE
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Cheet~ Acin~ carni Carn~ lc                 12.1     NA          NA    
+##  2 Owl m~ Aotus omni  Prim~ &lt;NA&gt;               17.0      1.80       NA    
+##  3 Mount~ Aplo~ herbi Rode~ nt                 14.4      2.40       NA    
+##  4 Great~ Blar~ omni  Sori~ lc                 14.9      2.30        0.133
+##  5 Cow    Bos   herbi Arti~ domesticated        4.00     0.700       0.667
+##  6 Three~ Brad~ herbi Pilo~ &lt;NA&gt;               14.4      2.20        0.767
+##  7 North~ Call~ carni Carn~ vu                  8.70     1.40        0.383
+##  8 Vespe~ Calo~ &lt;NA&gt;  Rode~ &lt;NA&gt;                7.00    NA          NA    
+##  9 Dog    Canis carni Carn~ domesticated       10.1      2.90        0.333
+## 10 Roe d~ Capr~ herbi Arti~ lc                  3.00    NA          NA    
+## # ... with 73 more rows, and 3 more variables: AWAKE &lt;dbl&gt;, BRAINWT &lt;dbl&gt;,
+## #   BODYWT &lt;dbl&gt;
 </code></pre>
+
+<p><br></p>
 
 <p>You can go further than that by creating functions on the fly: if you
 have messy column names coming from excel for instance you can replace
@@ -733,7 +757,45 @@ msleep2 %&gt;%
 ## # ... with 73 more rows
 </code></pre>
 
-<p><br></p>
+<p>Or in case your columns contain other meta-data like question numbers:</p>
+
+<pre><code>#making an unclean database:
+msleep2 &lt;- select(msleep, name, sleep_total, brainwt)
+colnames(msleep2) &lt;- c(&quot;Q1 name&quot;, &quot;Q2 sleep total&quot;, &quot;Q3 brain weight&quot;)
+msleep2[1:3,]
+
+## # A tibble: 3 x 3
+##   `Q1 name`       `Q2 sleep total` `Q3 brain weight`
+##   &lt;chr&gt;                      &lt;dbl&gt;             &lt;dbl&gt;
+## 1 Cheetah                     12.1           NA     
+## 2 Owl monkey                  17.0            0.0155
+## 3 Mountain beaver             14.4           NA
+</code></pre>
+
+<p>You can use <code>select_all</code> in combination with <code>str_replace</code> to get rid of
+the extra characters.</p>
+
+<pre><code>msleep2 %&gt;%
+  select_all(~str_replace(., &quot;Q[0-9]+&quot;, &quot;&quot;)) %&gt;% 
+  select_all(~str_replace(., &quot; &quot;, &quot;_&quot;))      
+
+## # A tibble: 83 x 3
+##    `_name`                    `_sleep total` `_brain weight`
+##    &lt;chr&gt;                               &lt;dbl&gt;           &lt;dbl&gt;
+##  1 Cheetah                             12.1        NA       
+##  2 Owl monkey                          17.0         0.0155  
+##  3 Mountain beaver                     14.4        NA       
+##  4 Greater short-tailed shrew          14.9         0.000290
+##  5 Cow                                  4.00        0.423   
+##  6 Three-toed sloth                    14.4        NA       
+##  7 Northern fur seal                    8.70       NA       
+##  8 Vesper mouse                         7.00       NA       
+##  9 Dog                                 10.1         0.0700  
+## 10 Roe deer                             3.00        0.0982  
+## # ... with 73 more rows
+</code></pre>
+
+<p><br><br></p>
 
 <h2 id="row-names-to-column"><strong>Row names to column</strong></h2>
 
@@ -741,7 +803,7 @@ msleep2 %&gt;%
 like the mtcars dataset:</p>
 
 <pre><code> mtcars %&gt;%
-   head()
+   head
 
 ##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -758,8 +820,8 @@ like the mtcars dataset:</p>
 <code>rownames_to_column()</code> function, and specify a new column name.</p>
 
 <pre><code> mtcars %&gt;%
-   rownames_to_column(&quot;car_model&quot;) %&gt;%
-   head()
+   tibble::rownames_to_column(&quot;car_model&quot;) %&gt;%
+   head
 
 ##           car_model  mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -1134,12 +1196,12 @@ way you want them: this can be the calculation of a new column, changing a colum
                   Jan 1, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>I went through the entire dplyr documentation for a talk last week about
+              <div class="media-content hide-xs font-merryweather"><p>I went through the entire <code>dplyr</code> documentation for a talk last week about
 pipes, which resulted in a few &ldquo;aha!&rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.</p>
 
-<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code></p>
+<p>This first post will cover <strong>ordering, naming and selecting columns</strong>, it covers the basics of selecting columns and more advanced functions like <code>select_all()</code>, <code>select_if()</code> and shortcuts like <code>everything()</code>.</p>
 
 <p></p></div>
             </div>

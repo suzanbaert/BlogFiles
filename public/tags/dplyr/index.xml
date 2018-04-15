@@ -51,12 +51,12 @@ way you want them: this can be the calculation of a new column, changing a colum
       <pubDate>Wed, 31 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/01/dplyr-tutorial-1/</guid>
-      <description>&lt;p&gt;I went through the entire dplyr documentation for a talk last week about
+      <description>&lt;p&gt;I went through the entire &lt;code&gt;dplyr&lt;/code&gt; documentation for a talk last week about
 pipes, which resulted in a few &amp;ldquo;aha!&amp;rdquo; moments. I discovered and
 re-discovered a few useful functions, which I wanted to collect in a few
 blog posts so I can share them with others.&lt;/p&gt;
 
-&lt;p&gt;This first post will cover &lt;strong&gt;ordering, naming and selecting columns&lt;/strong&gt;, it covers the basics of selecting columns and more advanced functions like &lt;code&gt;select_all()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This first post will cover &lt;strong&gt;ordering, naming and selecting columns&lt;/strong&gt;, it covers the basics of selecting columns and more advanced functions like &lt;code&gt;select_all()&lt;/code&gt;, &lt;code&gt;select_if()&lt;/code&gt; and shortcuts like &lt;code&gt;everything()&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
