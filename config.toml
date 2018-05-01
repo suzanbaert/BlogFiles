@@ -61,10 +61,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   url = "/#about"
 [[menu.main]]
   weight = 3
-  identifier = "categories"
-  name = "Categories"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
-  url = "/categories"
+  identifier = "Tutorials"
+  name = "Tutorials"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-graduation-cap\"></i>"
+  url = "/categories/tutorial"
 #[[menu.main]]
 #  weight = 4
 #  identifier = "tags"
