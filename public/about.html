@@ -1,0 +1,331 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.31 with theme Tranquilpeak 0.4.3-BETA">
+    <title>Data Wrangling Part 4: Summarizing and slicing your data</title>
+    <meta name="author" content="Suzan Baert">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=true">
+
+
+
+    <meta name="description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values.
+
+">
+    <meta property="og:description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values.
+
+">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Data Wrangling Part 4: Summarizing and slicing your data">
+    <meta property="og:url" content="/2018/04/dplyr-tutorial-4/">
+    <meta property="og:site_name" content="Suzan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Suzan">
+    <meta name="twitter:description" content="This is the fourth blog post in a series of dplyr tutorials. In this tutorial we will summarizing our data: i) counting cases and observations, ii) creating summaries using summarise() and it&rsquo;s summarise_all(), _if() and _at() variants, and iii) pulling the maximum and minimum row values.
+
+">
+
+
+
+
+
+
+
+      <meta property="og:image" content="https://raw.githubusercontent.com/suzanbaert/BlogFiles/master/content/images/Suzan_sq.jpg">
+
+
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+
+
+    <link rel="stylesheet" href="/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-110570101-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Suzan</a>
+  </div>
+
+
+      <a class="header-right-picture "
+         href="/#about">
+
+
+
+
+        <img class="header-picture" src="https://raw.githubusercontent.com/suzanbaert/BlogFiles/master/content/images/Suzan_sq.jpg" alt="Author&#39;s picture" />
+
+
+    </a>
+
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://raw.githubusercontent.com/suzanbaert/BlogFiles/master/content/images/Suzan_sq.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Suzan Baert</h4>
+
+          <h5 class="sidebar-profile-bio">Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator.</h5>
+
+      </div>
+
+    <ul class="sidebar-buttons">
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="/">
+
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="/about.html">
+
+      <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+
+      <span class="sidebar-button-desc">About me</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="/categories/tutorial">
+
+      <i class="sidebar-button-icon fa fa-lg fa-graduation-cap"></i>
+
+      <span class="sidebar-button-desc">Tutorials</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="/archives">
+
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="https://github.com/suzanbaert">
+
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+
+      <a class="sidebar-button-link " href="https://twitter.com/SuzanBaert">
+
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+
+
+    </ul>
+  </div>
+</nav>
+
+
+
+<div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+
+
+            <div class="post-header main-content-wrap text-left">
+
+    <h1 class="post-title" itemprop="headline">
+    </h1>
+
+
+
+</div>
+
+
+
+<div class="post-content markdown" itemprop="articleBody">
+<div class="main-content-wrap">
+
+
+<h1 class="post-title" itemprop="headline">About me </h1>
+
+<p></p>
+
+<p>I'm Suzan, a Biochemical engineer by study with a large passion for continuously learning
+  new skills especially in the area of data analysis. I enjoy helping others discover
+  the wonderous world of R programming and to help them get better
+  by providing tutorials and teaching, which is partially why this blog exists. </p>
+
+<p>I'm currently working as a consumer researcher, placing consumer studies
+  diving into data to understand how we can make products better for consumers,
+  and translating those insights into technical requirements for our technologists to get to work with. </p>
+
+<p>In my spare time, I love painting, reading fantasy/scifi books,
+  making music and renovating my 1930's house. </p>
+
+<p></p>
+
+<br><hr>
+
+
+<h1 class="post-title" itemprop="headline">License</h1>
+
+<p></p>
+<p>All blog posts are licensed under the Attribution 4.0 International (CC BY 4.0). </p>
+<p>You are free to share (copy and redistribute the material in any medium or format)
+  and adapt (remix, transform, and build upon the material for any purpose).</p>
+
+<p>In order to use these material, you must however give attribution (appropriate credit to the author and providing a link),
+  and cannot place any additional restrictions.</p>
+
+<p>If you use any of my material, please also drop me a note with a link via Twitter or below in Disqus. </p>
+
+<p></p>
+<p></p>
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+  <br />
+  This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"
+  >Creative Commons Attribution 4.0 International License</a>.
+
+<p><br></p>
+
+
+</div>
+</div>
+
+
+
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+
+
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/04\/dplyr-tutorial-4\/';
+
+            this.page.identifier = '\/2018\/04\/dplyr-tutorial-4\/'
+
+        };
+        (function() {
+
+
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'suzanbaert';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+
+
+
+
+
+
+  </body>
+</html>
