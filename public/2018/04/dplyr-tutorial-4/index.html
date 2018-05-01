@@ -272,7 +272,7 @@ rows</a></li>
 
 <p>Note: as per previous blog posts, I will present everything in the form
 of a pipe. In some of the below cases, this might not be necessary and
-it would be just as easy to write it as a single function, but as I want
+it would be just as easy to write it on a single line, but as I want
 to present options that you can use in your pipes, all below examples
 will be piped.</p>
 
@@ -523,8 +523,7 @@ argument for which the summary will be done.</li>
 <h3 id="summarise-all-1"><strong>Summarise all</strong></h3>
 
 <p>The function <code>summarise_all()</code> requires a function as argument, which it
-will apply to all columns. The sample code first selects all numeric
-columns, and then calculates the mean for each of them. I had to add the
+will apply to all columns. The sample code calculates the mean for each column. I had to add the
 <code>na.rm = TRUE</code> argument to ignore <code>NA</code> values.</p>
 
 <pre><code>msleep %&gt;%
@@ -543,7 +542,7 @@ columns, and then calculates the mean for each of them. I had to add the
 </code></pre>
 
 <p>The instructions for summarizing have to be a function. When there is no
-function availble in base R or a package to do what you want, you can
+function available in base R or a package to do what you want, you can
 either make a function upfront, or make a function on the fly.</p>
 
 <p>The sample code will add 5 to the mean of each column. The function on the
@@ -579,7 +578,7 @@ boolean value. The easiest cases are functions like <code>is.numeric</code>,
 <code>lubridate::is.POSIXt</code> or <code>lubridate::is.Date</code>.</p></li>
 
 <li><p>Secondly, it needs information about how to summarise that data,
-which as above needs to be a function. If not a function, you can
+which needs to be a function. If not a function, you can
 create a function on the fly using <code>funs()</code> or a tilde (see above).</p></li>
 </ul>
 
@@ -725,7 +724,7 @@ some nice shortcuts which can save time</p>
 
 <p>In some cases, you don&rsquo;t just want to show all rows available. You can
 filter of course, but there are some shortcuts for specific needs: if
-you want to select the highests 5 cases, you could combine an <code>arrange</code>
+you want to select the highest 5 cases, you could combine an <code>arrange</code>
 call with a <code>head(n=5)</code>. Or you can use <code>top_n(5)</code> which will retain
 (unsorted) the 5 highest values.</p>
 

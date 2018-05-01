@@ -38,7 +38,7 @@ Content:
 
 Note: as per previous blog posts, I will present everything in the form
 of a pipe. In some of the below cases, this might not be necessary and
-it would be just as easy to write it as a single function, but as I want
+it would be just as easy to write it on a single line, but as I want
 to present options that you can use in your pipes, all below examples
 will be piped.
 
@@ -277,8 +277,7 @@ columns in one go:
 ### **Summarise all**
 
 The function `summarise_all()` requires a function as argument, which it
-will apply to all columns. The sample code first selects all numeric
-columns, and then calculates the mean for each of them. I had to add the
+will apply to all columns. The sample code calculates the mean for each column. I had to add the
 `na.rm = TRUE` argument to ignore `NA` values.
 
     msleep %>%
@@ -296,7 +295,7 @@ columns, and then calculates the mean for each of them. I had to add the
     ## # ... with 3 more variables: awake <dbl>, brainwt <dbl>, bodywt <dbl>
 
 The instructions for summarizing have to be a function. When there is no
-function availble in base R or a package to do what you want, you can
+function available in base R or a package to do what you want, you can
 either make a function upfront, or make a function on the fly. 
 
 The sample code will add 5 to the mean of each column. The function on the
@@ -330,7 +329,7 @@ The function `summarise_if()` requires two arguments:
     `lubridate::is.POSIXt` or `lubridate::is.Date`.
 
 -   Secondly, it needs information about how to summarise that data,
-    which as above needs to be a function. If not a function, you can
+    which needs to be a function. If not a function, you can
     create a function on the fly using `funs()` or a tilde (see above).
 
 The sample code below will return the average of all numeric columns:
@@ -468,7 +467,7 @@ some nice shortcuts which can save time
 
 In some cases, you don't just want to show all rows available. You can
 filter of course, but there are some shortcuts for specific needs: if
-you want to select the highests 5 cases, you could combine an `arrange`
+you want to select the highest 5 cases, you could combine an `arrange`
 call with a `head(n=5)`. Or you can use `top_n(5)` which will retain
 (unsorted) the 5 highest values.
 
