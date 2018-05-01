@@ -33,9 +33,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [author]
   name = "Suzan Baert"
-  bio = "Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator."
-  job = "Principal Researcher"
-  location = "Belgium"
+  #bio = "Full-time consumer researcher. <br>Part-time enthusiastic R and analytics student, painter, musician and house renovator."
+  #job = "Principal Researcher"
+  #location = "Belgium"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   # gravatarEmail = "suzan.baert@outlook.com"
   # Your profile picture
@@ -92,12 +92,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-twitter\"></i>"
   url = "https://twitter.com/SuzanBaert"
 
-#[[menu.misc]]
-#  weight = 1
-#  identifier = "rss"
-#  name = "RSS"
-#  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
-#  url = "/index.xml"
+[[menu.misc]]
+  weight = 1
+  identifier = "rss"
+  name = "RSS"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
+  url = "/index.xml"
 
 [params]
   # Customize date format use to render blog post date, categories and other
@@ -203,10 +203,10 @@ favicon = "https://github.com/suzanbaert/BlogFiles/blob/master/favicon.png?raw=t
     icon = "fa-google-plus"
     url = "https://plus.google.com/share?url=%s"
 
-  [params.header.rightLink]
-    class = ""
-    icon = ""
-    url = "/#about"
+ # [params.header.rightLink]
+#    class = ""
+#    icon = ""
+#    url = "/#about"
 
   # Customize link of author avatar in sidebar
   # [params.sidebar.profile]
