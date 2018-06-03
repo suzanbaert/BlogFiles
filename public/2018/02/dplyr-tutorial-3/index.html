@@ -385,10 +385,10 @@ use the <code>==</code> comparison operator:</p>
 ## 2 Didelphimorphia Thick-tailed opposum          19.4
 </code></pre>
 
-<p>Simarly you can use the other operators:<br />
-<code>filter(order != &quot;Rodentia&quot;)</code> will select everything except the Rodentia
+<p>Similarly you can use the other operators:<br />
++ <code>filter(order != &quot;Rodentia&quot;)</code> will select everything except the Rodentia
 rows.<br />
-<code>filter(name &gt; &quot;v&quot;)</code> will just select the rows with a name in the
++ <code>filter(name &gt; &quot;v&quot;)</code> will just select the rows with a name in the
 alphabet after the letter v.</p>
 
 <p>If you want to select more than one animal you can use the <code>%in%</code>
@@ -475,7 +475,7 @@ interested, the alternative would be:
 <h3 id="filtering-based-on-multiple-conditions"><strong>Filtering based on multiple conditions</strong></h3>
 
 <p>The above examples return rows based on a single condition, but the
-filter option allows also AND and OR style filters:</p>
+filter option also allows AND and OR style filters:</p>
 
 <ul>
 <li><code>filter(condition1, condition2)</code> will return rows where both
