@@ -155,6 +155,7 @@ use the `==` comparison operator:
     ## 2 Didelphimorphia Thick-tailed opposum          19.4
 
 Similarly you can use the other operators:  
+
 + `filter(order != "Rodentia")` will select everything except the Rodentia
 rows.  
 + `filter(name > "v")` will just select the rows with a name in the
