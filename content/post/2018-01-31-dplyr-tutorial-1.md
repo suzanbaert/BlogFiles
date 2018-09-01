@@ -39,6 +39,8 @@ This first post will cover **ordering, naming and selecting columns**, it covers
         names**](#selecting-columns-based-on-partial-column-names)
     -   [**Selecting columns based on
         regex**](#selecting-columns-based-on-regex)
+    -   [**Selecting columns based pre-identified
+        columns**](#selecting-columns-based-pre-identified-columns)
     -   [**Selecting columns by their data
         type**](#selecting-columns-by-their-data-type)
     -   [**Selecting columns by logical
@@ -162,32 +164,7 @@ statement.
     ## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.4...
     ## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", N...
 
-<br>
 
-There is another option which avoids the continuous retyping of columns
-names: `one_of()`. You can set up column names upfront, and then refer
-to them inside a `select()` statement. This is particularly useful if
-you will have a few pipes with the same columns.
-
-    major_cols <- c("name", "order", "sleep_total")
-
-    msleep %>%
-      select(one_of(major_cols))
-
-    ## # A tibble: 83 x 3
-    ##    name                       order        sleep_total
-    ##    <chr>                      <chr>              <dbl>
-    ##  1 Cheetah                    Carnivora          12.1 
-    ##  2 Owl monkey                 Primates           17.0 
-    ##  3 Mountain beaver            Rodentia           14.4 
-    ##  4 Greater short-tailed shrew Soricomorpha       14.9 
-    ##  5 Cow                        Artiodactyla        4.00
-    ##  6 Three-toed sloth           Pilosa             14.4 
-    ##  7 Northern fur seal          Carnivora           8.70
-    ##  8 Vesper mouse               Rodentia            7.00
-    ##  9 Dog                        Carnivora          10.1 
-    ## 10 Roe deer                   Artiodactyla        3.00
-    ## # ... with 73 more rows
 
 \`
 
@@ -243,6 +220,37 @@ by one or more other letters, and 'er'.
     ## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", N...
 
 <br><br>
+
+**Selecting columns based pre-identified columns**
+--------------------------------------------------
+
+There is another option which avoids the continuous retyping of columns
+names: `one_of()`. You can set up column names upfront, and then refer
+to them inside a `select()` statement by either wrapping them inside
+`one_of()` or by using the `!!` operator.
+
+    classification <- c("name", "genus", "vore", "order", "conservation")
+
+    msleep %>%
+      select(!!classification)
+
+    ## # A tibble: 83 x 5
+    ##    name                       genus       vore  order        conservation
+    ##    <chr>                      <chr>       <chr> <chr>        <chr>       
+    ##  1 Cheetah                    Acinonyx    carni Carnivora    lc          
+    ##  2 Owl monkey                 Aotus       omni  Primates     <NA>        
+    ##  3 Mountain beaver            Aplodontia  herbi Rodentia     nt          
+    ##  4 Greater short-tailed shrew Blarina     omni  Soricomorpha lc          
+    ##  5 Cow                        Bos         herbi Artiodactyla domesticated
+    ##  6 Three-toed sloth           Bradypus    herbi Pilosa       <NA>        
+    ##  7 Northern fur seal          Callorhinus carni Carnivora    vu          
+    ##  8 Vesper mouse               Calomys     <NA>  Rodentia     <NA>        
+    ##  9 Dog                        Canis       carni Carnivora    domesticated
+    ## 10 Roe deer                   Capreolus   herbi Artiodactyla lc          
+    ## # ... with 73 more rows
+
+\`
+
 
 **Selecting columns by their data type**
 ----------------------------------------

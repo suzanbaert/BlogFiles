@@ -276,6 +276,8 @@ basics</strong></a></li>
 names</strong></a></li>
 <li><a href="#selecting-columns-based-on-regex"><strong>Selecting columns based on
 regex</strong></a></li>
+<li><a href="#selecting-columns-based-pre-identified-columns"><strong>Selecting columns based pre-identified
+columns</strong></a></li>
 <li><a href="#selecting-columns-by-their-data-type"><strong>Selecting columns by their data
 type</strong></a></li>
 <li><a href="#selecting-columns-by-logical-expressions"><strong>Selecting columns by logical
@@ -406,34 +408,6 @@ statement.</p>
 ## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, N...
 </code></pre>
 
-<p><br></p>
-
-<p>There is another option which avoids the continuous retyping of columns
-names: <code>one_of()</code>. You can set up column names upfront, and then refer
-to them inside a <code>select()</code> statement. This is particularly useful if
-you will have a few pipes with the same columns.</p>
-
-<pre><code>major_cols &lt;- c(&quot;name&quot;, &quot;order&quot;, &quot;sleep_total&quot;)
-
-msleep %&gt;%
-  select(one_of(major_cols))
-
-## # A tibble: 83 x 3
-##    name                       order        sleep_total
-##    &lt;chr&gt;                      &lt;chr&gt;              &lt;dbl&gt;
-##  1 Cheetah                    Carnivora          12.1 
-##  2 Owl monkey                 Primates           17.0 
-##  3 Mountain beaver            Rodentia           14.4 
-##  4 Greater short-tailed shrew Soricomorpha       14.9 
-##  5 Cow                        Artiodactyla        4.00
-##  6 Three-toed sloth           Pilosa             14.4 
-##  7 Northern fur seal          Carnivora           8.70
-##  8 Vesper mouse               Rodentia            7.00
-##  9 Dog                        Carnivora          10.1 
-## 10 Roe deer                   Artiodactyla        3.00
-## # ... with 73 more rows
-</code></pre>
-
 <p>`</p>
 
 <h2 id="selecting-columns-based-on-partial-column-names"><strong>Selecting columns based on partial column names</strong></h2>
@@ -488,6 +462,36 @@ msleep %&gt;%
 </code></pre>
 
 <p><br><br></p>
+
+<h2 id="selecting-columns-based-pre-identified-columns"><strong>Selecting columns based pre-identified columns</strong></h2>
+
+<p>There is another option which avoids the continuous retyping of columns
+names: <code>one_of()</code>. You can set up column names upfront, and then refer
+to them inside a <code>select()</code> statement by either wrapping them inside
+<code>one_of()</code> or by using the <code>!!</code> operator.</p>
+
+<pre><code>classification &lt;- c(&quot;name&quot;, &quot;genus&quot;, &quot;vore&quot;, &quot;order&quot;, &quot;conservation&quot;)
+
+msleep %&gt;%
+  select(!!classification)
+
+## # A tibble: 83 x 5
+##    name                       genus       vore  order        conservation
+##    &lt;chr&gt;                      &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;       
+##  1 Cheetah                    Acinonyx    carni Carnivora    lc          
+##  2 Owl monkey                 Aotus       omni  Primates     &lt;NA&gt;        
+##  3 Mountain beaver            Aplodontia  herbi Rodentia     nt          
+##  4 Greater short-tailed shrew Blarina     omni  Soricomorpha lc          
+##  5 Cow                        Bos         herbi Artiodactyla domesticated
+##  6 Three-toed sloth           Bradypus    herbi Pilosa       &lt;NA&gt;        
+##  7 Northern fur seal          Callorhinus carni Carnivora    vu          
+##  8 Vesper mouse               Calomys     &lt;NA&gt;  Rodentia     &lt;NA&gt;        
+##  9 Dog                        Canis       carni Carnivora    domesticated
+## 10 Roe deer                   Capreolus   herbi Artiodactyla lc          
+## # ... with 73 more rows
+</code></pre>
+
+<p>`</p>
 
 <h2 id="selecting-columns-by-their-data-type"><strong>Selecting columns by their data type</strong></h2>
 
